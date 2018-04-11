@@ -25,26 +25,27 @@ class Index extends React.Component {
           </span>
           <BodyContainer>
             <BodyContents>
-              <h2>Nact is redux but for the server.</h2>
-              <p>Servers today are very different from those even 10 years ago. So why are we still programming like it's the 90s?</p>
-              <p>Inspired by the approaches taken by Akka and Erlang, nact is an open source Node.js framework which enables you to take control of your state to:</p>
+              <h2>Akkatecture is a CQRS/ES toolkit for Akka.NET</h2>
+              <p>With the notion of distributed computing becoming commonplace, so do our business domains need to become distributed.</p>
+              <p>Akkatecture, built ontop of Akka.NET, and inspired by EventFlow, aims to make your business modelling easy, using actors:</p>
               <BenefitsList>
-                <li>more effectively use memory</li>
-                <li>improve application resiliance</li>
-                <li>increase performance</li>
-                <li>reduce coupling</li>
+                <li>Based purely on fire and forget semantics making it reactive.</li>
+                <li>Event sourced, giving you audit trails and long term business value.</li>
+                <li>Highly configurable and extensible.</li>
+                <li>Scales well backed with Akka.NET's clustering mechanism.</li>
+                <li>Sagas give you the ability to craft long running persistent processes easily.</li>
               </BenefitsList>
-              <p>With out of the box support for event sourcing, and a considered implementation of the actor model, nact can work across a wide variety of domains.
+              <p>Akkatecture treats event sourcing as a fundamental principle making it a great canditate to use in conjunction with long running projects
               </p>
-              <p>Nact is no silver bullet, but it is evolving to tackle ever more demanding use cases. Perhaps one of them is yours?</p>
+              <p>Leveraging Akka.NET's well-thought out architectural implementations, Akkatecture too enjoys great levels of extensibility and configurability for you to make a resilient, distributed application</p>
             </BodyContents>
           </BodyContainer>
           <BodyContainerInverted>
             <BodyContentsInverted>
               <h2>Getting Started</h2>
-              <p>Both the ReasonML and JS libraries are 1<sup>st</sup> class citizens. This means 100% unit test coverage, full documentation and support by project maintainers.</p>
-              <p>Learning the ins and outs of the framework should not take more than an evening. The hello world example in particular should take less than 15 minutes.</p>
-              <CtaButton to={'/lesson/reasonml/introduction'}><img style={{height: '2.5rem'}} src='/logos/language-logo_reason-inverted.svg' /> REASONML</CtaButton>
+              <p>Akkatecture is written in C# .NET Core targeting the netstandard 2.0 framework, which means that for any greenfield project, this may be a good option for you to consider.</p>
+              <p>If you are familiar with domain driven design, CQRS, and event sourcing, learning Akkatecture will be a breaze for you to pick up.</p>
+              <CtaButton to={'/lesson/reasonml/introduction'}><img style={{height: '2.5rem'}} src='/logos/language-logo_reason-inverted.svg' /> GET STARTED</CtaButton>
               <CtaButton to={'/lesson/javascript/introduction'}><img style={{height: '2.5rem'}} src='/logos/language-logo_js-inverted.svg' /> JAVASCRIPT</CtaButton>
             </BodyContentsInverted>
           </BodyContainerInverted>

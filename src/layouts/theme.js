@@ -1,14 +1,14 @@
 const contentWidthLaptop = 850;
 const theme = {
   // named colors:
-  brand: '#FC5B5B',
-  accent: 'white',
-  accentDark: '#35495E',
-  lightGrey: '#FC5B5B1A',
-  darkGrey: '#91a2a3',
+  brand: '#2C3E50',
+  accent: '#ECF0F1',
+  accentDark: '#2980B9',
+  lightGrey: '#2C3E501A',
+  darkGrey: '#2C3E50',
   ink: 'black',
-  errorRed: '#FF6666',
-  codeEditBlue: '#2973b7',
+  errorRed: '#E74C3C',
+  codeEditBlue: '#2980B9',
   codeEditGreen: '#42b983',
 
   // content width:
