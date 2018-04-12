@@ -12,8 +12,8 @@ class MainHeader extends React.Component {
             <Navigation />
             <Hero >
               <img className='animated flipInX' src={this.props.logo} style={{ maxWidth: '80vw', maxHeight: '70vh' }} />
-              <Title className='animated fadeIn'>nact ⇒ node.js + actors</Title>
-              <SubTitle className='animated fadeIn' style={{ fontStyle: 'italic' }}> your services have never been so µ</SubTitle>
+              <Title className='animated fadeIn'>Akkatecture the CQRS ES Toolkit for Akka.NET</Title>
+              <SubTitle className='animated fadeIn' style={{ fontStyle: 'italic' }}> Distributed Domain Driven Development Has Never Been So Easy</SubTitle>
             </Hero>
           </IndexHeadContainer>
         );

@@ -1,7 +1,7 @@
 {
   "name": "akkatectyre-docs",
-  "description": "GatsbyJS starter designed with documentation and tutorial websites in mind.",
-  "version": "1.0.1",
+  "description": "Documentation for Akkatecture",
+  "version": "1.0.0",
   "author": "Lutando Ngqakaza <lutando@ngqakaza.com>",
   "dependencies": {
     "animate.css": "^3.5.2",

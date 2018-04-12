@@ -31,9 +31,7 @@ class AboutPage extends React.Component {
           />
           <BodyContainer>
             <h1>Community</h1>
-            <p>Nact is developed in the open. Development activities are hosted on <a href='https://github.com/ncthbrt/nact'>github</a>.
-            Project management uses <a href='https://waffle.io/ncthbrt/nact'>waffle.io.</a> If you have any questions, or just want to say “Hi!”, please visit the discord below: </p>
-            <iframe src='https://discordapp.com/widget?id=392625718682714112&theme=light' width='350' height='500' allowTransparency='true' frameBorder='0' />
+            <p>Akkatecture is developed in the open. Development activities are hosted on <a href='https://github.com/Lutando/Akkatecture'>github</a>. </p>
           </BodyContainer>
         </main>
       </div>
