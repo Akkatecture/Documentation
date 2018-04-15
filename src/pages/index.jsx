@@ -45,7 +45,10 @@ class Index extends React.Component {
               <h2>Getting Started</h2>
               <p>Akkatecture is written in C# .NET Core targeting the netstandard 2.0 framework, which means that for any greenfield project, this may be a good option for you to consider.</p>
               <p>If you are familiar with domain driven design, CQRS, and event sourcing, learning Akkatecture will be a breaze for you to pick up.</p>
-              <CtaButton to={'/lesson/reasonml/introduction'}><img style={{height: '2.5rem'}} src='/logos/language-logo_reason-inverted.svg' /> GET STARTED</CtaButton>
+              <div> 
+                <CtaButton  to={'/lesson/javascript/aggregates'}> GET STARTED</CtaButton>
+              </div>
+              
             </BodyContentsInverted>
           </BodyContainerInverted>
         </main>
