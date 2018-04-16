@@ -11,9 +11,9 @@ class MainHeader extends React.Component {
           <IndexHeadContainer>
             <Navigation />
             <Hero >
-              <img className='animated flipInX' src={this.props.logo} style={{ maxWidth: '80vw', maxHeight: '70vh' }} />
-              <Title className='animated fadeIn'>Akkatecture the CQRS ES Toolkit for Akka.NET</Title>
-              <SubTitle className='animated fadeIn' style={{ fontStyle: 'italic' }}> Distributed Domain Driven Development Has Never Been So Easy</SubTitle>
+              <img className='animated bounceIn' src={this.props.logo} style={{ maxWidth: '80vw', maxHeight: '70vh' }} />
+              <Title className='animated fadeIn'>architectural patterns for akka.net</Title>
+              <SubTitle className='animated fadeIn' style={{ fontStyle: 'italic' }}> for the .net domain driven design developer</SubTitle>
             </Hero>
           </IndexHeadContainer>
         );
