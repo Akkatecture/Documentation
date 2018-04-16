@@ -15,7 +15,7 @@ class Index extends React.Component {
         <Helmet title={config.siteTitle} />
         <SEO postEdges={postEdges} />
         <main style={{display: 'flex', flexDirection: 'column'}}>
-          <span style={{flex: 1, minHeight: '65vh'}}>
+          <span style={{flex: 1, minHeight: '45vh'}}>
             <MainHeader
               siteTitle={config.siteTitle}
               siteDescription={config.siteDescription}
