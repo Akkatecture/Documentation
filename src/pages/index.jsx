@@ -25,28 +25,27 @@ class Index extends React.Component {
           </span>
           <BodyContainer>
             <BodyContents>
-              <h2>Akkatecture is a CQRS/ES toolkit for Akka.NET</h2>
+              <h2>Akkatecture is a software architecture toolkit.</h2>
               <p>With the notion of distributed computing becoming commonplace, so do our business domains need to become distributed.</p>
               <p>Akkatecture, built ontop of Akka.NET, and inspired by EventFlow, aims to make your business modelling easy, using actors:</p>
               <BenefitsList>
-                <li>Based purely on fire and forget semantics making it reactive.</li>
-                <li>Event sourced, giving you audit trails and long term business value.</li>
-                <li>Highly configurable and extensible.</li>
-                <li>Scales well backed with Akka.NET's clustering mechanism.</li>
-                <li>Sagas give you the ability to craft long running persistent processes easily.</li>
+                <li>event sourced.</li>
+                <li>write expressive distributed domains.</li>
+                <li>highly configurable and extensible.</li>
+                <li>scales well backed with akka.net's clustering.</li>
               </BenefitsList>
               <p>Akkatecture treats event sourcing as a fundamental principle making it a great canditate to use in conjunction with long running projects
               </p>
-              <p>Leveraging Akka.NET's well-thought out architectural implementations, Akkatecture too enjoys great levels of extensibility and configurability for you to make a resilient, distributed application</p>
+              <p>Leveraging Akka.NET's well-thought out architectural implementations, Akkatecture too enjoys great levels of extensibility and configurability for you to make a resilient, distributed application.</p>
             </BodyContents>
           </BodyContainer>
           <BodyContainerInverted>
             <BodyContentsInverted>
               <h2>Getting Started</h2>
-              <p>Akkatecture is written in C# .NET Core targeting the netstandard 2.0 framework, which means that for any greenfield project, this may be a good option for you to consider.</p>
-              <p>If you are familiar with domain driven design, CQRS, and event sourcing, learning Akkatecture will be a breaze for you to pick up.</p>
+              <p>Akkatecture is written in .NET Core/C# targeting the netstandard 2.0 framework, using the greatest and latest open source technologies.</p>
+              <p>If you are familiar with domain driven design, CQRS, and event sourcing, learning Akkatecture will be a breaze.</p>
               <div> 
-                <CtaButton  to={'/lesson/javascript/aggregates'}> GET STARTED</CtaButton>
+                <CtaButton  to={'/lesson/akkatecture/getting-started'}> GET STARTED</CtaButton>
               </div>
               
             </BodyContentsInverted>
