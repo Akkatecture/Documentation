@@ -12,74 +12,126 @@ tags:
     - javascript
     - nodejs
 ---
-<!-- <a class="remix-button" href="https://glitch.com/edit/#!/remix/nact-stateless-greeter" target="_blank">
-  <button>
-    <img src="/img/code-fork-symbol.svg"/> REMIX
-  </button>
-</a> -->
 
-> Tip: The remix buttons like the one above, allow you to try out the samples in this guide and make changes to them. 
-> Playing around with the code is probably the best way to get to grips with the framework. 
+Commands are the basic value objects, or models, that represent write operations that you can perform in your domain.
 
-Nact has only been tested to work on Node 8 and above. You can install nact in your project by invoking the following:
+As an example, one might implement create this command for initiating a bank transfer from.
 
-```bash
-    npm install --save nact
-```
-
-This is just for me Csharp Markup test
 ```csharp
-//Create actor system
-var system = ActorSystem.Create("useraccount-example");
+public class TransferMoneyCommand : Command<AccountAggregate, AccountId>
+{
+    public Money Amount { get; }
+    public DestinationAccountId { get; }
 
-//Create supervising aggregate manager for UserAccount aggregate root actors
-var aggregateManager = system.ActorOf(Props.Create(() => new UserAccountAggregateManager()));
-
-//Build create user account aggregate command with name "foo bar"
-var aggregateId = UserAccountId.New;
-var createUserAccountCommand = new CreateUserAccountCommand(aggregateId, "foo bar");
-            
-//Send command, this is equivalent to command.publish() in other cqrs frameworks
-aggregateManager.Tell(createUserAccountCommand);
-            
-//tell the aggregateManager to change the name of the aggregate root to "foo bar baz"
-var changeNameCommand = new UserAccountChangeNameCommand(aggregateId, "foo bar baz");
-aggregateManager.Tell(changeNameCommand);
+    public UserUpdatePasswordCommand(
+        AccountId id,
+        AccountId destinationAccountId,
+        Money amount)
+        : base(id)
+    {
+        Amount = amount;
+        DestinationAccountId = destinationAccountId;
+    }
+}
 ```
 
-Once installed, you need to import the start function, which starts and then returns the actor system.
+> Note that the Money class is merely a value object created to hold the password and do basic validation. Read the article regarding value objects for more information. Also, you don’t have to use the default Akkatecture `Command<,>` implementation, you can create your own, it merely have to implement the `ICommand<,>` interface.
 
-```js
-const { start, dispatch, stop, spawnStateless } = require('nact');
-const system = start();
+A command by itself doesn’t do anything and will be swollowed by the underlying actor as unprocessed. To make a command work, you need to implement at least command handler which is responsible for invoking the aggregate's command handler.
+
+
+```csharp
+    public class AccountAggregate : AggregateRoot<AccountAggregate, AccountAggregateId, AccountState>
+    {
+        public AccountAggregate(AccountAggregateId aggregateId)
+            : base(aggregateId)
+        {
+            Command<TransferMoneyCommand>(Execute)
+        }
+
+        public bool Execute(TransferMoneyCommand command)
+        {
+          if(State.Balance < command.Amount)
+          {
+            //Domain Error, not enough money to send
+          }
+          if(Id == command.DestinationAccountId)
+          {
+            //Domain Error, cant send money to yourself
+          }
+
+          Emit(new MoneyTransferedEvent(command.Amount, command.DestinationAccountId));
+
+          //tell akkas underlying actor that you handled the command
+          return true;
+        }
+    }
 ```
 
-Once you have a reference to the system, it is now possible to create our first actor. To create an actor you have to `spawn` it.  As is traditional, let us create an actor which says hello when a message is sent to it. Since this actor doesn't require any state, we can use the simpler `spawnStateless` function.
 
-```js
-const greeter = spawnStateless(
-  system, // parent
-  (msg, ctx) => console.log(`Hello ${msg.name}`), // function
-  'greeter' // name
-);
+## Ensure Idempotency
+
+Detecting duplicate operations can be hard, especially if you have a distributed application, or simply a web application. Consider the following simplified scenario.
+
+1. The user wants to send her money.
+2. The user fills in the "send money form".
+3. As user is impatient, or by accident, the user submits the for twice.
+4. The first web request completes, is validated, and the money is sent. However, as the browser is waiting on the first web request, this result is ignored
+5. The second web request either transfers money again since there is enough balance, or  throws a domain error as there is no more balance left in the account.
+6. The user is presented with a error on the web page, or has accidently sent money twice when she only meant to send it once.
+
+Since Akkatectures design decision dictates that aggregate roots exist as a singleton, we can deal with idempotency at the aggregate level.
+
+We can redesign our command to look like this
+
+```csharp
+public class TransferMoneyCommand : Command<AccountAggregate, AccountId>
+{
+    public Money Amount { get; }
+    public DestinationAccountId { get; }
+
+    public UserUpdatePasswordCommand(
+        AccountId id,
+        ISourceId sourceId,
+        AccountId destinationAccountId,
+        Money amount)
+        : base(id, sourceId)
+    {
+        Amount = amount;
+        DestinationAccountId = destinationAccountId;
+    }
+}
 ```
 
-The first argument to `spawnStateless` is the parent, which is in this case the actor system. The [hierarchy](#hierarchy) section will go into more detail about this.
+Note the use of the other `protected` constructor of `Command<,>` that takes a `ISourceId` in addition to the aggregate root identity. This sourceId can be supplied from outside the aggregate boundary eg the API surface.
+You can then use a circular buffer or "list of processed" commands within your aggregate root to reject previously seen commands.
 
-The second argument to `spawnStateless` is a function which is invoked when a message is received.
+## Easier ISourceId calculation
+Ensuring the correct calculation of the command `ISourceId` can be somewhat cumbersome, which is why Akkatecture provides another base command you can use, the `DistinctCommand<,>`. By using the `DistinctCommand<,>` you merely have to implement the `GetSourceIdComponents()` and providing the `IEnumerable<byte[]>` that makes the command unique. The bytes is used to create a deterministic GUID to be used as an ISourceId.
 
-The third argument to `spawnStateless` is the name of the actor, which in this case is `'greeter'`. The name field is optional, and if omitted, the actor is automatically assigned a name by the system.
+```csharp
+public class TransferMoneyCommand : DistinctCommand<AccountAggregate, AccountId>
+{
+    public Money Amount { get; }
+    public DestinationAccountId { get; }
 
-To communicate with the greeter, we need to `dispatch` a message to it informing it who we are:
+    public UserUpdatePasswordCommand(
+        AccountId id,
+        ISourceId sourceId,
+        AccountId destinationAccountId,
+        Money amount)
+        : base(id)
+    {
+        Amount = amount;
+        DestinationAccountId = destinationAccountId;
+    }
 
-```js
-dispatch(greeter, { name: 'Erlich Bachman' });
+    protected override IEnumerable<byte[]> GetSourceIdComponents()
+    {
+      yield return Amount.GetBytes();
+      yield return DestinationAccountId.GetBytes();
+    }
+}
 ```
 
-This should print `Hello Erlich Bachman` to the console. 
-
-To complete this example, we need to shutdown our system. We can do this by calling `stop(system)`
-The `stop` function also can be used to terminate an actor.
-
-> Note: Stateless actors can service multiple requests at the same time. Statelessness means that such actors do not have to cater for concurrency issues.
-
+The `GetBytes()` merely returns the `Encoding.UTF8.GetBytes(...)` of the value object.
