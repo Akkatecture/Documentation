@@ -7,15 +7,15 @@ date: "01/07/2018"
 category: "akkatecture"
 type: "lesson"
 tags:
-    - getting-started
-    - nact
-    - reason
-    - bucklescript
+    - further-self-study
+    - akkatecture
+    - csharp
+    - dotnet
 ---
 Whenever creating an application that uses CQRS+ES there are several
 things you need to keep in mind to make it easier and minimize the
 potential bugs. This guide will give you some details on typical
-problems and how EventFlow can help you minimize the risk.
+problems and how Akkatecture can help you minimize the risk.
 
 
 ## Events

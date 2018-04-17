@@ -7,9 +7,9 @@ date: "01/07/2018"
 category: "akkatecture"
 type: "lesson"
 tags:
-    - getting-started
-    - nact
-    - reason
-    - bucklescript
+    - advanced-concepts
+    - akkatecture
+    - csharp
+    - dotnet
 ---
 TBD

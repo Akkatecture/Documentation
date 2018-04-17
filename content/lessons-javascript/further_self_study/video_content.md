@@ -7,10 +7,10 @@ date: "01/07/2018"
 category: "akkatecture"
 type: "lesson"
 tags:
-    - getting-started
-    - nact
-    - reason
-    - bucklescript
+    - further-self-study
+    - akkatecture
+    - csharp
+    - dotnet
 ---
 
 Below are some video resources that you can use to bootstrap your fundamental knowledge about the concepts that are seen throughout Akkatecture.

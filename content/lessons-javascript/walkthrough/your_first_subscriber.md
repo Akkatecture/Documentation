@@ -7,10 +7,10 @@ date: "01/07/2018"
 category: "akkatecture"
 type: "lesson"
 tags:
-    - getting-started
-    - nact
-    - javascript
-    - nodejs
+    - walkthrough
+    - akkatecture
+    - csharp
+    - dotnet
 ---
 
 TBD

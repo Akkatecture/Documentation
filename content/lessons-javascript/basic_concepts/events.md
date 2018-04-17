@@ -7,13 +7,13 @@ date: "01/07/2018"
 category: "akkatecture"
 type: "lesson"
 tags:
-    - getting-started
-    - nact
-    - javascript
-    - nodejs
+    - basic-concepts
+    - akkatecture
+    - csharp
+    - dotnet
 ---
 
-In an event source system like EventFlow, aggregate root data are stored on events.
+In an event source system like Akkatecture, aggregate root data is stored stored in events.
 
 ```csharp
     public class PingEvent : AggregateEvent<TestAggregate, TestAggregateId>
@@ -28,7 +28,7 @@ In an event source system like EventFlow, aggregate root data are stored on even
 ```
 
 [//]: # (TODO LINK)
-> Please make sure to read the section on :ref:`value objects and events <value-objects>` for some important notes on creating events.
+> Please make sure to read the section on `value objects and events <value-objects>` for some important notes on creating events.
 
 ## Emitting Events
 
@@ -71,3 +71,4 @@ Akkatecture has a rather opinionated way of approaching the application of event
     }
 ```
 
+> Note the above example of aggregate event application could be improved because it is not idempotent. Desgining your apply methods with idempotency in mind, will make for a resilient aggregate state

@@ -7,10 +7,10 @@ date: "01/07/2018"
 category: "akkatecture"
 type: "lesson"
 tags:
-    - getting-started
-    - nact
-    - javascript
-    - nodejs
+    - basic-concepts
+    - akkatecture
+    - csharp
+    - dotnet
 ---
 
 Commands are the basic value objects, or models, that represent write operations that you can perform in your domain.

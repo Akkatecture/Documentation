@@ -7,16 +7,16 @@ date: "01/07/2018"
 category: "akkatecture"
 type: "lesson"
 tags:
-    - getting-started
-    - nact
-    - javascript
-    - nodejs
+    - basic-concepts
+    - akkatecture
+    - csharp
+    - dotnet
 ---
 
 Initially before you can create a aggregate, you need to create its
 identity and state. You can create your own implementation of `Identity` by implementing the
 `IIdentity` interface or you can use a base class `Identity<>` that
-EventFlow provides, like this.
+Akkatecture provides, like this.
 
 
 ```csharp

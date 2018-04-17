@@ -7,10 +7,10 @@ date: "01/07/2018"
 category: "akkatecture"
 type: "lesson"
 tags:
-    - getting-started
-    - nact
-    - reason
-    - bucklescript
+    - further-self-study
+    - akkatecture
+    - csharp
+    - dotnet
 ---
 #### Domain-Driven Design
  - [Domain-Driven Design Reference](https://domainlanguage.com/ddd/reference/) by Eric Evans
