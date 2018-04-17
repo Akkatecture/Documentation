@@ -12,45 +12,22 @@ tags:
     - javascript
     - nodejs
 ---
-<!-- <a class="remix-button" href="https://glitch.com/edit/#!/remix/nact-ping-pong" target="_blank">
-  <button>
-    <img src="/img/code-fork-symbol.svg"/> REMIX
-  </button>
-</a> -->
 
-An actor alone is a somewhat useless construct; actors need to work together. Actors can send messages to one another by using the `dispatch` method. 
+Akkatecture is set of constructs and patterns written in C# ontop of akka.net. The main goal of Akkatecture is to allow developers who are using akka.net to model their business domain. Akkatecture is built on unblocked messaging & event based semantics, making it highly reactive and scalable. In essence Akkatecture focusses on messaging and integration patterns between domain entities within an akka actor system.
 
-The third parameter of `dispatch` is the sender. This parameter is very useful in allowing an actor to service requests without knowing explicitly who the sender is.
+Akkatecture uses the actor model as the universal primitive of concurrent computation. This means that aggregates, sagas, and other domain concepts are modelled within the actor model. Invoking the domain is done by having these actors either react through commands (send from outside of the aggregate boundary), or through domain events, emitting from within the domain boundary. Why use akka actors as the backing primitive for designing your domain in cqrs and event sourced base systems? because akka actors embody three things fundamentally
 
-In this example, the actors Ping and Pong are playing a perfect ping-pong match. To start the match, we dispatch a message to Ping as Pong use this third parameter. 
+1. Processing - actors can do work only when requested to, the requested work can be initiated by a message, typically in the form of a command or an event.
+2. Storage - actors can store contextualized internal state, in memory or on persistent storage. This gives actors long lived state for computation. This state is also thread safe from anything outside of the actors instantiation since actors process one message at a time.
+3. Communication - actors can communicate with each other using a pre-defined communication protocol. Typically addressed by using location transparent actor references/identifiers.
 
+In Akkatecture, the actor model in computer science is a mathematical model of concurrent computation that treats "actors" as the universal primitives of concurrent computation. In response to a message that it receives, an actor can: make local decisions, create more actors, send more messages, and determine how to respond to the next message received. Actors may modify their own private state, but can only affect each other through messages (avoiding the need for any locks).
 
-```js
-const delay = (time) => new Promise((res) => setTimeout(res, time));
+Akka based systems have been used to drive hugely scalable and highly available systems (such as Netflix and The Guardian). Even though these companies tend to run into issues at scale on a daily basis, I still see value in modelling the business domain using actors since (with some haggling), they are quite descriptive of what actually happens in the real world.
 
-const ping = spawnStateless(system, async (msg, ctx) =>  {
-  console.log(msg);
-  // ping: Pong is a little slow. So I'm giving myself a little handicap :P
-  await delay(500);
-  dispatch(ctx.sender, ctx.name, ctx.self);
-}, 'ping');
+[//]: # (TODO LINK)
+Please have a look at our documentation, go through the basic concepts, and the walkthroughs to get a good understanding of what akkatecture looks like. Akkatecture is intended for intermediate level developers who understand cqrs / event sourcing. Knowledge of akka.net will give you more knowledge on how to extend Akkatecture through akka's highly extensible configuration.
 
-const pong = spawnStateless(system, (msg, ctx) =>  {
-  console.log(msg);
-  dispatch(ctx.sender, ctx.name, ctx.self);  
-}, 'pong');
+### Status of Akkatecture
 
-dispatch(ping, 'begin', pong);
-```
-This produces the following console output:
-
-``` 
-begin
-ping
-pong
-ping
-pong
-ping
-etc...
-```
-
+Akkatecture is still currently in development, however most of the basic building blocks have been built out, but as of yet no v1 to speak of.
