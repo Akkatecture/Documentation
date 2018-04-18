@@ -10,7 +10,6 @@ import TableOfContents from '../components/Layout/TableOfContents';
 export default class LessonTemplate extends React.Component {
   render () {
     const { slug } = this.props.pathContext;
-    console.log(this.props)
     const postNode = this.props.data.postBySlug;
     const post = postNode.frontmatter;
     if (!post.id) {
