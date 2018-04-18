@@ -144,8 +144,8 @@ class Navigation extends React.Component {
 
         <section>
           {this.props.isSubpage
-            ? <Link className='nav-link' to='/' ><img style={{ height: '2.5em' }} alt='logo' src='/logos/test-logo-wide-inverted.svg' /></Link>
-            : <Link className='nav-link' to='/' ><img style={{ height: '2.5em' }} alt='logo' src='/logos/test-logo-wide.svg' /></Link>
+            ? <Link className='nav-link' to='/' ><img style={{ height: '1.5em' }} alt='logo' src='/logos/branding-inverted.svg' /></Link>
+            : <Link className='nav-link' to='/' ><img style={{ height: '1.5em' }} alt='logo' src='/logos/branding.svg' /></Link>
           }
         </section>
         <Hamburger className={this.props.isSubpage ? ' ' : 'animated fadeIn'}>

@@ -1,7 +1,7 @@
 module.exports = {
   siteTitle: 'Akkatecture', // Site title.
   siteTitleAlt: 'Akkatecture ⇒ Doing Distributed Domain Driven Design in Delight ', // Alternative site title for SEO.
-  siteLogo: '/logos/test-logo-splash.svg', // Logo used for SEO and manifest.
+  siteLogo: '/logos/main-branding.svg', // Logo used for SEO and manifest.
   siteUrl: 'https://akkatecture.github.io', // Domain of your website without pathPrefix.
   pathPrefix: '/', // Prefixes all links. For cases when deployed to example.github.io/gatsby-advanced-starter/.
   siteDescription: 'Site for the Akkatecture project.',
