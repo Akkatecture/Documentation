@@ -157,7 +157,7 @@ class Navigation extends React.Component {
         <NavLinks menuOpen={this.state.menuOpen} className={(this.props.isSubpage ? ' ' : 'animated fadeIn')}>
           {this.props.isSubpage && <Search>
             <img src='/img/search.svg' className='icon' />
-            <input placeholder='search docs' type='search' ref={() => this.mountDocsearch()} className='search-box' id='search-box' />
+            <input placeholder='search docs' type='search'className='search-box' id='search-box' />
           </Search>} 
           <div><Link className='nav-link' to='/lesson/akkatecture/getting-started' > DOCS </Link></div>
           <div><Link className='nav-link' to='/blog' > BLOG </Link></div>
