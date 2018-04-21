@@ -84,8 +84,8 @@
 }
 
 .remix-button button {
-    border: 2px solid #FC5B5B;
-    color: #FC5B5B;
+    border: 2px solid #2980B9;
+    color: #2980B9;
     background: transparent;    
     border-radius: 5px; 
     padding: 10px;
@@ -151,10 +151,10 @@ a {
     text-decoration: none;    
 }
 a:visited {
-    color: #FC5B5B;
+    color: #2980B9;
 }
 a:hover:visited { 
-    border-bottom: 2px dotted #FC5B5B;
+    border-bottom: 2px dotted #2980B9;
 }
 
 a:hover {
@@ -192,7 +192,7 @@ tr:last-child{
 
 hr {
     border: none;
-    background: #FC5B5B;
+    background: #2980B9;
     height: .15em;    
     width: 100%; 
 }
