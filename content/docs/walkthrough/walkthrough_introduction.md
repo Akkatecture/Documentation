@@ -1,5 +1,5 @@
 ---
-title: "Your First Aggregate Saga"
+title: "Introduction"
 lesson: 1
 chapter: 3
 cover: "https://unsplash.it/400/300/?random?BoldMage"

@@ -43,4 +43,4 @@ var createUserAccountCommand = new CreateUserAccountCommand(aggregateId, "foo ba
 aggregateManager.Tell(createUserAccountCommand);
 ```
 
-Be sure to go through our [basic concepts](/docs/primitives) and [walkthrough](docs/)
+Be sure to go through our [basic concepts](/docs/primitives) and [walkthrough](docs/walkthrough-introduction)
