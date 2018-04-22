@@ -33,7 +33,7 @@ class MainHeader extends React.Component {
   }
 }
 const Title = styled.p`
-animation-delay: 250ms;
+animation-delay: 350ms;
 `;
 const SubTitle = styled.p`
   animation-delay: 350ms;

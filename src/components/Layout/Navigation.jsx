@@ -117,17 +117,18 @@ class Navigation extends React.Component {
     this.state = { menuOpen: false, docSearchMounted: false };
   }
   mountDocsearch() {
+    console.log("mounted")
     const searchFilter = window.location.pathname.indexOf('javascript') >= 0
       ? 'version:javascript'
       : (window.location.pathname.indexOf('reasonml') >= 0 ? 'version:reasonml' : '');
     if (!this.state.docSearchMounted) {
       docsearch({
-        apiKey: '1d6174bf6b7151ce0bd244b270732d24',
-        indexName: 'nact',
+        apiKey: 'ae65d215a543e8083851249381e2f391',
+        indexName: 'akkatecture',
         inputSelector: '#search-box',
         debug: false,       // Set debug to true if you want to inspect the dropdown,
         algoliaOptions: {
-          filters: searchFilter,
+          //filters: searchFilter,
           attributesToRetrieve: ['*']
         }
       });
@@ -157,7 +158,7 @@ class Navigation extends React.Component {
         <NavLinks menuOpen={this.state.menuOpen} className={(this.props.isSubpage ? ' ' : 'animated fadeIn')}>
           {this.props.isSubpage && <Search>
             <img src='/img/search.svg' className='icon' />
-            <input placeholder='search docs' type='search'className='search-box' id='search-box' />
+            <input placeholder='search docs' type='search' ref={() => this.mountDocsearch()} className='search-box' id='search-box' />
           </Search>} 
           <div><Link className='nav-link' to='/docs/getting-started' > DOCS </Link></div>
           <div><Link className='nav-link' to='/blog' > BLOG </Link></div>
