@@ -9,6 +9,7 @@ module.exports = {
   postDefaultCategoryID: 'Akkatecture', // Default category for posts.
   themeColor: '#2C3E50', // Used for setting manifest and progress theme colors.
   backgroundColor: '#ECF0F1', // Used for setting manifest background color.
+  googleAnalyticsID: "UA-69152159-2", // GA tracking ID.
   // TODO: Move this literally anywhere better.
   toCChapters: [undefined,  'Introduction', 'Basic Concepts', 'Walkthrough', 'Advanced Concepts', 'Further Research'] // Used to generate the Table Of Contents. Index 0 should be blank. 
 };

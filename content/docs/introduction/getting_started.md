@@ -13,7 +13,7 @@ tags:
     - dotnet
 ---
 
-<a href="https://akkatecture.github.io/"><img src="https://raw.githubusercontent.com/Lutando/Akkatecture/master/logo.svg?sanitize=true" width="100%" height="200"></a>
+<img src="https://raw.githubusercontent.com/Lutando/Akkatecture/master/logo.svg?sanitize=true" width="100%" height="200">
 
 ### Welcome to Akkatecture
 
@@ -42,3 +42,5 @@ var createUserAccountCommand = new CreateUserAccountCommand(aggregateId, "foo ba
 //Send command, this is equivalent to command.publish() in other cqrs frameworks
 aggregateManager.Tell(createUserAccountCommand);
 ```
+
+Be sure to go through our [basic concepts](/docs/primitives) and [walkthrough](docs/)

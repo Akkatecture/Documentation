@@ -29,7 +29,7 @@ public class TestAggregateId : Identity<TestAggregateId>
 }
 ```
 
-The `Identity<>` value object provides generic functionality to create and validate aggregate root IDs. Please read the documentation regarding the bundled Identity<> type as it provides several useful features, e.g. several different schemes for ID generation, one that minimizes MSSQL database fragmentation.
+The `Identity<>` value object provides generic functionality to create and validate aggregate root IDs. Please read the documentation regarding the bundled `Identity<>` type as it provides several useful features, e.g. several different schemes for ID generation, one that minimizes MSSQL database fragmentation.
 
 Additionally to create your aggregate state, which will be used for applying aggregate events to, you can create your own by inheriting from the base `AggregateState<,,>` class like this.
 

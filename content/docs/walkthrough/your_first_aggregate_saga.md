@@ -1,6 +1,6 @@
 ---
 title: "Your First Aggregate Saga"
-lesson: 4
+lesson: 5
 chapter: 3
 cover: "https://unsplash.it/400/300/?random?BoldMage"
 date: "01/07/2018"

@@ -76,4 +76,8 @@ Your domain code is your business model codified. Make sure that you apply the p
 
 ## Plan For Uncertainty & Inconsistency
 
-Note about message guarantees, message based systems etc
+Note about message guarantees, message based systems etc.
+
+## Do not use actor behaviours
+
+It is far easier to test and manage actors that do not use Become(). Akkatecture comes with a specification pattern implementation that will give you the option to do  some rich, expressive, domain validation within the actors based on the command and current actor state. Feel free to use this at your pleasure.

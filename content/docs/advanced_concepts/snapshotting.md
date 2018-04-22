@@ -12,4 +12,4 @@ tags:
     - csharp
     - dotnet
 ---
-TBD
+Snapshotting is a future feature and will be documented when it becomes available. 😊

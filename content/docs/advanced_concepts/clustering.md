@@ -12,4 +12,4 @@ tags:
     - csharp
     - dotnet
 ---
-TBD
+Clustering is a huge concept with many moving parts, so for now refer to the akka.net documentation on clustering since that is basically what you need to get started.

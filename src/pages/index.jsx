@@ -26,8 +26,8 @@ class Index extends React.Component {
           <BodyContainer>
             <BodyContents>
               <h2>Akkatecture is a software architecture toolkit.</h2>
-              <p>With the notion of distributed computing becoming commonplace, so do our business domains need to become distributed.</p>
-              <p>Akkatecture is built ontop of akka.net, and inspired by EventFlow. Akkatecture aims to make your business modelling easy, using actors:</p>
+              <p>Since our computation models are becoming more and more distributed, modelling your business domain with distribution in mind becomes a necessity.</p>
+              <p>Akkatecture is built ontop of akka.net, and inspired by EventFlow. Akkatecture aims to make your business modelling easy, by using the actor model you can be sure that your application is:</p>
               <BenefitsList>
                 <li><b>distributed.</b></li>
                 <li><b>message based.</b></li>
@@ -36,7 +36,7 @@ class Index extends React.Component {
               </BenefitsList>
               <p>Akkatecture treats event sourcing, and the axioms of the actor model as a primary fundamental concept. 
               </p>
-              <p>Leveraging akka.net's well-thought out implementation, Akkatecture too enjoys great levels of extensibility and configurability for you to make a resilient, distributed application.</p>
+              <p>Built upon akka.net's well-thought out implementation, Akkatecture too enjoys great levels of extensibility and configurability for you to make a resilient, distributed application.</p>
             </BodyContents>
           </BodyContainer>
          { /*<BodyContainerInverted>
