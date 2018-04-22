@@ -45,7 +45,7 @@ export default class HTML extends React.Component {
             content='width=device-width, initial-scale=1.0'
           />
           {this.props.headComponents}
-          <link rel='shortcut icon' type="image/png" href={favicon} />
+          <link rel='shortcut icon' type="image/png" href="https://raw.githubusercontent.com/Akkatecture/Documentation/master/src/favicon.png" />
           <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css' />
           <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js' />
           {css}
