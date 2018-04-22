@@ -76,9 +76,9 @@ exports.createPages = ({graphql, boundActionCreators}) => {
             categorySet.add(edge.node.frontmatter.category);
           }
 
-          if (edge.node.frontmatter.type === 'lesson') {
+          if (edge.node.frontmatter.type === 'docs') {
             createPage({
-              path: `/${edge.node.frontmatter.type}/${edge.node.frontmatter.category}${edge.node.fields.slug}`,
+              path: `/docs${edge.node.fields.slug}`,
               component: lessonPage,
               context: {
                 slug: edge.node.fields.slug,

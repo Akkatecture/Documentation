@@ -55,7 +55,7 @@ class Index extends React.Component {
               <p>Akkatecture is written in .net core targeting the netstandard 2.0 framework, using the greatest and latest open source technologies.</p>
               <p>If you are familiar with domain driven design, cqrs, and event sourcing, learning Akkatecture will be a breaze.</p>
               <div> 
-                <CtaButton  to={'/lesson/akkatecture/getting-started'}> GET STARTED</CtaButton>
+                <CtaButton  to={'/docs/getting-started'}> GET STARTED</CtaButton>
               </div>
               
             </BodyContentsInverted>

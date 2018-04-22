@@ -5,7 +5,7 @@ chapter: 2
 cover: "https://unsplash.it/400/300/?random?BoldMage"
 date: "01/07/2018"
 category: "akkatecture"
-type: "lesson"
+type: "docs"
 tags:
     - basic-concepts
     - akkatecture
@@ -72,3 +72,6 @@ Akkatecture has a rather opinionated way of approaching the application of event
 ```
 
 > Note the above example of aggregate event application could be improved because it is not idempotent. Desgining your apply methods with idempotency in mind, will make for a resilient aggregate state. 
+
+## Published Events
+TBD

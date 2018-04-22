@@ -5,24 +5,23 @@ chapter: 5
 cover: "https://unsplash.it/400/300/?random?BoldMage"
 date: "01/07/2018"
 category: "akkatecture"
-type: "lesson"
+type: "docs"
 tags:
     - further-self-study
     - akkatecture
     - csharp
     - dotnet
 ---
-Whenever creating an application that uses CQRS+ES there are several
+Whenever creating an application that uses cqrs and   event sourcing there are several
 things you need to keep in mind to make it easier and minimize the
-potential bugs. This guide will give you some details on typical
-problems and how Akkatecture can help you minimize the risk.
+potential bugs, and headaches.
 
 
 ## Events
 
 Make sure that when your aggregate events are JSON serialized, they
 produce clean JSON as it makes it easier to work with and enable you to
-easier deserialize the events in the future.
+easier deserialize the events in the future. Make sure that the events have:
 
 -  No type information
 -  No runtime information
@@ -40,7 +39,7 @@ event.
 
 **Keep Aggregate Events As Slim As Possible**
 
-A good rule of thumb is to minimize the amount of noisey data that can exist in the aggregate event. Chances are, if you use all the members contained in the event during the events application to the aggregate state, they are welcomed to be there, otherwise strongly consider removing unused members in aggregate events.
+A good rule of thumb is to minimize the amount of noisey data that can exist in the aggregate event. If your state event applying method uses all of the event member variables on invokation, then you have a good event. adding bloat and extra data to events waters down how true the events are. Events embody 'facts which happened' in your domain. If you add unessacary 'facts' that dont pertain to that event in your event model, then that event becomes less 'fact-y'.
 
 **Idempotent Apply Methods**
 
@@ -72,7 +71,9 @@ Unit test your aggregates and sagas in isolation from one another. By using blac
 It will be most advantageous to learn akka.net's [test kit](http://getakka.net/articles/actors/testing-actor-systems.html)
 
 ## Make Your Domain Expressive
-Your domain code is your business model codified. Make sure that you apply the principle of a ubiquitous language to your domain by being explicit but terse in your naming conventions, this leads to a far more enjoyable developer expirience for those who share the code base.
+
+Your domain code is your business model codified. Make sure that you apply the principle of a ubiquitous language to your domain by being explicit but terse in your naming conventions, this leads to a far more enjoyable developer expirience for those who share the code base. With the fall in popularity of UML diagrams and other forms of non-code business domain models, code written in a ddd way is your business domain model.
 
 ## Plan For Uncertainty & Inconsistency
+
 Note about message guarantees, message based systems etc

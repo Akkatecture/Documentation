@@ -159,7 +159,7 @@ class Navigation extends React.Component {
             <img src='/img/search.svg' className='icon' />
             <input placeholder='search docs' type='search'className='search-box' id='search-box' />
           </Search>} 
-          <div><Link className='nav-link' to='/lesson/akkatecture/getting-started' > DOCS </Link></div>
+          <div><Link className='nav-link' to='/docs/getting-started' > DOCS </Link></div>
           <div><Link className='nav-link' to='/blog' > BLOG </Link></div>
           <div><a className='nav-link' href='https://github.com/Lutando/Akkatecture'> GITHUB </a></div>
         </NavLinks>

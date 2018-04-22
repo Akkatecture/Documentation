@@ -39,7 +39,7 @@ export default class LessonTemplate extends React.Component {
           <ToCContainer className='nav'>
             <TableOfContents
               posts={this.props.data.allPostTitles.edges}
-              contentsType='lesson'
+              contentsType='docs'
               chapterTitles={config.toCChapters}
             />
           </ToCContainer>
