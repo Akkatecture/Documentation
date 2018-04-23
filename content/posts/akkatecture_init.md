@@ -29,16 +29,18 @@ Please [Tweet at me](https://twitter.com/LutandoNgqakaza) or [file GitHub issues
 ### Status of Akkatecture
 Akkatecture is still currently in development, however most of the basic building blocks have been built out, but as of yet no v1 to speak of on NuGet.
 
-The next plan is to work on the current core library and branch it out to support 
+The next plan is to work on the current core library and branch it out to support:
 
 * clustered deployment scenarios. 
 * jobs.
-* read models.
-* query abstractions.
-* configuration strategy
-* typed actor references(opt in?)
+* read models*.
+* query abstractions*.
+* configuration strategy.
+* typed actor references(opt in?)*.
 * event upgrading
-* hypermedia api extensions
-* event source behaviour for committing events
+* hypermedia api extensions*.
+* event source behaviour for committing events.
+
+**nice-to-have features, not crucial and might be axed for first version*
 
 Some of the issues highlighted above can be seen [here](https://github.com/Lutando/Akkatecture/issues). However I plan to knock these off 1 by 1 and launch the first beta by June.

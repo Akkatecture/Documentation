@@ -12,7 +12,7 @@ tags:
     - csharp
     - dotnet
 ---
-There actually is a long laundry list of things one might want to do when you deploy to production. Remember, now that we are using persisted events as the fundamental elements to hydrating our domain, we need to pay special attention to how we persist them.
+There actually is a long laundry list of things one might want to consider prior to deploying to production. Remember, now that we are using persisted events as the fundamental elements to hydrating our domain, we need to pay special attention to how we persist them.
 
 # Event Store
 Since events stored per aggregate are read in a paginated way, it makes sense to chose a persistence that supports this kind of query well. SQL data bases are fine also, just make sure you do not ship with the defaul akka inmemory persistence plugin. As you can see there are many plugins ([1](https://github.com/AkkaNetContrib/Akka.Persistence.MongoDB),[2](https://github.com/AkkaNetContrib/Akka.Persistence.PostgreSql),[3](https://github.com/AkkaNetContrib/Akka.Persistence.RocksDb),[4](https://github.com/akkadotnet/Akka.Persistence.SqlServer)). Doing some research here is crucial to match your needs.

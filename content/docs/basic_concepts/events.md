@@ -16,38 +16,37 @@ tags:
 In an event source system like Akkatecture, aggregate root data is stored stored in events.
 
 ```csharp
-    public class PingEvent : AggregateEvent<TestAggregate, TestAggregateId>
-    {
-      public long TimeSent { get; }
-      public string Data { get; }
+public class PingEvent : AggregateEvent<TestAggregate, TestAggregateId>
+{
+    public long TimeSent { get; }
+    public string Data { get; }
 
-      public PingEvent(long timeSent, string data)
-      {
-          TimeSent = timeSent;
-          Data = data;
-      }
+    public PingEvent(long timeSent, string data)
+    {
+        TimeSent = timeSent;
+        Data = data;
     }
+}
 ```
 
-[//]: # (TODO LINK)
-> Please make sure to read the section on `value objects and events <value-objects>` for some important notes on creating events.
+> Please make sure to read the section on [event tips and tricks](/docs/tips-and-tricks#events) for some additional notes on events.
 
 ## Emitting Events
 
 In order to emit an event from an aggregate, call the `protected` `Emit(...)` method which applies the event to the aggregate state and commits the event to its event source.
 
 ```csharp
-    public void Ping(string data)
+public void Ping(string data)
+{
+    // Fancy domain logic here that validates against aggregate state...
+
+    if (string.IsNullOrEmpty(data))
     {
-      // Fancy domain logic here that validates against aggregate state...
-
-      if (string.IsNullOrEmpty(data))
-      {
         Throw(DomainError.With("Ping data empty"))
-      }
-
-      Emit(new PingEvent(data))
     }
+
+    Emit(new PingEvent(data))
+}
 
 ```
 
@@ -56,46 +55,123 @@ In order to emit an event from an aggregate, call the `protected` `Emit(...)` me
 Akkatecture has a rather opinionated way of approaching the application of events. Events that are emitting should only be applied to its own aggregate state. that makes it rather convienient to isolate the place where aggregate events get applied within the aggregate's boundaries. To register an aggregate event applyer method on the aggregate state, all you have to do is implement the `IApply<>` interface on your aggregate state.
 
 ```csharp
-    public class TestAggregate : AggregateState<TestAggregate, TestAggregateId>,
-        IApply<PingEvent>
+public class TestAggregate : AggregateState<TestAggregate, TestAggregateId>,
+    IApply<PingEvent>
+{
+    private List<string> Pings {get; set;} = new List<string>();
+
+    public TestAggregate(TestAggregateId aggregateId)
+        : base(aggregateId)
     {
-        private List<string> Pings {get; set;} = new List<string>();
-
-        public TestAggregate(TestAggregateId aggregateId)
-            : base(aggregateId)
-        {
-        }
-
-        public void Apply(PingEvent aggregateEvent)
-        {
-            Pings.Add(aggregateEvent.Data);
-        }
     }
+
+    public void Apply(PingEvent aggregateEvent)
+    {
+        Pings.Add(aggregateEvent.Data);
+    }
+}
 ```
 
 > Note the above example of aggregate event application could be improved because it is not idempotent. Desgining your apply methods with idempotency in mind, will make for a resilient aggregate state. Here is an example of a more "idempotent" apply method:
 
 ```csharp
-    //Lets try again
-    public class TestAggregate : AggregateState<TestAggregate, TestAggregateId>,
-        IApply<PingEvent>
+//Lets try again
+public class TestAggregate : AggregateState<TestAggregate, TestAggregateId>,
+    IApply<PingEvent>
+{
+    //using a dictionary instead of a list to get some idempotency
+    private Dictionary<long, string> Pings {get; set;} = new Dictionary<long, string>();
+
+    public TestAggregate(TestAggregateId aggregateId)
+        : base(aggregateId)
     {
-        //using a dictionary instead of a list to get some idempotency
-        private Dictionary<long, string> Pings {get; set;} = new Dictionary<long, string>();
-
-        public TestAggregate(TestAggregateId aggregateId)
-            : base(aggregateId)
-        {
-        }
-
-        public void Apply(PingEvent aggregateEvent)
-        {
-            Pings.Add(aggregateEvent.TimeStamp, aggregateEvent.Data);
-        }
     }
+
+    public void Apply(PingEvent aggregateEvent)
+    {
+        Pings.Add(aggregateEvent.TimeStamp, aggregateEvent.Data);
+    }
+}
 ```
 
 > As you can see above we have made our Appy method Idempotent by using a different datastructure to hold our `Pings`.
 
+## Replaying Events
+In Akkatecture, the default behaviour for the aggregate roots is to apply the event back to the aggregate state on event replay. Akkatecture has a default `Recover(...)` method on the base `AggregateRoot<,,,>` class that you can use do event recovery using the default Akkatecture behaviour. All you need to do is tell akka how to apply the persisted event. Do do this, register your recovery event to akka.net's `Recover<>` registry. This is what a typical example will look like 
+
+```csharp
+public class UserAccountAggregate : AggregateRoot<UserAccountAggregate,UserAccountId,UserAccountState>
+{
+    public UserAccountAggregate(UserAccountId id)
+        : base(id)
+    {
+        //command handler registrations
+        Command<CreateUserAccountCommand>(Execute);
+        Command<UserAccountChangeNameCommand>(Execute);
+
+        //recovery handler registrations
+        Recover<UserAccountCreatedEvent>(Recover);
+        Recover<UserAccountNameChangedEvent>(Recover);
+    }
+}
+```
+
+It is imperative that you make sure to register all of your events for this aggregate root to avoid having inconsistent state when you do event replay.
+
+> You need to make sure that you have configured a persistent event store before deploying your application to production since the default persistent provider in Akkatecture is using the same default provider that is used in akka.net persistent actors, namely, the in memory event journal and in memory snap store. Go ahead and look at how this all works in our [event store production readiness](/docs/production-readiness#event-store) documentation.
+
 ## Published Events
-TBD
+If you have noticed, Akkatecture uses the aggregate events as a means for aggregates to maintain consistency within that particular aggregates boundaries. For any particular instance of an aggregate root, its local state is always consistent from that local perspective. When you publish an event, it is letting the rest of your business domain know that something has happened. This event will get picked up by any parties interested in that particular event.
+
+### Domain Events
+Domain events are aggregate events that have been published. In Akkatecture a domain event looks as follows
+
+```csharp
+public interface IDomainEvent
+{
+    //CLR type of the aggregate
+    Type AggregateType { get; }
+    //CLR type of the identity
+    Type IdentityType { get; }
+    //CLR type of the aggregate event
+    Type EventType { get; }
+    //The aggregate sequence number
+    long AggregateSequenceNumber { get; }
+    //Metadata bag of any and all event metadata
+    IMetadata Metadata { get; }
+    //The timestamp of when the event was published
+    DateTimeOffset Timestamp { get; }
+    //The aggregates identity
+    IIdentity GetIdentity();
+    //The aggregate event
+    IAggregateEvent GetAggregateEvent();
+    }
+```
+
+The most important thing to note here is that the `AggregateSequenceNumber` is the "age" of the aggregate which emitted that particular event at that particular moment in time. So if an aggregate has applied 4 events, then the 4th domain event from that aggregate root will have an `AggregateSequenceNumber` of `4`.
+
+### Event Metadata
+
+The `IMetadata` of the domain event essentially a dictionary of keys of values of any and all metadata related to that domain event. You can add anything to this container to be used as a 'bag of tricks' for your domain. You can add things like telemetry data to this IMetadata container. The container should be seen as a mechanism to allow you to better enrich the domain event apart from the actual data contained in the `IAggregateEvent`.
+
+To add your own `IMetadata` to your DomainEvent ontop of the Akkatecture defaults, use the `Emit(aggregateEvent, metadata)` method when doing an event emit from withing your aggregate root. 
+
+
+```csharp
+public void Ping(string data)
+{
+    //Within aggregate root command handler
+    //Fancy domain logic here that validates against aggregate state...
+
+    var metadata = Metadata.Empty;
+    var dataDictionary = new Dictionary<string,string>();
+    dataDictionary.Add("Environment","Staging");
+    dataDictionary.Add("Build","1.43.982");
+    metadata = metadata.With(data);
+
+    Emit(new PingEvent(data), metadata);
+}
+
+```
+
+> You can add things like operation identifiers, build numbers, environment names, deployment regions, performance data, and other things to this metadata container it is really up to you.

@@ -80,4 +80,4 @@ Note about message guarantees, message based systems etc.
 
 ## Do not use actor behaviours
 
-It is far easier to test and manage actors that do not use Become(). Akkatecture comes with a specification pattern implementation that will give you the option to do  some rich, expressive, domain validation within the actors based on the command and current actor state. Feel free to use this at your pleasure.
+It is far easier to test and manage actors that do not use Become(). Akkatecture comes with a [specification pattern implementation](/docs/specifications) that will give you the option to do some rich, expressive, domain validation within the actors. Specifications are also easily testable. Feel free to use this at your pleasure.
