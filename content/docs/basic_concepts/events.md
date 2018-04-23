@@ -18,10 +18,12 @@ In an event source system like Akkatecture, aggregate root data is stored stored
 ```csharp
     public class PingEvent : AggregateEvent<TestAggregate, TestAggregateId>
     {
+      public long TimeSent { get; }
       public string Data { get; }
 
-      public PingEvent(string data)
+      public PingEvent(long timeSent, string data)
       {
+          TimeSent = timeSent;
           Data = data;
       }
     }
@@ -54,7 +56,7 @@ In order to emit an event from an aggregate, call the `protected` `Emit(...)` me
 Akkatecture has a rather opinionated way of approaching the application of events. Events that are emitting should only be applied to its own aggregate state. that makes it rather convienient to isolate the place where aggregate events get applied within the aggregate's boundaries. To register an aggregate event applyer method on the aggregate state, all you have to do is implement the `IApply<>` interface on your aggregate state.
 
 ```csharp
-    public class TestAggregate : AggregateRoot<TestAggregate, TestAggregateId, TestState>,
+    public class TestAggregate : AggregateState<TestAggregate, TestAggregateId>,
         IApply<PingEvent>
     {
         private List<string> Pings {get; set;} = new List<string>();
@@ -71,7 +73,29 @@ Akkatecture has a rather opinionated way of approaching the application of event
     }
 ```
 
-> Note the above example of aggregate event application could be improved because it is not idempotent. Desgining your apply methods with idempotency in mind, will make for a resilient aggregate state. 
+> Note the above example of aggregate event application could be improved because it is not idempotent. Desgining your apply methods with idempotency in mind, will make for a resilient aggregate state. Here is an example of a more "idempotent" apply method:
+
+```csharp
+    //Lets try again
+    public class TestAggregate : AggregateState<TestAggregate, TestAggregateId>,
+        IApply<PingEvent>
+    {
+        //using a dictionary instead of a list to get some idempotency
+        private Dictionary<long, string> Pings {get; set;} = new Dictionary<long, string>();
+
+        public TestAggregate(TestAggregateId aggregateId)
+            : base(aggregateId)
+        {
+        }
+
+        public void Apply(PingEvent aggregateEvent)
+        {
+            Pings.Add(aggregateEvent.TimeStamp, aggregateEvent.Data);
+        }
+    }
+```
+
+> As you can see above we have made our Appy method Idempotent by using a different datastructure to hold our `Pings`.
 
 ## Published Events
 TBD
