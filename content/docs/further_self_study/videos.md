@@ -22,4 +22,4 @@ Below are some video resources that you can use to bootstrap your fundamental kn
 - [The Many Meanings of Event-Driven Architecture](https://www.youtube.com/watch?v=STKCRSUsyP0) by Martin Fowler
 - [The Future of Event-driven Microservices](https://youtu.be/0C7J7hFv_pk) by Kenny Bastani
 - [Using sagas to maintain data consistency in a microservice architecture](https://youtu.be/YPbGW3Fnmbc) by Chris Richardson
--[Applying the Saga Pattern](https://youtu.be/xDuwrtwYHu8) by Caitie McCaffrey
+- [Applying the Saga Pattern](https://youtu.be/xDuwrtwYHu8) by Caitie McCaffrey
