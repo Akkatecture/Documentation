@@ -26,8 +26,6 @@ Install-Package Akkatecture -ProjectName MyFirstActorProject
 
 Once youve done that you can start designing your domain that can allow you to do something like what is shown below.
 
-> This example is part of the Akkatecture simple example project, so checkout [the
-code](https://github.com/Lutando/Akkatecture/blob/master/examples/simple/Akkatecture.Examples.UserAccount.Application/Program.cs#L13) and give it a run.
 ```csharp
 //Create actor system
 var system = ActorSystem.Create("useraccount-example");
@@ -42,5 +40,8 @@ var createUserAccountCommand = new CreateUserAccountCommand(aggregateId, "foo ba
 //Send command, this is equivalent to command.publish() in other cqrs frameworks
 aggregateManager.Tell(createUserAccountCommand);
 ```
+
+> This example is part of the Akkatecture simple example project, so checkout [the
+code](https://github.com/Lutando/Akkatecture/blob/master/examples/simple/Akkatecture.Examples.UserAccount.Application/Program.cs#L13) and give it a run.
 
 Be sure to go through our [basic concepts](/docs/primitives) and [walkthrough](/docs/walkthrough-introduction). 

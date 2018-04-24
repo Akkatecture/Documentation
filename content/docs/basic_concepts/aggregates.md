@@ -13,7 +13,7 @@ tags:
     - dotnet
 ---
 
-Initially before you can create a aggregate, you need to create its
+Initially, before you can create an aggregate, you need to create its corresponding 
 identity and state. You can create your own implementation of `Identity` by implementing the
 `IIdentity` interface or you can use a base class `Identity<>` that
 Akkatecture provides, like this.
