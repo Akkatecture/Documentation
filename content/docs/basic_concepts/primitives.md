@@ -80,9 +80,10 @@ Here's some examples on we can use our newly created `AccountId`
     // Create a namespace, put this in a constant somewhere
     var emailNamespace = Guid.Parse("769077C6-F84D-46E3-AD2E-828A576AAAF3");
 
-    // Creates an identity with the value "account-9181a444-af25-567e-a866-c263b6f6119a"
-    //useful to use when you want to create Id's
-    // deterministically from other real world "identifiers"
+    // Creates an identity with the value "account-9181a444-af25-567e-a866-c263b6f6119a",
+    // useful to use when you want to create Id's
+    // deterministically from other real world "identifiers",
+    // especially in distributed situations
     var accountId = AccountId.NewDeterministic(emailNamespace, "test@example.com");
 ```
 
@@ -94,7 +95,7 @@ Here's some examples on we can use our newly created `AccountId`
 
 # Entities
 
-An Entity is an object that has some intrinsic identity, apart from the rest of its state. Even if its properties are the same as another instance of the same type, it remains distinct because of its unique identity. The `Entity<>` In Akkatecture is itself a Value Object however it implements the `IEntity<Identity>` interface, which requires it to have a member called `Id`. Now you can see the relationship between `Entity<>`, `SingleValueObject<>`, and `Identity<>`. A sample Entity running onwards from the Account example above, could be:
+An Entity is an object that has some intrinsic identity, apart from the rest of its state. Even if its properties are the same as another instance of the same type, it remains distinct because of its unique identity. The `Entity<>` In Akkatecture is itself a Value Object however it implements the `IEntity<Identity>` interface, which requires it to have a member called `Identity Id`. Now you can see the relationship between `Entity<>`, `SingleValueObject<>`, and `Identity<>`. A sample Entity running onwards from the Account example above, could be:
 
 ```csharp
 public class Account : Entity<AccountId>

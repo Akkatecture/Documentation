@@ -20,12 +20,12 @@ Akkatecture provides, like this.
 
 
 ```csharp
-public class TestAggregateId : Identity<TestAggregateId>
+public class StoreId : Identity<StoreId>
 {
-  public TestAggregateId(string value)
-    : base(value)
-  {
-  }
+    public StoreId(string value)
+        : base(value)
+    {
+    }
 }
 ```
 
@@ -34,7 +34,7 @@ The `Identity<>` value object provides generic functionality to create and valid
 Additionally to create your aggregate state, which will be used for applying aggregate events to, you can create your own by inheriting from the base `AggregateState<,,>` class like this.
 
 ```csharp
-public class TestState : AggregateState<TestAggregate, TestAggregateId>
+public class StoreState : AggregateState<StoreAggregate, StoreId>
 {
 
 }
@@ -43,13 +43,31 @@ public class TestState : AggregateState<TestAggregate, TestAggregateId>
 Next, to create a new aggregate, simply inherit from `AggregateRoot<,,>` like this, making sure to pass test aggregate own type as the first generic argument and the identity as the second, and the state as the third. Make sure to pass down the aggregate identity to the base class, as this is required.
 
 ```csharp
-    public class TestAggregate : AggregateRoot<TestAggregate, TestAggregateId, TestState>
+public class StoreAggregate : AggregateRoot<StoreAggregate, StoreId, StoreState>
+{
+    public StoreAggregate(StoreId aggregateId)
+        : base(aggregateId)
     {
-        public TestAggregate(TestAggregateId aggregateId)
-            : base(aggregateId)
-        {
-        }
     }
+}
 ```
 
-> Aggregates in Akkatecture exist as singletons in the actor system, and thus by design, only one aggregate root instance can be created or used per id at any given time. The situation of having two aggregate roots available with the same aggregateId means that you have two instances of the aggregate state in the actor system which leads to a data level split brain situation. Akkatecture makes it easy to avoid this with the use of `AggregateManager<,,,,>` which is essentially a message coordinater/dispatcher for the underlying aggregate.
+
+## Aggregate Managers
+
+Aggregates in Akkatecture exist as singletons in the actor system, and thus by design, only one aggregate root instance can be created or used per aggregateId at any given time. Akkatecture makes it easy to avoid this with the use of `AggregateManager<,,,,>` which is essentially a message coordinater/dispatcher for the underlying aggregate.
+
+
+For most use cases the default `AggregateManager<,,,,>` will be sufficient all you need to do is to inherit from it
+
+```csharp
+public class StoreAggregateManager : 
+    AggregateManager<StoreAggregate, StoreId, Command<StoreAggregate, StoreId>, StoreState>
+{
+        
+}
+```
+
+The aggregate manager works by resolving the addresses of aggregate roots and routes messages to them accordingly. It routes by using `Command<,,>.AggregateId` to locate or create the child aggregate roots. Since we are also in an actor system, the `AggregateManager<,,,,>` is also responsible for supervising aggregate roots. The aggregate manager is one instance of an implementation of a [one child per entity pattern](https://gigi.nullneuron.net/gigilabs/child-per-entity-pattern-in-akka-net/). There is another example of this pattern being applied in Akkatecture's `Akkatecture.Cluster` package which does the same thing for aggregates and [sagas](/docs/sagas) in a clustered environment.
+
+> Make sure that aggregate managers do not do anything that violates the error kernel pattern. In short, dont do dangerous `I/O` within the aggregate manager, since it will be responsible for many aggregates underneath it.

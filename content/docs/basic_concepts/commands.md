@@ -13,9 +13,9 @@ tags:
     - dotnet
 ---
 
-Commands are the basic value objects, or models, that represent write operations that you can perform in your domain.
+Commands are the basic `ValueObject`'s, that represent the operations of intent that you want to perform in your domain. Aggregate commands sent to aggregate roots, typically, on successful execution, result in one or more aggregate events being emitted.
 
-As an example, one might implement create this command for initiating a bank transfer from.
+As an example, imagine you are implementing the command for initiating a bank transfer from one account (your account) to another. it might look something like this.
 
 ```csharp
 public class TransferMoneyCommand : Command<AccountAggregate, AccountId>
@@ -67,6 +67,8 @@ A command by itself doesn’t do anything and will be swollowed by the underlyin
         }
     }
 ```
+
+> The domain validation `if` statements above that check if there is enough balance, or if the destination account identifier is not the same as the current account can be modelled in `Specifications<>`. You can find out more about specifications in Akkatecture documentation [here](/docs/specifications).
 
 
 ## Ensure Idempotency

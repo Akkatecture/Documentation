@@ -13,10 +13,10 @@ tags:
     - dotnet
 ---
 
-In an event source system like Akkatecture, aggregate root data is stored stored in events.
+In an event source system like Akkatecture, aggregate root data is stored stored in events. These events are replayed upon aggregate root instantiation in order to get its state back to where it was before. Aggregate events are also published via akka.net's [event stream](http://getakka.net/api/Akka.Event.EventStream.html).
 
 ```csharp
-public class PingEvent : AggregateEvent<TestAggregate, TestAggregateId>
+public class PingEvent : AggregateEvent<PingAggregate, PingAggregateId>
 {
     public long TimeSent { get; }
     public string Data { get; }
@@ -36,31 +36,36 @@ public class PingEvent : AggregateEvent<TestAggregate, TestAggregateId>
 In order to emit an event from an aggregate, call the `protected` `Emit(...)` method which applies the event to the aggregate state and commits the event to its event source.
 
 ```csharp
-public void Ping(string data)
+public bool Execute(PingCommand command)
 {
     // Fancy domain logic here that validates against aggregate state...
 
-    if (string.IsNullOrEmpty(data))
+    if (string.IsNullOrEmpty(command.Data))
     {
         Throw(DomainError.With("Ping data empty"))
     }
 
-    Emit(new PingEvent(data))
+    var aggregateEvent = new PingEvent(command.Data);
+
+    Emit(aggregateEvent);
+    
+    return true;
 }
 
 ```
+> In akkatecture, the act of emitting an event both applies the event to aggregate state, and publishes the event as a `IDomainEvent` to the akka.net event stream. Please continue reading about [published](/docs/events#published-events) to understand how aggregate events look like when they get published outside of the aggregate boundary.
 
 ## Applying Events
 
-Akkatecture has a rather opinionated way of approaching the application of events. Events that are emitting should only be applied to its own aggregate state. that makes it rather convienient to isolate the place where aggregate events get applied within the aggregate's boundaries. To register an aggregate event applyer method on the aggregate state, all you have to do is implement the `IApply<>` interface on your aggregate state.
+Akkatecture has a rather opinionated way of approaching the application of events. Events that are emitted are only to be applied to its own aggregate state. that makes it rather convienient to isolate the place where aggregate events get applied. To register an aggregate event applyer method on the aggregate state, all you have to do is implement the `IApply<>` interface on your aggregate state.
 
 ```csharp
-public class TestAggregate : AggregateState<TestAggregate, TestAggregateId>,
+public class PingState : AggregateState<PingAggregate, PingAggregate>,
     IApply<PingEvent>
 {
     private List<string> Pings {get; set;} = new List<string>();
 
-    public TestAggregate(TestAggregateId aggregateId)
+    public PingAggregate(PingAggregate aggregateId)
         : base(aggregateId)
     {
     }
@@ -75,14 +80,14 @@ public class TestAggregate : AggregateState<TestAggregate, TestAggregateId>,
 > Note the above example of aggregate event application could be improved because it is not idempotent. Desgining your apply methods with idempotency in mind, will make for a resilient aggregate state. Here is an example of a more "idempotent" apply method:
 
 ```csharp
-//Lets try again
-public class TestAggregate : AggregateState<TestAggregate, TestAggregateId>,
+//Lets try to make
+public class PingState : AggregateState<PingAggregate, PingAggregateId>,
     IApply<PingEvent>
 {
     //using a dictionary instead of a list to get some idempotency
     private Dictionary<long, string> Pings {get; set;} = new Dictionary<long, string>();
 
-    public TestAggregate(TestAggregateId aggregateId)
+    public PingAggregate(PingAggregateId aggregateId)
         : base(aggregateId)
     {
     }
@@ -94,10 +99,11 @@ public class TestAggregate : AggregateState<TestAggregate, TestAggregateId>,
 }
 ```
 
-> As you can see above we have made our Appy method Idempotent by using a different datastructure to hold our `Pings`.
+> As you can see above we have made our Appy method Idempotent by using a different datastructure to hold our `Pings`. It is idempotent becuase if we apply the same event to the state we effectively leave the state unchanged.
 
 ## Replaying Events
-In Akkatecture, the default behaviour for the aggregate roots is to apply the event back to the aggregate state on event replay. Akkatecture has a default `Recover(...)` method on the base `AggregateRoot<,,,>` class that you can use do event recovery using the default Akkatecture behaviour. All you need to do is tell akka how to apply the persisted event. Do do this, register your recovery event to akka.net's `Recover<>` registry. This is what a typical example will look like 
+
+In Akkatecture, the default behaviour for the aggregate roots is to apply the event back to the aggregate state on event replay. Akkatecture has a default `Recover(...)` method on the base `AggregateRoot<,,,>` class that you can use do event recovery. All you need to do is tell akka how to apply the persisted event. Do do this, register your recovery event to akka.net's `Recover<>` registry. This is what a typical example will look like.
 
 ```csharp
 public class UserAccountAggregate : AggregateRoot<UserAccountAggregate,UserAccountId,UserAccountState>
@@ -116,12 +122,12 @@ public class UserAccountAggregate : AggregateRoot<UserAccountAggregate,UserAccou
 }
 ```
 
-It is imperative that you make sure to register all of your events for this aggregate root to avoid having inconsistent state when you do event replay.
+It is imperative that you make sure to register all of your events for this aggregate root to avoid having inconsistent state when you do event replay. If you use akka behaviours, make sure that on recovery that you re-establish the correct domain behaviour.
 
 > You need to make sure that you have configured a persistent event store before deploying your application to production since the default persistent provider in Akkatecture is using the same default provider that is used in akka.net persistent actors, namely, the in memory event journal and in memory snap store. Go ahead and look at how this all works in our [event store production readiness](/docs/production-readiness#event-store) documentation.
 
 ## Published Events
-If you have noticed, Akkatecture uses the aggregate events as a means for aggregates to maintain consistency within that particular aggregates boundaries. For any particular instance of an aggregate root, its local state is always consistent from that local perspective. When you publish an event, it is letting the rest of your business domain know that something has happened. This event will get picked up by any parties interested in that particular event.
+If you have noticed, Akkatecture uses the aggregate events as a means for aggregates to maintain consistency within that particular aggregates boundaries. For any particular instance of an aggregate root, its local state is always consistent from that local perspective. When you publish an event, the aggregate is letting the rest of your domain know that something has happened. This event will get picked up by any parties interested in that particular event.
 
 ### Domain Events
 Domain events are aggregate events that have been published. In Akkatecture a domain event looks as follows
@@ -158,7 +164,7 @@ To add your own `IMetadata` to your DomainEvent ontop of the Akkatecture default
 
 
 ```csharp
-public void Ping(string data)
+public void Ping(string pingData)
 {
     //Within aggregate root command handler
     //Fancy domain logic here that validates against aggregate state...
