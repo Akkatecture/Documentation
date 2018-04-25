@@ -1,6 +1,6 @@
 ---
 title: "Your First Subscribers"
-lesson: 7
+lesson: 8
 chapter: 3
 cover: "https://unsplash.it/400/300/?random?BoldMage"
 date: "01/07/2018"
@@ -9,6 +9,7 @@ type: "docs"
 tags:
     - walkthrough
     - akkatecture
+    - subscriber
     - csharp
     - dotnet
 ---

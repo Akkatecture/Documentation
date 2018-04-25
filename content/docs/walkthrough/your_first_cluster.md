@@ -1,6 +1,6 @@
 ---
-title: "Your First Aggregate Saga"
-lesson: 7
+title: "Your First Cluster"
+lesson: 10
 chapter: 3
 cover: "https://unsplash.it/400/300/?random?BoldMage"
 date: "01/07/2018"
@@ -9,7 +9,9 @@ type: "docs"
 tags:
     - walkthrough
     - akkatecture
-    - saga
+    - cluster
     - csharp
     - dotnet
+    - cluster
 ---
+TBD

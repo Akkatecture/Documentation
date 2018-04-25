@@ -80,7 +80,7 @@ public class PingState : AggregateState<PingAggregate, PingAggregate>,
 > Note the above example of aggregate event application could be improved because it is not idempotent. Desgining your apply methods with idempotency in mind, will make for a resilient aggregate state. Here is an example of a more "idempotent" apply method:
 
 ```csharp
-//Lets try to make
+//Idempotent-y state
 public class PingState : AggregateState<PingAggregate, PingAggregateId>,
     IApply<PingEvent>
 {
@@ -164,20 +164,23 @@ To add your own `IMetadata` to your DomainEvent ontop of the Akkatecture default
 
 
 ```csharp
-public void Ping(string pingData)
+public void Ping(PingCommand command)
 {
     //Within aggregate root command handler
     //Fancy domain logic here that validates against aggregate state...
 
     var metadata = Metadata.Empty;
-    var dataDictionary = new Dictionary<string,string>();
-    dataDictionary.Add("Environment","Staging");
-    dataDictionary.Add("Build","1.43.982");
+    var data = new Dictionary<string,string> 
+    {
+        {"environment","staging"},
+        {"app_version","1.0.3"}
+    };
+
     metadata = metadata.With(data);
 
-    Emit(new PingEvent(data), metadata);
+    Emit(new PingEvent(command.Data), metadata);
 }
 
 ```
 
-> You can add things like operation identifiers, build numbers, environment names, deployment regions, performance data, and other things to this metadata container it is really up to you.
+> You can add things like operation identifiers, build numbers, environment names, deployment regions, performance data, and other things to this metadata container, it is really up to you. The quicker you collect telemetry the better.

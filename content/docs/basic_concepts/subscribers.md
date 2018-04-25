@@ -15,6 +15,7 @@ tags:
 Subscribers in Akkatecture come in the form of `DomainEventSubscriber<,,>`. This allows you to have actors within the actor system listening to domain events that get published from aggregate roots.
 
 ```csharp
+//subscriber counts how many games have ended
 public class GamesEndedSubscriber : DomainEventSubscriber<GameAggregate,GameAggregateId,AggregateEvent<GameAggregate, GameAggregateId>>,
     ISubscribeTo<GameAggregate,GameAggregateId,GameEndedEvent>
 {

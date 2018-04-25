@@ -9,10 +9,11 @@ type: "docs"
 tags:
     - walkthrough
     - akkatecture
+    - aggregate
     - csharp
     - dotnet
 ---
-On analysis of the business requirements, it is apparent that the main aggregate entity that exists under the `Bank` domain is a `BankAccount`. The bank account aggregate needs the ability to be `Created` and to `Deposit Money` to other `BankAccounts`. Lets call our aggregate responsible for holding bank account state the `AccountAggregate`.
+On analysis of the business requirements, it is apparent that the main aggregate entity that exists under the `Bank` domain is a `BankAccount`. The bank account aggregate needs the ability to be `Created` and to `Send Money` to other `BankAccounts`. Inversely, `BankAccount`'s need to also `Receive Money`. Lets call our aggregate responsible for holding bank account state the `AccountAggregate`.
 
 ## The Account Aggregate
 
@@ -23,8 +24,8 @@ public class AccountId : Identity<AccountId>
 {
     public AccountId(string value)
         : base(value)
-        {
-        }
+    {
+    }
 }
 ```
 
@@ -47,6 +48,9 @@ public class Money : SingleValueObject<decimal>
     {
         if(value < 0) throw new ArgumentException(nameof(value));
     }
+
+    //overload the + and - operators to support the 
+    //addition and subtraction of money
 }
 ```
 
@@ -62,6 +66,15 @@ public class Account : AggregateRoot<Account, AccountId, AccountState>
     {
 
     }
+}
+```
+
+And finally we need to make our aggregate root manager that will be responsible for supervising and creating the aggregate roots.
+
+```csharp
+public class AccountManager : AggregateRootManager<Account,AccountId,Command<Account,AccountId>,AccountState> 
+{
+
 }
 ```
 
