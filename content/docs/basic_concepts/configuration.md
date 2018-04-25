@@ -12,7 +12,7 @@ tags:
     - csharp
     - dotnet
 ---
-Akkatecture does not have any of its own configuration points as of yet. Akkatecture will use the same configuration methodology as akka using [hocon](http://getakka.net/articles/concepts/configuration.html).
+Akkatecture does not have any of its own configuration points as of yet. Akkatecture will use the same configuration hooks as akka.net, using [hocon](http://getakka.net/articles/concepts/configuration.html).
 
 To ensure that your actors have a high degree of ownership, try and limit the amount of managed resources that you pass into an actor. 
 
