@@ -59,7 +59,7 @@ public bool Execute(OpenNewAccountCommand command)
 }
 ```
 
-> We return true from the execute method, to let akka know that we did not handle the command.
+> We return true from the execute method, to let akka know that we handled the command successfully.
 
 To be able to send money the business requirements specified *The transaction fee for a successful money deposit is €0.25. The minimum amount of money allowed to transfer is €1.00. Which means that the minimum amount of money allowed to exit a bank account is €1.25*. 
 

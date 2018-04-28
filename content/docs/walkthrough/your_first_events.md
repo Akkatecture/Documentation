@@ -19,7 +19,7 @@ What are some facts that happen in our system:
 * Bank account can be opened.
 * Money can be sent to a bank account.
 * Bank fees for sent money can be deducted from bank account.
-* Monkey can be received by a bank account.
+* Money can be received by a bank account.
 
 Lets model these events accordingly.
 
