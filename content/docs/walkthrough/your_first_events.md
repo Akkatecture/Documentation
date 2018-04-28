@@ -13,7 +13,7 @@ tags:
     - csharp
     - dotnet
 ---
-We now need to design the aggregate events that will alert the system that something has happened. Some events that occur in this system according to the [business requirements](/docs/walkthrough-introduction#business-requirements)
+We now need to design the aggregate events that will alert the system that something has happened. Some events that occur in this system according to the [business requirements](/docs/walkthrough-introduction#business-requirements).
 
 What are some facts that happen in our system:
 * Bank account can be opened.

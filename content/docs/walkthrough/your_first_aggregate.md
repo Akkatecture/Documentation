@@ -72,7 +72,7 @@ public class Account : AggregateRoot<Account, AccountId, AccountState>
 And finally we need to make our aggregate root manager that will be responsible for supervising and creating the aggregate roots.
 
 ```csharp
-public class AccountManager : AggregateRootManager<Account,AccountId,Command<Account,AccountId>,AccountState> 
+public class AccountManager : AggregateRootManager<Account,AccountId,Command<Account,AccountId>> 
 {
 
 }
