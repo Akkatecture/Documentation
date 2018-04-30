@@ -25,18 +25,15 @@ class Index extends React.Component {
           </span>
           <BodyContainer>
             <BodyContents>
-              <h2>Akkatecture is a software architecture framework.</h2>
-              <p>Since our computation models are becoming more and more distributed, modelling your business domain with distribution in mind becomes a necessity.</p>
-              <p>Akkatecture is built ontop of akka.net, and inspired by EventFlow. Akkatecture aims to make your business modelling easy, by using the actor model you can be sure that your application is:</p>
+              <h2>Akkatecture is a cqrs and event sourcing framework for dotnet core.</h2>
+              <p>Akkatecture is an open source framework for building reactive microservice systems in dotnet core. As it is is built ontop of akka.net, Akkatecture aims to make your business modelling un-complicated, by using the actor model you can be sure that your application is:</p>
               <BenefitsList>
                 <li><b>distributed.</b></li>
                 <li><b>message based.</b></li>
                 <li><b>event sourced.</b></li>
                 <li><b>scaleable.</b></li>
               </BenefitsList>
-              <p>Akkatecture treats event sourcing, and the axioms of the actor model as a primary fundamental concept. 
-              </p>
-              <p>As a result of being built ontop of akka.net, Akkatecture too enjoys great levels of extensibility and configurability for you to make a resilient, distributed application.</p>
+              <p>Akkatecture treats event sourcing, and the axioms of the actor model as a primary fundamental concept. As a result of being built ontop of akka.net, Akkatecture too enjoys great levels of extensibility and configurability for you to make a resilient, distributed application.</p>
             </BodyContents>
           </BodyContainer>
          { /*<BodyContainerInverted>

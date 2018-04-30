@@ -14,7 +14,7 @@ tags:
 ---
 Akkatecture comes with an implementation of the specification pattern which could be used to e.g. make complex business rules easier to read and test.
 
-To use the specification implementation shipped with EventFlow, simply create a class that inherits from `Specification<>`.
+To use the specification implementation shipped with Akkatecture, simply create a class that inherits from `Specification<>`.
 
 ```csharp
 public class IsEvenNumberSpecification : Specification<int>
@@ -23,7 +23,7 @@ public class IsEvenNumberSpecification : Specification<int>
     {
         if (i % 2 == 0)
         {
-            yield return string.Format("{0} is not an even number", i);
+            yield return $"{i} is not an even number";
         }
     }
 }
@@ -42,7 +42,7 @@ public interface ISpecification<in T>
 }
 ```
 
-As specifications really become powerful when they are combined, Akkatecture also comes with a series of extension methods for the `ISpecification<>` interface that allows easy combination of implemented specifications.
+As specifications really become powerful when they are combined, Akkatecture also comes with a series of extension methods for the `ISpecification<>` interface that allows easy combination and composition of implemented specifications.
 
 ```csharp
 // Builds a new specification that requires all input specifications to be

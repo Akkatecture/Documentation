@@ -7,9 +7,9 @@ type: "post"
 tags: []    
 ---
 
-Akkatecture began because I found the lack of good domain driven design examples for akka.net quite alarming. There are a few examples out there if you look hard enough but they fail in one or two aspects that I find really important. I suspect that most akka users are the ones on the JVM side of the fence, which shows by the higher amount of community members in that open source project. Ok, onwards to Akkatecture, and why I decided to build it. I really like the APIs that ReceiveActors and ReceivePersistentActors expose as opposed to their base variants. I find the APIs to be far more cleaner and geared towards a better functional programming paradigm, which can lead to code that is more readable, testable, and maintainable. Although nothing is perfect. Akkatecture tries to make your domain semi-declarative and at least highly readable and maintainable. I also found myself doing 'pattern-y' things when designing my domains. So instead why not make a generic host of libraries that wrap around akka.net, to make my life easier?
+Akkatecture began because I found the lack of good domain driven design examples for akka.net as a huge oppertunity to help others. I suspect that most akka users, are the ones on the JVM side of the fence, which shows by the higher amount of community members in that open source project. Ok... onwards to Akkatecture, and why I decided to build it. I really like the APIs that ReceiveActors and ReceivePersistentActors expose as opposed to their base variants. I find the APIs to be far more cleaner and geared towards a better functional programming paradigm, which can lead to code that is more readable, testable, and maintainable. Although nothing is perfect. Akkatecture tries to make your domain semi-declarative and at least highly readable and maintainable.
 
-Akkatecture is set of constructs and patterns written in C# ontop of akka.net. The main goal of Akkatecture is to allow developers who are using akka.net to model their business domain within the akka.net framework easily. Akkatecture is built on messaging & event based mode of operation, making it highly reactive and scalable, thanks akka.net! Akkatecture focusses on messaging and domain driven design integration patterns between domain entities within an akka actor system to make developing distributed domain driven design applications easier.
+Akkatecture is set of constructs and patterns written in C# ontop of akka.net. The main goal of Akkatecture is to allow developers who are using akka.net to model their business domain within the akka.net framework easily. Akkatecture is built on reactive messaging & treats events as first class constructs, making it highly reactive and scalable, thanks akka.net! Akkatecture focusses mainly on messaging integration patterns between domain entities so you dont have to.
 
 Akkatecture uses the actor model as the universal primitive of concurrent computation. This means that aggregates, sagas, jobs, and other domain concepts are modelled within the actor model. Invoking or interacting with the domain is done by having these actors either react through commands (sent from outside of the aggregate boundary), or through domain events, emitted from within the domain boundary, both of which are fundamentally messages. A strong case can be made for using the actor system as a basis for designing your distributed domain, because actors in actor systems embody 3 things fundamentally:
 
@@ -31,9 +31,7 @@ Akkatecture is still currently in development, however most of the basic buildin
 
 The next plan is to work on the current core library and branch it out to support:
 
-* clustered deployment scenarios.
-* configuration strategy.
-* typed actor references(opt in?)*.
+* typed actor references*.
 * event upgrading.
 
 **nice-to-have features, not crucial and might be axed for first version*

@@ -18,11 +18,11 @@ The basic core primitives of akkatecture are:
 - [Identities](#identities)
 - [Entities](#entities)
 
-A Value Object is an immutable type that is distinguishable only by the state of its properties. That is, unlike an Entity, which has a unique identifier and remains distinct even if its properties are otherwise identical, two Value Objects with the exact same properties can be considered equal. Two entities with the same identity are considered equal. Akkatecture uses these primitives all over the project and you are highly encouraged to use them as well so that your domain design is highly expressive.
+A `valueObject` is an immutable type that is distinguishable only by the state of its properties. That is, unlike an `Entity`, which has a unique identifier and remains distinct even if its properties are otherwise identical, two `ValueObject`s with the exact same properties can be considered equal. Two entities with the same identity are considered equal. Akkatecture uses these primitives all over the project and you are highly encouraged to use them as well so that your domain design is highly expressive.
 
 # Value Objects
 
-The `SingleValueObject<>` generic primitive provides you with the necessary class overrides you need to have, so that they can be compared on the basis of their collective state. If all of their component properties are equal to one another, then two Value Objects can be said to be equal. It works by scanning for the value objects public members and comparing the members from value object to value object. Feel free to derive from this class:
+The `SingleValueObject<>` generic primitive provides you with the necessary class overrides you need to have, so that they can be compared on the basis of their collective state. If all of their component properties are equal to one another, then two `ValueObject`s can be said to be equal. Feel free to derive from this class:
 
 ```csharp
 public class AccountNumber : SingleValueObject<string>
@@ -72,30 +72,32 @@ public class AccountId : Identity<AccountId>
 Here's some examples on we can use our newly created `AccountId`
 
 ```csharp
-    // Uses the default Guid.NewGuid()
-    var accountId = AccountId.New
+// Uses the default Guid.NewGuid()
+var accountId = AccountId.New
 ```
 
 ```csharp
-    // Create a namespace, put this in a constant somewhere
-    var emailNamespace = Guid.Parse("769077C6-F84D-46E3-AD2E-828A576AAAF3");
+// Create a namespace, put this in a constant somewhere
+var emailNamespace = Guid.Parse("769077C6-F84D-46E3-AD2E-828A576AAAF3");
 
-    // Creates an identity with the value "account-9181a444-af25-567e-a866-c263b6f6119a",
-    // useful to use when you want to create Id's
-    // deterministically from other real world "identifiers",
-    // especially in distributed situations
-    var accountId = AccountId.NewDeterministic(emailNamespace, "test@example.com");
+// Creates an identity with the value "account-9181a444-af25-567e-a866-c263b6f6119a",
+// useful to use when you want to create Id's
+// deterministically from other real world "identifiers",
+// especially in distributed situations
+var accountId = AccountId.NewDeterministic(emailNamespace, "test@example.com");
 ```
 
 ```csharp
-    // Creates a new identity every time, but an identity when used in e.g.
-    // database indexes, minimizes fragmentation
-    var accountId = AccountId.NewComb()
+// Creates a new identity every time, but an identity when used in e.g.
+// database indexes, minimizes fragmentation
+var accountId = AccountId.NewComb()
 ```
+
+> You are not forced to use the `Identity<>` implementation from Akkatecture. If you make your own Identity that implements `IIdentity` then it can still plug into all of the Akkatecture constructs as variants.
 
 # Entities
 
-An Entity is an object that has some intrinsic identity, apart from the rest of its state. Even if its properties are the same as another instance of the same type, it remains distinct because of its unique identity. The `Entity<>` In Akkatecture is itself a Value Object however it implements the `IEntity<Identity>` interface, which requires it to have a member called `Identity Id`. Now you can see the relationship between `Entity<>`, `SingleValueObject<>`, and `Identity<>`. A sample Entity running onwards from the Account example above, could be:
+An `Entity` is an object that has some intrinsic identity, apart from the rest of its state. Even if its properties are the same as another instance of the same type, it remains distinct because of its unique identity. The `Entity<>` In Akkatecture is itself a `ValueObject` however it implements the `IEntity<Identity>` interface, which requires it to have a member called `Identity Id`. Now you can see the relationship between `Entity<>`, `SingleValueObject<>`, and `Identity<>`. A sample `Entity` running onwards from the Account example above, could be:
 
 ```csharp
 public class Account : Entity<AccountId>

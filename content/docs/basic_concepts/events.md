@@ -13,7 +13,7 @@ tags:
     - dotnet
 ---
 
-In an event source system like Akkatecture, aggregate root data is stored stored in events. These events are replayed upon aggregate root instantiation in order to get its state back to where it was before. Aggregate events are also published via akka.net's [event stream](http://getakka.net/api/Akka.Event.EventStream.html).
+In an event sourced system like Akkatecture, aggregate root data is stored in events, and those events are persisted to be replayed when the aggregate root is re-instantiated across system restarts (re-deployments). Aggregate events are also published via akka.net's [event stream](http://getakka.net/api/Akka.Event.EventStream.html).
 
 ```csharp
 public class PingEvent : AggregateEvent<PingAggregate, PingAggregateId>
@@ -29,11 +29,11 @@ public class PingEvent : AggregateEvent<PingAggregate, PingAggregateId>
 }
 ```
 
-> Please make sure to read the section on [event tips and tricks](/docs/tips-and-tricks#events) for some additional notes on events.
+> Please make sure to read the section on [event tips and tricks](/docs/tips-and-tricks#events) for some additional notes on events, and how to design them.
 
 ## Emitting Events
 
-In order to emit an event from an aggregate, call the `protected` `Emit(...)` method which applies the event to the aggregate state and commits the event to its event source.
+In order to emit an event from an aggregate, call the `protected` `Emit(...)` method which applies the event to the aggregate state and commits the event to the event store. In akka.net terms it calls the `PersistentActor.Persist(...)` method. Below is an example of how it works.
 
 ```csharp
 public bool Execute(PingCommand command)
@@ -53,7 +53,7 @@ public bool Execute(PingCommand command)
 }
 
 ```
-> In akkatecture, the act of emitting an event both applies the event to aggregate state, and publishes the event as a `IDomainEvent` to the akka.net event stream. Please continue reading about [published](/docs/events#published-events) to understand how aggregate events look like when they get published outside of the aggregate boundary.
+> In akkatecture, the act of emitting an event both applies the event to aggregate state, and publishes the event as a `IDomainEvent` to the akka.net event stream. Please continue reading about [published events](/docs/events#published-events) to understand how aggregate events look like when they get published outside of the aggregate boundary.
 
 ## Applying Events
 
@@ -77,7 +77,7 @@ public class PingState : AggregateState<PingAggregate, PingAggregate>,
 }
 ```
 
-> Note the above example of aggregate event application could be improved because it is not idempotent. Desgining your apply methods with idempotency in mind, will make for a resilient aggregate state. Here is an example of a more "idempotent" apply method:
+> Note the above example of aggregate event application could be improved because it is not idempotent. Designing your apply methods with idempotency in mind, will make for a resilient aggregate state. Here is an example of a more "idempotent" apply method:
 
 ```csharp
 //Idempotent-y state
@@ -103,7 +103,7 @@ public class PingState : AggregateState<PingAggregate, PingAggregateId>,
 
 ## Replaying Events
 
-In Akkatecture, the default behaviour for the aggregate roots is to apply the event back to the aggregate state on event replay. Akkatecture has a default `Recover(...)` method on the base `AggregateRoot<,,,>` class that you can use do event recovery. All you need to do is tell akka how to apply the persisted event. Do do this, register your recovery event to akka.net's `Recover<>` registry. This is what a typical example will look like.
+In Akkatecture, the default behaviour for the aggregate roots is to apply the event back to the aggregate state on event replay. Akkatecture has a default `Recover(...)` method on the base `AggregateRoot<,,>` class that you can use do event recovery. All you need to do is tell akka how to apply the persisted event. Do do this, register your recovery event to akka.net's `Recover<>` registry. This is what a typical example will look like.
 
 ```csharp
 public class UserAccountAggregate : AggregateRoot<UserAccountAggregate,UserAccountId,UserAccountState>
@@ -129,8 +129,10 @@ It is imperative that you make sure to register all of your events for this aggr
 ## Published Events
 If you have noticed, Akkatecture uses the aggregate events as a means for aggregates to maintain consistency within that particular aggregates boundaries. For any particular instance of an aggregate root, its local state is always consistent from that local perspective. When you publish an event, the aggregate is letting the rest of your domain know that something has happened. This event will get picked up by any parties interested in that particular event.
 
+> CAP theory comes into play as soon as you publish an event. The "world view" of your other domain entities will be in-consistent with the world view of your aggregates at the time of event publishing. Keep this in mind when desining your system. The best you can hope for is an eventually consistent system within the Akkatecture framework.
+
 ### Domain Events
-Domain events are aggregate events that have been published. In Akkatecture a domain event looks as follows
+Domain events are aggregate events that have been published. In Akkatecture a domain event looks as follows:
 
 ```csharp
 public interface IDomainEvent
@@ -158,7 +160,7 @@ The most important thing to note here is that the `AggregateSequenceNumber` is t
 
 ### Event Metadata
 
-The `IMetadata` of the domain event essentially a dictionary of keys of values of any and all metadata related to that domain event. You can add anything to this container to be used as a 'bag of tricks' for your domain. You can add things like telemetry data to this IMetadata container. The container should be seen as a mechanism to allow you to better enrich the domain event apart from the actual data contained in the `IAggregateEvent`.
+The `IMetadata` of the domain event, is essentially a dictionary of keys and values of any metadata related to that domain event. You can add anything to this container to be used as a 'bag of tricks' for your domain. You can add things like telemetry data to this IMetadata container. The container should be seen as a mechanism to allow you to better enrich the domain event, apart from the actual data contained in the `IAggregateEvent`. The aggregate event should be pure to your domain, but you can add additional information to it via the metadata container.
 
 To add your own `IMetadata` to your DomainEvent ontop of the Akkatecture defaults, use the `Emit(aggregateEvent, metadata)` method when doing an event emit from withing your aggregate root. 
 

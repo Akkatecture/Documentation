@@ -17,13 +17,11 @@ tags:
 
 ### Welcome to Akkatecture
 
-Using Akkatecture is as easy as installing any other NuGet package in your .net core application. All you need to do is
-
+Using Akkatecture is as easy as installing any other NuGet package in your .net core application. All you need to do is the following:
 ```csharp
 //Add the Akkatecture package to a project named MyFirstActorProject.
 Install-Package Akkatecture -ProjectName MyFirstActorProject
 ```
-
 Once youve done that you can start designing your domain that can allow you to do something like what is shown below.
 
 ```csharp
@@ -44,4 +42,4 @@ aggregateManager.Tell(createUserAccountCommand);
 > This example is part of the Akkatecture simple example project, so checkout [the
 code](https://github.com/Lutando/Akkatecture/blob/master/examples/simple/Akkatecture.Examples.UserAccount.Application/Program.cs#L13) and give it a run.
 
-Be sure to go through our [basic concepts](/docs/primitives) and [walkthrough](/docs/walkthrough-introduction). 
+Be sure to go through our [basic concepts](/docs/primitives) and [walkthrough](/docs/walkthrough-introduction). If you have any suggestions or edits for Akkatecture's documentation, please visit the [documentation repository](https://github.com/Akkatecture/Documentation) and submit us a pull request 😊.

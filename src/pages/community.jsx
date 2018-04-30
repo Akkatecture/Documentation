@@ -32,7 +32,7 @@ class AboutPage extends React.Component {
           <BodyContainer>
             <h1>Community</h1>
             <p>Akkatecture is developed in the open. Development activities are hosted on <a href='https://github.com/Lutando/Akkatecture'>github</a>. </p>
-            <p> If you have any questions, or just want to say lurk, please visit the discord below: </p>
+            <p>If you have any questions, or just want to say lurk, please visit the discord below: </p>
             <iframe src="https://discordapp.com/widget?id=440517592545755137&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
           </BodyContainer>
         </main>
