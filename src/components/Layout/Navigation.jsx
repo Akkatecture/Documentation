@@ -162,6 +162,7 @@ class Navigation extends React.Component {
           </Search>} 
           <div><Link className='nav-link' to='/docs/getting-started' > DOCS </Link></div>
           <div><Link className='nav-link' to='/blog' > BLOG </Link></div>
+          <div><Link className='nav-link' to='/community' > COMMUNITY </Link></div>
           <div><a className='nav-link' href='https://github.com/Lutando/Akkatecture'> GITHUB </a></div>
         </NavLinks>
       </NavContainer>

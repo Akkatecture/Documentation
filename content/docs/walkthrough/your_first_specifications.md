@@ -13,13 +13,13 @@ tags:
     - csharp
     - dotnet
 ---
-Before we dive into how to construct aggregate sagas in Akkatecture, we are missing some crucial bits. We have laid out some fundamental building blocks, but have not put them all together. Lets do that quickly.
+Before we dive into how to construct aggregate sagas in Akkatecture, we are missing some crucial bits. We have laid out some fundamental building blocks, but have not put them all together. Let's do that quickly.
 
 ### Putting It All Together
 
-We need to tell our aggregate how to handle commands, and how to handle events being recovered from its event store.
+We need to tell our aggregate how to handle commands.
 
-Use the `Command<T>(Func<T,bool> handler)` to register your
+Use the `Command<T>(Func<T,bool> handler)` to register your command handlers
 
 ```csharp
 public class Account : AggregateRoot<Account, AccountId, AccountState>
@@ -32,18 +32,11 @@ public class Account : AggregateRoot<Account, AccountId, AccountState>
         Command<TransferMoneyCommand>(Execute);
         Command<ReceiveMoneyCommand>(Execute);
         
-        //register event recovery applyers
-        //Recover(...) uses the default apply
-        //behaviour
-        Recover<BankAccountOpenedEvent>(Recover);
-        Recover<MoneySentEvent>(Recover);
-        Recover<FeesDeductedEvent>(Recover);
-        Recover<MoneyReceivedEvent  >(Recover);
     }
 }
 ```
 
-Lets do our Command Handlers
+Lets implement the Command Handlers
 ```csharp
 public bool Execute(OpenNewAccountCommand command)
 {
@@ -61,14 +54,14 @@ public bool Execute(OpenNewAccountCommand command)
 
 > We return true from the execute method, to let akka know that we handled the command successfully.
 
-To be able to send money the business requirements specified *The transaction fee for a successful money deposit is €0.25. The minimum amount of money allowed to transfer is €1.00. Which means that the minimum amount of money allowed to exit a bank account is €1.25*. 
+To be able to send money the business requirements specified that; *The transaction fee for a successful money deposit is €0.25. The minimum amount of money allowed to transfer is €1.00. Which means that the minimum amount of money allowed to exit a bank account is €1.25*. 
 
 ```csharp
 public class MinimumTransferAmountSpecification : Specification<Account> 
 {
     protected override IEnumerable<string> IsNotSatisfiedBecause(Account obj)
     {
-        if (obj.State.Balance.Value < 1.00)
+        if (obj.State.Balance.Value < 1.00m)
         {
             yield return $"'{obj.State.Balance.Value}' is lower than 1.25 '{obj.GetIdentity()}' is not new";
         }
@@ -122,4 +115,4 @@ public bool Execute(ReceiveMoneyCommand command)
 
 ### Summary
 
-We codified our business specifications (rules) into models that derive from `Specification<>`. This allows us to have testable specifications that live in one place. We used the specifications to guard our domains against rule breaking commands & intents. We even used an `AndSpecification<>` to compose our specifications. you can build your own compisions as well. Do not over use your specifications, it is not a silver bullet, and be aware of the [criticisms](https://en.wikipedia.org/wiki/Specification_pattern#Criticisms) of specifications, also be wary of using them outside of your domain layer. Reducing duplication also increases coupling.
+We codified our business specifications (rules) into models that derive from `Specification<>`. This allows us to have testable specifications that live in one place. We used the specifications to guard our domains against rule breaking commands & intents. We even used an `AndSpecification<>` to compose our specifications. you can build your own compositions as well using [these](https://github.com/Lutando/Akkatecture/tree/master/src/Akkatecture/Specifications/Provided). Do not over use your specifications, it is not a silver bullet, and be aware of the [criticisms](https://en.wikipedia.org/wiki/Specification_pattern#Criticisms) of specifications, finally, one should also be wary of using them outside of your domain layer. Reducing duplication also increases coupling.

@@ -77,7 +77,7 @@ public class ReceiveMoneyCommand : Command<Account,AccountId>
 }
 ```
 
-> Typically when designing your domains, you would start with the events first. Instead of modelling how external interact with the system, you would start with desgining our your system interacts with itself through a process called [event storming](https://en.wikipedia.org/wiki/Event_storming).
+> Typically when designing a business domain, one would start with the events first. Instead of modelling how external actors interact with the system, one should start with desgining how the system interacts with itself through a process called [event storming](https://en.wikipedia.org/wiki/Event_storming).
 
 
 Now we can make some events for the business domain. Events are the funamendamental building blocks of event sourced systems. Go on ahead next to create [your first events](/docs/your-first-events).

@@ -13,7 +13,7 @@ tags:
     - csharp
     - dotnet
 ---
-Lets design a domain using Akkatecture. The walkthrough is designed to get you familiar with Akkatecture, akka.net, cqrs and event sourcing, and a few patterns that come with that. The walkthrough is in 'tutorial' style and requires your attention in order to get the most of it. The walkthrough will cover most of what akkatecture has to offer. 
+Let's design a domain using Akkatecture. The walkthrough is designed to get you familiar with Akkatecture, akka.net, cqrs and event sourcing, and a few patterns that come with that. The walkthrough is in 'tutorial' style and requires your attention in order to get the most of it. The walkthrough will cover most of what akkatecture has to offer. 
 
 Pre-requisites - *some* knowledge of akka, cqrs and event sourcing is required to fully get the most out of the walkthrough.
 

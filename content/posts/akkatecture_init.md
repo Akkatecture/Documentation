@@ -24,22 +24,17 @@ Akka based systems have been used to drive hugely scalable and highly available 
 
 Please have a look at our documentation, go through the basic concepts, and the walkthroughs to get a good understanding of what akkatecture looks like. Akkatecture is intended for developers who understand cqrs / event sourcing. Knowledge of akka.net will give you more knowledge on how to extend Akkatecture through akka's highly extensible configuration. In my opinion its highly required to be comfortable with these things in order to use Akkatecture effectively
 
-Please [Tweet at me](https://twitter.com/LutandoNgqakaza) or [file GitHub issues](https://github.com/Lutando/Akkatecture/issues) for any questions or support-y stuff 👋.
+Please find me on [Discord](/community) or [file GitHub issues](https://github.com/Lutando/Akkatecture/issues) for any questions, guidance, or support-y stuff 👋.
 
 ### Status of Akkatecture
 Akkatecture is still currently in development, however most of the basic building blocks have been built out, but as of yet no v1 to speak of on NuGet.
 
 The next plan is to work on the current core library and branch it out to support:
 
-* clustered deployment scenarios. 
-* jobs.
-* read models*.
-* query abstractions*.
+* clustered deployment scenarios.
 * configuration strategy.
 * typed actor references(opt in?)*.
-* event upgrading
-* hypermedia api extensions*.
-* event source behaviour for committing events.
+* event upgrading.
 
 **nice-to-have features, not crucial and might be axed for first version*
 
