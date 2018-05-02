@@ -16,12 +16,12 @@ Subscribers in Akkatecture come in the form of `DomainEventSubscriber<,,>`. This
 
 ```csharp
 //subscriber counts how many games have ended
-public class GamesEndedSubscriber : DomainEventSubscriber<GameAggregate,GameAggregateId,AggregateEvent<GameAggregate, GameAggregateId>>,
-    ISubscribeTo<GameAggregate,GameAggregateId,GameEndedEvent>
+public class GamesEndedSubscriber : DomainEventSubscriber<GameAggregate, GameAggregateId, AggregateEvent<GameAggregate, GameAggregateId>>,
+    ISubscribeTo<GameAggregate, GameAggregateId, GameEndedEvent>
 {
     public int Count { get; set;} = 0;
         
-    public Task Handle(IDomainEvent<GameAggregate,GameAggregateId,GameEndedEvent> domainEvent)
+    public Task Handle(IDomainEvent<GameAggregate, GameAggregateId, GameEndedEvent> domainEvent)
     {
         Count++;
         Logger.Info($"{Count} Games ended so far.");

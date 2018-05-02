@@ -18,7 +18,7 @@ In Akkatecuture `AggregateSaga<,,>`'s are usefuly for coordinating message passi
 Since we are making a saga incharge of coordinating money transfer, lets call it the `MoneyTransferSaga`.
 
 ```csharp
-public class MoneyTransferSaga : AggregateSaga<MoneyTransferSaga,MoneyTransferSagaId,MoneyTransferSagaState> 
+public class MoneyTransferSaga : AggregateSaga<MoneyTransferSaga, MoneyTransferSagaId, MoneyTransferSagaState> 
     ISagaIsStartedBy<Account, AccountId, MoneySentEvent>,
     ISagaHandles<Account, AccountId, FeesDeductedEvent>
 {

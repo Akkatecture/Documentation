@@ -44,7 +44,7 @@ public bool Execute(OpenNewAccountCommand command)
     var spec = new AggregateIsNewSpecification();
     if(spec.IsSatisfiedBy(this))
     {
-        var aggregateEvent = new BankAccountOpened(command.OpeningBalance)
+        var aggregateEvent = new AccountOpenedEvent(command.OpeningBalance)
         Emit(aggregateEvent);
     }
 
@@ -85,11 +85,11 @@ Now we can do our command handler for the `TransferMoneyCommand`.
 public bool Execute(TransferMoneyCommand command)
 {
     var balanceSpec = new EnoughBalanceAmountSpecification();
-    var minimumTransferSpec = new MinimumTransferSpecification();
-    var andSpec = new AndSpecification(balanceSpec,minimumTransferSpec);
+    var minimumTransferSpec = new MinimumTransferAmountSpecification();
+    var andSpec = balanceSpec.And(minimumTransferSpec);
     if(andSpec.IsSatisfiedBy(this))
     {
-        var sentEvent = new MoneySentEvent(command.DestinationId, command.Amount)
+        var sentEvent = new MoneySentEvent(command.ReceiverId, command.Amount)
         Emit(sentEvent);
 
         var feeEvent = new FeesDeductedEvent(new Money(0.25m));
@@ -106,7 +106,7 @@ And finally we need to handle the receiving of money from `ReceiveMoneyCommand`.
 ```csharp
 public bool Execute(ReceiveMoneyCommand command)
 {
-    var moneyReceived = new MoneyReceivedEvent(command.Amount)
+    var moneyReceived = new MoneyReceivedEvent(command.SenderId,command.Amount);
 
     Emit(moneyReceived);
     return true;

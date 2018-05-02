@@ -25,12 +25,12 @@ Lets model these events accordingly.
 
 The event that represents a bank account being opened
 ```csharp
-public class BankAccountOpenedEvent : AggregateEvent<Account,AccountId> 
+public class AccountOpenedEvent : AggregateEvent<Account,AccountId> 
 {
-    public Money OpeningBalance { get; set; }
-    public BankAccountOpenedEvent(Money openingBalance)
+    public Money OpeningBalance { get; }
+    public AccountOpenedEvent(Money openingBalance)
     {
-        OpeningBalance = OpeningBalance
+        OpeningBalance = openingBalance;
     }
 }
 
@@ -40,12 +40,12 @@ The event that represents a bank account having sent money
 ```csharp
 public class MoneySentEvent : AggregateEvent<Account,AccountId> 
 {
-    public Money Amount { get; set; }
-    public AccountId DestinationId { get; set; }
-    public BankAccountOpenedEvent(AccountId destinationId, Money amount)
+    public Money Amount { get; }
+    public AccountId ReceiverId { get; }
+    public MoneySentEvent(AccountId receiverId, Money amount)
     {
         Amount = amount;
-        DestinationId = destinationId;
+        ReceiverId = receiverId;
     }
 }
 
@@ -55,7 +55,7 @@ The event that represents a bank account deducting bank fees
 ```csharp
 public class FeesDeductedEvent : AggregateEvent<Account,AccountId> 
 {
-    public Money Amount { get; set; }
+    public Money Amount { get; }
     public FeesDeductedEvent(Money amount)
     {
         Amount = amount;
@@ -67,12 +67,12 @@ The event that represents a bank account receiving money
 ```csharp
 public class MoneyReceivedEvent : AggregateEvent<Account,AccountId> 
 {
-    public Money Amount { get; set; }
-    public AccountId SenderId { get; set; }
-    public BankAccountOpenedEvent(AccountId SenderId, Money amount)
+    public Money Amount { get; }
+    public AccountId SenderId { get; }
+    public MoneyReceivedEvent(AccountId senderId, Money amount)
     {
         Amount = amount;
-        SenderId = SenderId;
+        SenderId = senderId;
     }
 }
 
@@ -83,15 +83,15 @@ We need to add each aggregate event applier method to the [aggregate state](/doc
 `AccountState` becomes:
 
 ```csharp
-public class AccountState : AggregateState<Account, AccountId>
-    IApply<BankAccountOpenedEvent>,
+public class AccountState : AggregateState<Account, AccountId>,
+    IApply<AccountOpenedEvent>,
     IApply<MoneySentEvent>,
     IApply<FeesDeductedEvent>,
     IApply<MoneyReceivedEvent>
 {
-    public Money Balance { get; set; }
+    public Money Balance { get; }
 
-    public void Apply(BankAccountOpenedEvent aggregateEvent) 
+    public void Apply(AccountOpenedEvent aggregateEvent) 
     {
         Balance = aggregateEvent.OpeningBalance;
     }

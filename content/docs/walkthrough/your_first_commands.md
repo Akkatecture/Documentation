@@ -22,7 +22,7 @@ We could see these as three commands, one for creating the bank account. And ano
 
 ```csharp
 //command for creating the bank account
-public class OpenNewAccountCommand : Command<Account,AccountId> 
+public class OpenNewAccountCommand : Command<Account, AccountId> 
 {
     public Money OpeningBalance { get; }
     public OpenNewAccountCommand(AccountId aggregateId, Money openingBalance)
@@ -39,40 +39,40 @@ And the transfer money command can be made as follows:
 
 ```csharp
 //command for initiating (sending) a money transfer
-public class TransferMoneyCommand : Command<Account,AccountId>
+public class TransferMoneyCommand : Command<Account, AccountId>
 {
-    public AccountId DestinationId { get; }
+    public AccountId ReceiverId { get; }
     public Money Amount { get; }
     public TransferMoneyCommand(
         AccountId aggregateId, 
-        AccountId destinationId,
+        AccountId receiverId,
         Money amount) 
         : base(aggregateId) 
         {
             if(amount == null) throw new ArgumentNullException(nameof(amount));
 
             Amount = amount;
-            DestinationId = destinationId;
+            ReceiverId = receiverId;
         }
 }
 ```
 
 ```csharp
 //command for receiving a money transfer
-public class ReceiveMoneyCommand : Command<Account,AccountId>
+public class ReceiveMoneyCommand : Command<Account, AccountId>
 {
     public AccountId SenderId { get; }
     public Money Amount { get; }
-    public TransferMoneyCommand(
+    public ReceiveMoneyCommand(
         AccountId aggregateId, 
-        AccountId destinationId,
+        AccountId senderId,
         Money amount) 
         : base(aggregateId) 
         {
             if(amount == null) throw new ArgumentNullException(nameof(amount));
 
             Amount = amount;
-            DestinationId = destinationId;
+            SenderId = senderId;
         }
 }
 ```
