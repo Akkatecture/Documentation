@@ -80,7 +80,7 @@ public class EnoughBalanceAmountSpecification : Specification<Account>
 }
 ```
 
-Now we can do our command handler for `TransferMoneyCommand`.
+Now we can do our command handler for the `TransferMoneyCommand`.
 ```csharp
 public bool Execute(TransferMoneyCommand command)
 {
@@ -99,7 +99,7 @@ public bool Execute(TransferMoneyCommand command)
 }
 ```
 
-> We have a command that actually produced two events as the outcome. This is quite normal and a will happen from time to time. One command does not necessarily mean one event. Transfering money reduces the account balance and charges a fee. For auditing purposes this is a good thing to have.
+> We have a command that actually produced two events as the outcome of its sucessful execution. This is quite normal and can happen from time to time. One successful command does not necessarily mean one event being emitted. Transfering money reduces the account balance and charges a fee. For auditing purposes this is a good thing to have.
 
 And finally we need to handle the receiving of money from `ReceiveMoneyCommand`.
 

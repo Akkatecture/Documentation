@@ -12,4 +12,4 @@ tags:
     - csharp
     - dotnet
 ---
-Snapshotting is a future feature and will be documented when it becomes available. 😊
+Snapshotting is a future feature being worked on and will be documented when it becomes available. 😊

@@ -12,5 +12,5 @@ tags:
     - csharp
     - dotnet
 ---
-TBD
+Event upgrading is a future feature being worked on and will be documented when it becomes available. 😊
 
