@@ -19,10 +19,10 @@ tags:
 
 Using Akkatecture is as easy as installing any other NuGet package in your .net core application. All you need to do is the following:
 ```csharp
-//Add the Akkatecture package to a project named MyFirstActorProject.
+//Add the Akkatecture package to your project named MyFirstActorProject.
 Install-Package Akkatecture -ProjectName MyFirstActorProject
 ```
-Once youve done that you can start designing your domain that can allow you to do something like what is shown below.
+Once youve done that you can start designing your domain that can allow you to do something like what is shown below:
 
 ```csharp
 //Create actor system

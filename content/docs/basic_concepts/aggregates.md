@@ -15,8 +15,8 @@ tags:
 
 Initially, before you can create an aggregate, you need to create its corresponding 
 identity and state. You can create your own implementation of `Identity` by implementing the
-`IIdentity` interface or you can use a base class `Identity<>` that
-Akkatecture provides, like this.
+`IIdentity` interface, or you can use a base class `Identity<>` that
+Akkatecture provides, like this:
 
 
 ```csharp
@@ -29,9 +29,9 @@ public class StoreId : Identity<StoreId>
 }
 ```
 
-The `Identity<>` value object provides generic functionality to create and validate aggregate root IDs. Please read the documentation regarding the bundled `Identity<>` type as it provides several useful features, e.g. several different schemes for ID generation, one that minimizes MSSQL database fragmentation.
+The `Identity<>` value object provides generic functionality to create and validate aggregate root identities. Please read the documentation regarding the bundled `Identity<>` type as it provides several useful features, e.g. several different schemes for identity generation, one that minimizes MSSQL database fragmentation.
 
-Additionally to create your aggregate state, which will be used for applying aggregate events to, you can create your own by inheriting from the base `AggregateState<,,>` class like this.
+Additionally, to create your aggregate state, which will be used for applying aggregate events to, you can create your own aggregate state model by inheriting from the base `AggregateState<,,>` class like this:
 
 ```csharp
 public class StoreState : AggregateState<StoreAggregate, StoreId>
@@ -40,7 +40,7 @@ public class StoreState : AggregateState<StoreAggregate, StoreId>
 }
 ```
 
-Next, to create a new aggregate, simply inherit from `AggregateRoot<,,>`, making sure to pass test aggregate own type as the first generic argument and the identity as the second, and the state as the third. Make sure to pass down the aggregate identity to the base class, as this is required.
+Next, to create a new aggregate, simply inherit from `AggregateRoot<,,>`, making sure to pass the aggregate's own type as the first generic argument and the identity as the second, and the state as the third. Make sure to pass down the aggregate identity to the base class, as this is required (no parameterless construction).
 
 ```csharp
 public class StoreAggregate : AggregateRoot<StoreAggregate, StoreId, StoreState>
@@ -67,6 +67,6 @@ public class StoreAggregateManager :
 }
 ```
 
-The aggregate manager works by resolving the addresses of aggregate roots and routes messages to them accordingly. It routes by using `Command<,,>.AggregateId` to locate or create the child aggregate roots. Since we are also in an actor system, the `AggregateManager<,,>` is also responsible for supervising aggregate roots. The aggregate manager is one instance of an implementation of a [one child per entity pattern](https://gigi.nullneuron.net/gigilabs/child-per-entity-pattern-in-akka-net/). There is another example of this pattern being applied in Akkatecture's `Akkatecture.Cluster` package which does the same thing for aggregates and [sagas](/docs/sagas) in a clustered environment.
+The aggregate manager works by resolving the addresses of aggregate roots and routes messages to them accordingly. It routes the messages by using the `Command<,,>.AggregateId` member variable to locate or create the child aggregate roots. Since we are also in an actor system, the `AggregateManager<,,>` is also responsible for supervising aggregate roots (which are also actors within akka.net). The aggregate manager is what enables Akkatecture to take advantage of the [one child per entity pattern](https://gigi.nullneuron.net/gigilabs/child-per-entity-pattern-in-akka-net/). There is another example of this pattern being applied in Akkatecture's `Akkatecture.Cluster` package which does the same thing for aggregates and [sagas](/docs/sagas) in a clustered environment.
 
 > Make sure that aggregate managers do not do anything that violates the error kernel pattern. In short, dont do dangerous `I/O` within the aggregate manager, since it will be responsible for many aggregates underneath it.

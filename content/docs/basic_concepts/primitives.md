@@ -18,7 +18,7 @@ The basic core primitives of akkatecture are:
 - [Identities](#identities)
 - [Entities](#entities)
 
-A `valueObject` is an immutable type that is distinguishable only by the state of its properties. That is, unlike an `Entity`, which has a unique identifier and remains distinct even if its properties are otherwise identical, two `ValueObject`s with the exact same properties can be considered equal. Two entities with the same identity are considered equal. Akkatecture uses these primitives all over the project and you are highly encouraged to use them as well so that your domain design is highly expressive.
+A `valueObject` is an immutable type that is distinguishable only by the state of its properties. That is, unlike an `Entity`, which has a unique identifier and remains distinct even if its properties are otherwise identical, two `ValueObject`s with the exact same properties can be considered equal. An `Entity` always has a globally unique identifier, so if two entities have the same identity, they are the same entity, regardless of their member values. Akkatecture uses these primitives all over the project and you are highly encouraged to use them as well so that your domain design is highly expressive, readable, and reasonable.
 
 # Value Objects
 
@@ -39,7 +39,7 @@ public class AccountNumber : SingleValueObject<string>
 # Identities
 
 The `Identity<>` value object provides generic functionality to create
-and validate the IDs of e.g. aggregate roots. Its basically a wrapper
+and validate the identities of e.g. aggregate roots. Its basically a wrapper
 around a `Guid`.
 
 ```csharp

@@ -13,7 +13,7 @@ tags:
     - dotnet
 ---
 
-In an event sourced system like Akkatecture, aggregate root data is stored in events, and those events are persisted to be replayed when the aggregate root is re-instantiated across system restarts (re-deployments). Aggregate events are also published via akka.net's [event stream](http://getakka.net/api/Akka.Event.EventStream.html).
+In an event sourced system like Akkatecture, aggregate root data is stored in events, and those events are persisted to be replayed when the aggregate root is re-instantiated across system restarts (or re-deployments). Aggregate events are also published via akka.net's [event stream](http://getakka.net/api/Akka.Event.EventStream.html).
 
 ```csharp
 public class PingEvent : AggregateEvent<PingAggregate, PingAggregateId>
@@ -33,7 +33,7 @@ public class PingEvent : AggregateEvent<PingAggregate, PingAggregateId>
 
 ## Emitting Events
 
-In order to emit an event from an aggregate, call the `protected` `Emit(...)` method which applies the event to the aggregate state and commits the event to the event store. In akka.net terms it calls the `PersistentActor.Persist(...)` method. Below is an example of how it works.
+In order to emit an event from an aggregate, call the `AggregateRoot.Emit(...)` method which applies the event to the aggregate state and commits the event to the event store. In akka.net terms it calls the `PersistentActor.Persist(...)` method with a call-back to apply the event to aggregate state. Below is an example of how it works.
 
 ```csharp
 public bool Execute(PingCommand command)
@@ -53,7 +53,7 @@ public bool Execute(PingCommand command)
 }
 
 ```
-> In akkatecture, the act of emitting an event both applies the event to aggregate state, and publishes the event as a `IDomainEvent` to the akka.net event stream. Please continue reading about [published events](/docs/events#published-events) to understand how aggregate events look like when they get published outside of the aggregate boundary.
+> In akkatecture, the act of emitting an event both applies the event to aggregate state, and publishes the event as a `IDomainEvent` to the akka.net event stream. Please continue reading about [published events](/docs/events#published-events) to understand how aggregate events look like when they get published outside of the aggregate boundary. Also, the event is only applied if committing the event was successful.
 
 ## Applying Events
 
@@ -106,7 +106,7 @@ public class PingState : AggregateState<PingAggregate, PingAggregateId>,
 In Akkatecture, the default behaviour for the aggregate roots is to apply the event back to the aggregate state on event replay. Akkatecture has a default `Recover(...)` method on the base `AggregateRoot<,,>` class that you can use do event recovery. All you need to do is tell akka how to apply the persisted event. Do do this, register your recovery event to akka.net's `Recover<>` registry. This is what a typical example will look like.
 
 ```csharp
-public class UserAccountAggregate : AggregateRoot<UserAccountAggregate,UserAccountId,UserAccountState>
+public class UserAccountAggregate : AggregateRoot<UserAccountAggregate, UserAccountId, UserAccountState>
 {
     public UserAccountAggregate(UserAccountId id)
         : base(id)
