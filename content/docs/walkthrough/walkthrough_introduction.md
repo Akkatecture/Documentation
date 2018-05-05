@@ -34,4 +34,6 @@ The task is for you to try and model a bank that allows you to transfer money fr
 
 **Task** - An investor with huge pockets wants to start her own bank. She wants to open it in europe and wants to allow customers to create bank accounts for free with a non-negative starting balance. The bank does not deal in overdrafts or loaning. The bank wants to allow customers to transfer their money between accounts within the bank. The transaction fee for a successful money deposit is €0.25. The minimum amount of money allowed to transfer is €1.00. Which means that the minimum amount of money allowed to exit a bank account is €1.25. The bank fee is flat regardless of the amount of money being transferred. The bank would like to keep track of how much money it has gained as revenue as a result of the transaction fees.
 
-In the walkthrough we will implement this bank together step by step starting with the aggregate. Lets begin with [designing your first aggregate](/docs/your-first-aggregate).
+In the walkthrough we will implement this bank together step by step starting with the aggregate. Lets begin with designing your first aggregate.
+
+[BEGIN →](/docs/your-first-aggregate)

@@ -116,3 +116,7 @@ public bool Execute(ReceiveMoneyCommand command)
 ### Summary
 
 We codified our business specifications (rules) into models that derive from `Specification<>`. This allows us to have testable specifications that live in one place. We used the specifications to guard our domains against rule breaking commands & intents. We even used an `AndSpecification<>` to compose our specifications. you can build your own compositions as well using [these](https://github.com/Lutando/Akkatecture/tree/master/src/Akkatecture/Specifications/Provided). Do not over use your specifications, it is not a silver bullet, and be aware of the [criticisms](https://en.wikipedia.org/wiki/Specification_pattern#Criticisms) of specifications, finally, one should also be wary of using them outside of your domain layer. Reducing duplication also increases coupling.
+
+Next we shall go over how to craft your own **sagas**. Which add an extra dimension of capabilities in Akkatecture.
+
+[NEXT →](/docs/your-first-aggregate-saga)

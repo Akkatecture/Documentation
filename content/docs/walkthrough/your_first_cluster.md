@@ -15,3 +15,5 @@ tags:
     - cluster
 ---
 TBD
+
+Fantastic. You have finished the walkthrough. But don't stop there. Further your understanding by looking at some of the external resources that we have collected in [video](/docs/videos), and in [article](/docs/articles) form.

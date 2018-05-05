@@ -26,5 +26,7 @@ public class MoneyTransferSaga : AggregateSaga<MoneyTransferSaga, MoneyTransferS
 }
 ```
 
-> We could have used a domain event subscriber to do all of this but then we would need to build in all the nice features specific to aggregate sagas. Which is why in Akkaecture we built them out since aggregate sagas are special kinds of stateful domain event subscribers who specialize in these kind of scenarios
+> We could have used a domain event subscriber to do all of this but then we would need to build in all the nice features specific to aggregate sagas. Which is why in Akkaecture we built them out since aggregate sagas are special kinds of stateful domain event subscribers who specialize in these kind of scenarios. Lets have a look at a domain event **subscriber** next.
+
+[NEXT →](/docs/your-first-subscribers)
 

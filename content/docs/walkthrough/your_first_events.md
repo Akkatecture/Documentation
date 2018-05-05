@@ -115,4 +115,6 @@ public class AccountState : AggregateState<Account, AccountId>,
 
 > Notice how events are treated as facts. The only domain logic here is how to apply the event to the aggregate state. If you have `if-else` statements in your state model, reconsider your modelling of events and state. 
 
-Head over to the next section on [specification's](/docs/your-first-specifications).
+Head over to the next section on **specifications**.
+
+[NEXT →](/docs/your-first-specifications)
