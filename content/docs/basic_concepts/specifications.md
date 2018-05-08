@@ -12,7 +12,7 @@ tags:
     - csharp
     - dotnet
 ---
-Akkatecture comes with an implementation of the specification pattern which could be used to e.g. make complex business rules easier to read and test.
+Akkatecture comes with an implementation of the specification pattern which could be used to e.g. make complex business rules more manageable to read and test.
 
 To use the specification implementation shipped with Akkatecture, simply create a class that inherits from `Specification<>`.
 
@@ -42,7 +42,7 @@ public interface ISpecification<in T>
 }
 ```
 
-As specifications really become powerful when they are combined, Akkatecture also comes with a series of extension methods for the `ISpecification<>` interface that allows easy combination and composition of implemented specifications.
+As specifications really become powerful when they are combined, Akkatecture also comes with a series of extension methods for the `ISpecification<>` interface that allows for the combination and composition of implemented specifications.
 
 ```csharp
 // Builds a new specification that requires all input specifications to be
