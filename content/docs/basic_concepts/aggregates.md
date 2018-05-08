@@ -55,7 +55,7 @@ public class StoreAggregate : AggregateRoot<StoreAggregate, StoreId, StoreState>
 
 ## Aggregate Managers
 
-Aggregates in Akkatecture exist as singletons in the actor system, and thus, by design, only one aggregate root instance can be created or used per `aggregateId` at any given time. Akkatecture makes it easy to avoid this with the use of `AggregateManager<,,>` which is essentially a message coordinater/dispatcher for the underlying aggregate.
+Aggregates in Akkatecture exist as singletons in the actor system, and thus, by design, only one aggregate root instance can be created or used per `aggregateId` at any given time. Akkatecture gives you the constructs to avoid this with the use of `AggregateManager<,,>` which is essentially a message coordinater/dispatcher for the underlying aggregate.
 
 For most use cases the default `AggregateManager<,,>` will be sufficient all you need to do is to inherit from it
 

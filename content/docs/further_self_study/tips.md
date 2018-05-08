@@ -12,22 +12,19 @@ tags:
     - csharp
     - dotnet
 ---
-Whenever creating an application that uses cqrs and   event sourcing there are several
-things you need to keep in mind to make it easier and minimize the
-potential bugs, and headaches.
-
+Whenever creating an application that uses cqrs and event sourcing there are several things you need to keep in mind to  minimize the potential culmination bugs, and headaches to occur.
 
 ## Events
 
-Make sure that when your aggregate events are JSON serialized, they
-produce clean JSON as it makes it easier to work with and enable you to
-easier deserialize the events in the future. Make sure that the events have:
+Make sure that when your aggregate events are JSON serialized. Since these aggregate events may be used by external systems in the future of your application, they need to be as bare bones as possible with the least amount of noise to the data possible. Make sure that the events have:
 
 -  No type information
 -  No runtime information
 
+It is ok to have this information in the event metadata for analytics or other concerns however they serve no business sense (normally) to be part of the events data payload.
+
 Here's an example of good clean event JSON produced from a create user
-event.
+event. 
 
 ```json
 {
@@ -80,7 +77,7 @@ Note about message guarantees, message based systems etc.
 
 ## Actor Behaviours
 
-It is far easier to test and manage actors that do not use Become() akka.net constructs. Akkatecture comes with a [specification pattern implementation](/docs/specifications) that will give you the option to do some rich, expressive, domain validation within the actors. Specifications are also easily testable. Feel free to use this at your pleasure.
+To test and manage actors that do not use akka.net's Become() methods can become cumbersome. Akkatecture comes with a [specification pattern implementation](/docs/specifications) that will give you the option to do some rich, expressive, domain validation within the actors. Specifications are also highly testable. Feel free to use this at your pleasure.
 
 ## Validate Inputs
 

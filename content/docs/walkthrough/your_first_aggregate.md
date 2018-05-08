@@ -38,7 +38,7 @@ public class AccountState : AggregateState<Account, AccountId>
 }
 ```
 
-Lets make a simple `Money` ValueObject<decimal> that will represent money in our application, that can not be zero.
+Lets make a simple `Money` ValueObject<decimal> that will represent money in our application, that must be non-negative.
 
 ```csharp
 public class Money : SingleValueObject<decimal>
@@ -54,9 +54,9 @@ public class Money : SingleValueObject<decimal>
 }
 ```
 
-> Now we have a value object that represents money in our system.
+> Now we have a value object that represents money in our domain.
 
-now we can make our `Account` aggregate.
+Now we can make our `Account` aggregate.
 
 ```csharp
 public class Account : AggregateRoot<Account, AccountId, AccountState>
@@ -69,7 +69,7 @@ public class Account : AggregateRoot<Account, AccountId, AccountState>
 }
 ```
 
-And finally we need to make our aggregate root manager that will be responsible for supervising and creating the aggregate roots.
+And finally we need to make our aggregate root manager, which will be responsible for supervising, and creating the aggregate roots.
 
 ```csharp
 public class AccountManager : AggregateManager<Account, AccountId, Command<Account, AccountId>> 
