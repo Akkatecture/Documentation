@@ -26,7 +26,7 @@ class Index extends React.Component {
           <BodyContainer>
             <BodyContents>
               <h2>Akkatecture is a cqrs and event sourcing framework for dotnet core.</h2>
-              <p>Akkatecture is an open source framework for building reactive microservice systems in dotnet core. Akkatecture aims to give you the tools that make the modelling of your business domain less complicated. Backed by the akka.net actor model you can be sure that your application is:</p>
+              <p>Akkatecture is an open source framework for building reactive microservice systems. Akkatecture is built ontop of akka.net and the principles of the actor model to ensure that your next application has a high degree of freedome to scale out. The framework subscribes to the tenets of cqrs and message passing so that you can be sure that your application is:</p>
               <BenefitsList>
                 <li><b>distributed.</b></li>
                 <li><b>message based.</b></li>
@@ -50,7 +50,8 @@ class Index extends React.Component {
             <BodyContentsInverted>
               <h2>Getting Started</h2>
               <p>Akkatecture is written in .net core targeting the netstandard 2.0 framework, using the greatest and latest open source technologies.</p>
-              <p>If you are familiar with domain driven design, cqrs, and event sourcing, learning Akkatecture will be a breaze.</p>
+              <p>If you are familiar with domain driven design, cqrs, and event sourcing, learning Akkatecture will be a breaze. If you are not. Then why not learn these concepts while using Akkatecture.</p>
+              <p>This project comes complete with documentation that covers the concepts and constructs that it employs. We encourage you to take part in the walkthrough/tutorial that is in the documentation.</p>
               <div> 
                 <CtaButton  to={'/docs/getting-started'}> GET STARTED</CtaButton>
               </div>

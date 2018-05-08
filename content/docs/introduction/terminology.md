@@ -12,7 +12,7 @@ tags:
     - csharp
     - dotnet
 ---
-
+Here is a list of acronyms or terms used throughout the documentation that might need some further clarification.
 #### CQRS
 
 #### ES

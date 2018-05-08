@@ -122,14 +122,14 @@ public class UserAccountAggregate : AggregateRoot<UserAccountAggregate, UserAcco
 }
 ```
 
-It is imperative that you make sure to register all of your events for this aggregate root to avoid having inconsistent state when you do event replay. If you use akka behaviours, make sure that on recovery that you re-establish the correct domain behaviour.
+It is imperative that you make sure to register all of your events for this aggregate root to avoid having inconsistent state when you do event replay. If you use akka behaviours, make sure that on recovery that you re-establish the correct actor behaviour with `Become()`.
 
 > You need to make sure that you have configured a persistent event store before deploying your application to production since the default persistent provider in Akkatecture is using the same default provider that is used in akka.net persistent actors, namely, the in memory event journal and in memory snap store. Go ahead and look at how this all works in our [event store production readiness](/docs/production-readiness#event-store) documentation.
 
 ## Published Events
-If you have noticed, Akkatecture uses the aggregate events as a means for aggregates to maintain consistency within that particular aggregates boundaries. For any particular instance of an aggregate root, its local state is always consistent from that local perspective. When you publish an event, the aggregate is letting the rest of your domain know that something has happened. This event will get picked up by any parties interested in that particular event.
+If you have noticed, Akkatecture uses the aggregate events as a means for aggregates to maintain consistency within that particular aggregates boundaries. When an aggregate publishes an event, the aggregate is letting the rest of the domain know that something has happened. This event will get picked up by any parties interested in that particular event.
 
-> CAP theory comes into play as soon as you publish an event. The "world view" of your other domain entities will be in-consistent with the world view of your aggregates at the time of event publishing. Keep this in mind when desining your system. The best you can hope for is an eventually consistent system within the Akkatecture framework.
+> CAP theory comes into play as soon as you publish an event. The "world view" of your other domain entities will be in-consistent with the world view of your aggregates at the time of event publishing. Keep this in mind when designing your system. The best you can hope for is an eventually consistent system within the Akkatecture framework.
 
 ### Domain Events
 Domain events are aggregate events that have been published. In Akkatecture a domain event looks as follows:
@@ -156,7 +156,7 @@ public interface IDomainEvent
 }
 ```
 
-The most important thing to note here is that the `AggregateSequenceNumber` is the "age" of the aggregate which emitted that particular event at that particular moment in time. So if an aggregate has applied 4 events, then the 4th domain event from that aggregate root will have an `AggregateSequenceNumber` of `4`.
+It is important to note here is that the `AggregateSequenceNumber` is the "age" of the aggregate which emitted that particular event at that particular moment in time. So if an aggregate has applied 4 events, then the 4th domain event from that aggregate root will have an `AggregateSequenceNumber` of `4`.
 
 ### Event Metadata
 

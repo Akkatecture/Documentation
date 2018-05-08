@@ -14,7 +14,4 @@ tags:
 ---
 Clustering is a huge concept with many moving parts, so for now refer to the akka.net documentation on clustering since that is basically what you need to get started. If you want to see a working Akkatecture clustering sample, have a look at the [cluster sample](https://github.com/Lutando/Akkatecture/tree/master/examples/cluster) Which makes use of `Akkatecture.Cluster` factory methods.
 
-Expect more comprehensive documentation.
-
-Some information about how the default cluster failure works in Akkatecture.
-http://gear.github.io/2016-11-15-phifail/ 
+Expect more comprehensive documentation moving forward.
