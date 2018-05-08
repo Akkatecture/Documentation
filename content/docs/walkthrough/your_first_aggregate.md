@@ -64,7 +64,6 @@ public class Account : AggregateRoot<Account, AccountId, AccountState>
     public Account(AccountId aggregateId)
         : base(aggregateId)
     {
-
     }
 }
 ```
@@ -74,7 +73,6 @@ And finally we need to make our aggregate root manager, which will be responsibl
 ```csharp
 public class AccountManager : AggregateManager<Account, AccountId, Command<Account, AccountId>> 
 {
-
 }
 ```
 

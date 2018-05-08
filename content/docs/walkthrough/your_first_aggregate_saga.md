@@ -22,7 +22,6 @@ public class MoneyTransferSaga : AggregateSaga<MoneyTransferSaga, MoneyTransferS
     ISagaIsStartedBy<Account, AccountId, MoneySentEvent>,
     ISagaHandles<Account, AccountId, FeesDeductedEvent>
 {
-
 }
 ```
 

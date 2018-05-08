@@ -19,7 +19,7 @@ Before we dive into how to construct aggregate sagas in Akkatecture, we are miss
 
 We need to tell our aggregate how to handle commands.
 
-Use the `Command<T>(Func<T,bool> handler)` to register your command handlers
+Use the `AggregateRoot.Command<T>(Func<T,bool> handler)` to register your command handlers
 
 ```csharp
 public class Account : AggregateRoot<Account, AccountId, AccountState>
@@ -30,8 +30,7 @@ public class Account : AggregateRoot<Account, AccountId, AccountState>
         //register command handlers
         Command<OpenNewAccountCommand>(Execute);
         Command<TransferMoneyCommand>(Execute);
-        Command<ReceiveMoneyCommand>(Execute);
-        
+        Command<ReceiveMoneyCommand>(Execute);       
     }
 }
 ```
@@ -89,11 +88,11 @@ public bool Execute(TransferMoneyCommand command)
     var andSpec = balanceSpec.And(minimumTransferSpec);
     if(andSpec.IsSatisfiedBy(this))
     {
-        var sentEvent = new MoneySentEvent(command.ReceiverId, command.Amount)
-        Emit(sentEvent);
+        var moneySentEvent = new MoneySentEvent(command.ReceiverId, command.Amount)
+        Emit(moneySentEvent);
 
-        var feeEvent = new FeesDeductedEvent(new Money(0.25m));
-        Emit(feeEvent);
+        var feesDeductedEvent = new FeesDeductedEvent(new Money(0.25m));
+        Emit(feesDeductedEvent);
     }
     return true;
 }
@@ -106,9 +105,9 @@ And finally we need to handle the receiving of money from `ReceiveMoneyCommand`.
 ```csharp
 public bool Execute(ReceiveMoneyCommand command)
 {
-    var moneyReceived = new MoneyReceivedEvent(command.SenderId,command.Amount);
+    var moneyReceivedEvent = new MoneyReceivedEvent(command.SenderId,command.Amount);
 
-    Emit(moneyReceived);
+    Emit(moneyReceivedEvent);
     return true;
 }
 ```

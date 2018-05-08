@@ -53,7 +53,7 @@ public bool Execute(PingCommand command)
 }
 
 ```
-> In akkatecture, the act of emitting an event both applies the event to aggregate state, and publishes the event as a `IDomainEvent` to the akka.net event stream. Please continue reading about [published events](/docs/events#published-events) to understand how aggregate events look like when they get published outside of the aggregate boundary. Also, the event is only applied if committing the event was successful.
+> In Akkatecture, the act of emitting an event both applies the event to aggregate state, and publishes the event as a `IDomainEvent` to the akka.net event stream. Please continue reading about [published events](/docs/events#published-events) to understand how aggregate events look like when they get published outside of the aggregate boundary. Also, the event is only applied if committing the event was successful.
 
 ## Applying Events
 
@@ -153,7 +153,7 @@ public interface IDomainEvent
     IIdentity GetIdentity();
     //The aggregate event
     IAggregateEvent GetAggregateEvent();
-    }
+}
 ```
 
 The most important thing to note here is that the `AggregateSequenceNumber` is the "age" of the aggregate which emitted that particular event at that particular moment in time. So if an aggregate has applied 4 events, then the 4th domain event from that aggregate root will have an `AggregateSequenceNumber` of `4`.

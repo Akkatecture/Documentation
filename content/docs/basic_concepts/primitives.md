@@ -12,13 +12,13 @@ tags:
     - csharp
     - dotnet
 ---
-The basic core primitives of akkatecture are:
+The basic core primitives of Akkatecture are:
 
 - [Value Objects](#value-objects)
 - [Identities](#identities)
 - [Entities](#entities)
 
-A `valueObject` is an immutable type that is distinguishable only by the state of its properties. That is, unlike an `Entity`, which has a unique identifier and remains distinct even if its properties are otherwise identical, two `ValueObject`s with the exact same properties can be considered equal. An `Entity` always has a globally unique identifier, so if two entities have the same identity, they are the same entity, regardless of their member values. Akkatecture uses these primitives all over the project and you are highly encouraged to use them as well so that your domain design is highly expressive, readable, and reasonable.
+A `ValueObject` is an immutable type that is distinguishable only by the state of its properties. That is, unlike an `Entity`, which has a unique identifier and remains distinct even if its properties are otherwise identical, two `ValueObject`s with the exact same properties can be considered equal. An `Entity` always has a globally unique identifier, so if two entities have the same identity, they are the same entity, regardless of their member values. Akkatecture uses these primitives all over the project and you are highly encouraged to use them as well so that your domain design is highly expressive, readable, and reasonable.
 
 # Value Objects
 

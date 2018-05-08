@@ -69,7 +69,7 @@ It will be most advantageous to learn akka.net's [test kit](http://getakka.net/a
 
 ## Make Your Domain Expressive
 
-Your domain code is your business model codified. Make sure that you apply the principle of a ubiquitous language to your domain by being explicit but terse in your naming conventions, this leads to a far more enjoyable developer expirience for those who share the code base. With the fall in popularity of UML diagrams and other forms of non-code business domain models, code written in a ddd way is your business domain model.
+Your domain code is your business model codified. Make sure that you apply the principle of a ubiquitous language to your domain by being explicit but terse in your naming conventions, this leads to a far more enjoyable developer expirience for those who share the code base. With the fall in popularity of UML diagrams and other forms of non-code business domain models, code written in a ddd way **is** your business domain model.
 
 ## Plan For Uncertainty & Inconsistency
 

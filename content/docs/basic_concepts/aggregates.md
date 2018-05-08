@@ -36,7 +36,6 @@ Additionally, to create your aggregate state, which will be used for applying ag
 ```csharp
 public class StoreState : AggregateState<StoreAggregate, StoreId>
 {
-
 }
 ```
 
@@ -62,8 +61,7 @@ For most use cases the default `AggregateManager<,,>` will be sufficient all you
 ```csharp
 public class StoreAggregateManager : 
     AggregateManager<StoreAggregate, StoreId, Command<StoreAggregate, StoreId>>
-{
-        
+{       
 }
 ```
 
