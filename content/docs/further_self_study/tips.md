@@ -73,7 +73,7 @@ Your domain code is your business model codified. Make sure that you apply the p
 
 ## Plan For Uncertainty & Inconsistency
 
-Note about message guarantees, message based systems etc.
+Akka.net, and by extension, Akkatecture's default messaging policy is [at most once message delivery delivery](https://developer.lightbend.com/blog/2017-08-10-atotm-akka-messaging-part-1/index.html). In at most once delivery, an attempt is made by actors to send a message to the receiver. However, there are no guarantees that the message will be delivered. Any number of things may happen that prevent the successful delivery of an asynchronous message, including, but not limited to packet loss over a network transport. 
 
 ## Actor Behaviours
 

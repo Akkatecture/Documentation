@@ -19,21 +19,20 @@ At some point you might find the need to replace a event with zero or more event
 
 In the above cases, Akkatecture suggests that you encapsulate the event upgrading logic in your aggregate state event apply methods.
 
-Lets say you have
+In the `ShoppingCartState` event upgrading example below we have an event `ProductAddedEvent` that is has been deprecated in the face of domain improvements. The new version is called `ProductAddedEventV2`. We apply the upgrade logic in the deprecated apply method and invoke the correct `Apply()` method.
 
 ```csharp
-public class ShoppingCartState : AggregateState<ShoppingCart, ShoppingCartId>,
-        IApply<ProductAddedEvent>,
-        IApply<ProductRemovedEvent>,
-        IApply<ProductAddedEventV2>,
+public class ShoppingCartState : AggregateState<ShoppingCartState, ShoppingCartId>,
+    IApply<ProductAddedEvent>,
+    IApply<ProductRemovedEvent>,
+    IApply<ProductAddedEventV2>,
 {
     public ShoppingCart Cart { get; private set; }
 
     public void Apply(ProductAddedEvent aggregateEvent) 
     {
         //we want to convert ProductAddedEvent to V2 then Apply that event
-        //ProductAddedEventV2.From(ProductAddedEvent)
-        var productAddedEventv2 = ProductAddedEventV2.From(aggregateEvent);
+        var productAddedEventv2 = ProductAddedEventV2Factory.From(aggregateEvent);
         Apply(productAddedEventv2);
     }
 
@@ -60,3 +59,4 @@ public static class ProductAddedEventV2Factory
 
 In the `Apply(ProductAddedEvent aggregateEvent)` there is the mapping from the events base version to its second version. After such the correct `Apply(ProductAddedEventV2 aggregateEvent)` is invoked. This is also a great candidate for unit testing the correct behaviour.
 
+>A general rule when versioning events is that adding things does not cause a versioning conflict. Adding a new version of an event is therefore not a problem, as long as we don’t break the definition of a new version event; it must be convertible from an old version of the same event. If this is not possible, then it’s a new event.
