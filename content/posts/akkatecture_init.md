@@ -32,7 +32,7 @@ Akkatecture is still currently in development, however most of the basic buildin
 The next plan is to work on the current core library and branch it out to support:
 
 * typed actor references*.
-* event upgrading.
+* snapshotting state
 
 **nice-to-have features, not crucial and might be axed for first version*
 

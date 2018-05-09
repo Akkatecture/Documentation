@@ -75,6 +75,22 @@ Your domain code is your business model codified. Make sure that you apply the p
 
 Akka.net, and by extension, Akkatecture's default messaging policy is [at most once message delivery delivery](https://developer.lightbend.com/blog/2017-08-10-atotm-akka-messaging-part-1/index.html). In at most once delivery, an attempt is made by actors to send a message to the receiver. However, there are no guarantees that the message will be delivered. Any number of things may happen that prevent the successful delivery of an asynchronous message, including, but not limited to packet loss over a network transport. 
 
+Another general rule that is message ordering can only be guaranteed on a sender-receiver pair level.
+
+The guarantee is illustrated in the following:
+
+Actor `A1` sends messages `M1` `M2` `M3` to `A2`.
+Actor `A3` sends messages `M4` `M5` `M6` to `A2`.
+
+If `M1` is delivered it must be delivered before `M2` and `M3`.
+If `M2` is delivered it must be delivered before `M3`.
+If `M4` is delivered it must be delivered before `M5` and `M6`.
+If `M5` is delivered it must be delivered before `M6`.
+
+`A2` can see messages from `A1` interleaved with messages from `A3`.
+
+> An example of message ordering as seen from `A2`'s perspective might be `M4` `M5` `M1` `M2` `M3` `M6`.
+
 ## Actor Behaviours
 
 To test and manage actors that do not use akka.net's Become() methods can become cumbersome. Akkatecture comes with a [specification pattern implementation](/docs/specifications) that will give you the option to do some rich, expressive, domain validation within the actors. Specifications are also highly testable. Feel free to use this at your pleasure.
