@@ -18,6 +18,7 @@ tags:
 ### Welcome to Akkatecture
 
 Adding Akkatecture as a dependancy is like as installing any other NuGet package in your .net core application. All you need to do is the following:
+
 ```csharp
 //Add the Akkatecture package to your project named FirstAkkatectureProject.
 PM> Install-Package Akkatecture -ProjectName FirstAkkatectureProject

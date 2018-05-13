@@ -68,3 +68,5 @@ public class StoreAggregateManager :
 The aggregate manager works by resolving the addresses of aggregate roots and routes messages to them accordingly. It routes the messages by using the `Command<,,>.AggregateId` member variable to locate or create the child aggregate roots. Since we are also in an actor system, the `AggregateManager<,,>` is also responsible for supervising aggregate roots (which are also actors within akka.net). The aggregate manager is what enables Akkatecture to take advantage of the [one child per entity pattern](https://gigi.nullneuron.net/gigilabs/child-per-entity-pattern-in-akka-net/). There is another example of this pattern being applied in Akkatecture's `Akkatecture.Cluster` package which does the same thing for aggregates and [sagas](/docs/sagas) in a clustered environment.
 
 > Aggregate managers should not do anything that violates the error kernel pattern. What this means is that the aggregate manager should not do *dangerous* `I/O` within the aggregate manager, since it will be responsible for many aggregates underneath it.
+
+[[Next, Events →]](/docs/events)

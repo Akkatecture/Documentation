@@ -136,3 +136,5 @@ public class TransferMoneyCommand : DistinctCommand<AccountAggregate, AccountId>
 ```
 
 The `GetBytes()` merely returns the `Encoding.UTF8.GetBytes(...)` of the value object.
+
+[[Next, Specifications →]](/docs/specifications)

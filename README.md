@@ -15,9 +15,9 @@ then
 gatsby develop
 ````
 
-to run
+to run, this will run a hot-reloadable version of the documentation website
 
 ## Contributor Notes
-markdown in content/docs contains all the documentation for the akkatecture documentation pages.
+The markdown files  in `/content/docs` folder contains all the documentation for the akkatecture documentation pages.
 
 alternatively you can directly edit the markdown in github and submit a pull request if you see any spelling or grammatical errors.

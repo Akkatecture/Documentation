@@ -36,4 +36,6 @@ The task is for you to try and model a bank that allows you to transfer money fr
 
 In the walkthrough we will implement this bank together step by step starting with the aggregate. Lets begin with designing your first aggregate.
 
+> The full working example that completes the walkthrough can be found on the projects GitHub over [here](https://github.com/Lutando/Akkatecture/tree/master/examples/walkthrough).
+
 [BEGIN →](/docs/your-first-aggregate)
