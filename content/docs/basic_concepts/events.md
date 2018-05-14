@@ -13,7 +13,7 @@ tags:
     - dotnet
 ---
 
-In an event sourced system like Akkatecture, aggregate root data is stored in events, and those events are persisted to be replayed when the aggregate root is re-instantiated across system restarts (or re-deployments). Aggregate events are also published via akka.net's [event stream](http://getakka.net/api/Akka.Event.EventStream.html).
+In an event sourced system like Akkatecture, aggregates state can be described as a series of stored events, and those events are to be replayed in sequence when the aggregate root is re-instantiated across system restarts (or re-deployments). Aggregate events are also published via akka.net's [event stream](http://getakka.net/api/Akka.Event.EventStream.html).
 
 ```csharp
 public class PingEvent : AggregateEvent<PingAggregate, PingAggregateId>
@@ -101,6 +101,8 @@ public class PingState : AggregateState<PingAggregate, PingAggregateId>,
 
 > As you can see above we have made our Appy method Idempotent by using a different datastructure to hold our `Pings`. It is idempotent becuase if we apply the same event to the state we effectively leave the state unchanged.
 
+Do practive unit testing your aggregate state as it is a prime candidate for such an activity.
+
 ## Replaying Events
 
 In Akkatecture, the default behaviour for the aggregate roots is to apply the event back to the aggregate state on event replay. Akkatecture has a default `Recover(...)` method on the base `AggregateRoot<,,>` class that you can use do event recovery. All you need to do is tell akka how to apply the persisted event. Do do this, register your recovery event to akka.net's `Recover<>` registry. This is what a typical example will look like.
@@ -124,10 +126,10 @@ public class UserAccountAggregate : AggregateRoot<UserAccountAggregate, UserAcco
 
 It is imperative that you make sure to register all of your events for this aggregate root to avoid having inconsistent state when you do event replay. If you use akka behaviours, make sure that on recovery that you re-establish the correct actor behaviour with `Become()`.
 
-> You need to make sure that you have configured a persistent event store before deploying your application to production since the default persistent provider in Akkatecture is using the same default provider that is used in akka.net persistent actors, namely, the in memory event journal and in memory snap store. Go ahead and look at how this all works in our [event store production readiness](/docs/production-readiness#event-store) documentation.
+> You need to make sure that you have configured a persistent event store before deploying your application to production since the default persistent provider in Akkatecture is using the same default provider that is used in akka.net persistent actors, namely, the in memory event journal and in memory snapshot store. Go ahead and look at how this all works in our [event store production readiness](/docs/production-readiness#event-store) documentation.
 
 ## Published Events
-If you have noticed, Akkatecture uses the aggregate events as a means for aggregates to maintain consistency within that particular aggregates boundaries. When an aggregate publishes an event, the aggregate is letting the rest of the domain know that something has happened. This event will get picked up by any parties interested in that particular event.
+If you have noticed, Akkatecture uses the aggregate events as a means for aggregates to maintain consistency within that particular aggregate's boundary. When an aggregate publishes an event, the aggregate is letting the rest of the domain know that something has happened. This event will get picked up by any parties interested in that particular event.
 
 > CAP theory comes into play as soon as you publish an event. The "world view" of your other domain entities will be in-consistent with the world view of your aggregates at the time of event publishing. Keep this in mind when designing your system. The best you can hope for is an eventually consistent system within the Akkatecture framework.
 

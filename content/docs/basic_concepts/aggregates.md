@@ -14,8 +14,8 @@ tags:
 ---
 
 Initially, before you can create an aggregate, you need to create its corresponding 
-identity and state. You can create your own implementation of `Identity` by implementing the
-`IIdentity` interface, or you can use a base class `Identity<>` that
+identity and state. You can create your own model of `Identity` by implementing the
+`IIdentity` interface, or you can use base class `Identity<>` that
 Akkatecture provides, like this:
 
 
@@ -39,7 +39,7 @@ public class StoreState : AggregateState<StoreAggregate, StoreId>
 }
 ```
 
-Next, to model your aggregate, simply inherit from `AggregateRoot<,,>`, making sure to pass the aggregate's own type as the first generic argument, with the identity model as the second, and the state model as the third. Make sure to pass down the aggregate identity to the base class, as this is required (no parameterless construction).
+Next; to model your aggregate, simply inherit from `AggregateRoot<,,>`, making sure to pass the aggregate's own type as the first generic argument, with the identity model as the second, and the state model as the third. Also be sure to pass down an instance of the aggregate identity to the base class, as this is required.
 
 ```csharp
 public class StoreAggregate : AggregateRoot<StoreAggregate, StoreId, StoreState>
@@ -56,7 +56,7 @@ public class StoreAggregate : AggregateRoot<StoreAggregate, StoreId, StoreState>
 
 Aggregates in Akkatecture exist as singletons in the actor system, and thus, by design, only one aggregate root instance can be created or used per `aggregateId` at any given time. Akkatecture gives you the constructs to avoid this with the use of `AggregateManager<,,>` which is essentially a message coordinater/dispatcher for the underlying aggregate.
 
-For most use cases the default `AggregateManager<,,>` will be sufficient all you need to do is to inherit from it
+For most use cases the default `AggregateManager<,,>` will be sufficient, and as usual, all you need to do is to inherit from it.
 
 ```csharp
 public class StoreAggregateManager : 

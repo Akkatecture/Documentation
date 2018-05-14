@@ -13,7 +13,7 @@ tags:
     - dotnet
 ---
 
-Commands are the basic `ValueObject`'s, that represent the operations of intent that you want to perform in your domain, they represent the "c" side of cqrs. Aggregate commands are sent to aggregate roots, via aggregate managers, typically, on successful execution, a command can result in one or more aggregate events being emitted.
+Commands are the basic `ValueObject`s, that represent the operations of intent that you want to perform in your domain, they represent the "c" side of cqrs. Aggregate commands are sent to aggregate roots, via aggregate managers, typically, on successful execution, a command can result in one or more aggregate events being emitted.
 
 As an example, imagine you are implementing the command for initiating a bank transfer from one account (your account) to another. it might look something like this.
 
@@ -37,8 +37,7 @@ public class TransferMoneyCommand : Command<AccountAggregate, AccountId>
 
 > Note that the Money class is merely a `ValueObject`, created to hold the amount of money and to do basic validation. In Akkatecture, you don’t have to use the default Akkatecture `Command<,>` implementation to, you can create your own implementation, it merely have to implement the `ICommand<,>` interface.
 
-A command by itself doesn’t do anything and will be swollowed by the underlying actor as unprocessed. To make a command work, you need to implement a command handler which is responsible for the processing of the command.
-
+A command by itself doesn’t do anything and will be swollowed by the underlying actor as unprocessed if no command handler exists for it. To make a command work, you need to implement a command handler which is responsible for the processing of the command.
 
 ```csharp
     public class AccountAggregate : AggregateRoot<AccountAggregate, AccountAggregateId, AccountState>

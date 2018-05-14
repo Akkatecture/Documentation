@@ -36,13 +36,12 @@ var aggregateManager = system.ActorOf(Props.Create(() => new UserAccountAggregat
 var aggregateId = UserAccountId.New;
 var createUserAccountCommand = new CreateUserAccountCommand(aggregateId, "foo bar");
             
-//Send command, this is equivalent to command.publish() in other cqrs frameworks
+//Send the command to create the aggregate
 aggregateManager.Tell(createUserAccountCommand);
 ```
-
-Akkatecture also ships with a companion package called `Akkatecture.Clustering`. Go to the [clustering documentation](/docs/clustering) to hear more about it.
-
-> This example is part of the Akkatecture simple example [project](https://github.com/Lutando/Akkatecture/tree/master/examples/simple), checkout [the
+> The above example is part of the Akkatecture simple example [project](https://github.com/Lutando/Akkatecture/tree/master/examples/simple), pull [the
 code](https://github.com/Lutando/Akkatecture/blob/master/examples/simple/Akkatecture.Examples.UserAccount.Application/Program.cs#L13) and give it a run to see how it works.
+
+Akkatecture also ships with a companion package for clustering called `Akkatecture.Clustering`. Go to the [clustering documentation](/docs/clustering) to learn more about it.
 
 Be sure to also go through our [basic concepts](/docs/primitives) and [walkthrough](/docs/walkthrough-introduction). If you have any suggestions, or edits for Akkatecture's documentation, please visit the [documentation repository](https://github.com/Akkatecture/Documentation) and submit us a pull request.

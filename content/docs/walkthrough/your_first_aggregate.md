@@ -13,7 +13,7 @@ tags:
     - csharp
     - dotnet
 ---
-On analysis of the business requirements, it is apparent that the main aggregate entity that exists under the `Bank` domain is a `BankAccount`. The bank account aggregate needs the ability to be `Created` and to `Send Money` to other `BankAccounts`. Inversely, `BankAccount`'s need to also `Receive Money`. Lets call our aggregate responsible for holding bank account state the `AccountAggregate`.
+On analysis of the business requirements, it is apparent that the main aggregate entity that exists under the `Bank` domain context is an `Account`. The account aggregate needs the ability to be `Opened` and to `Transfer Money` to other `Account`s. Inversely, `Account`s need to also `Receive Money`. Lets call our aggregate responsible for representing an account the `AccountAggregate`.
 
 ## The Account Aggregate
 
