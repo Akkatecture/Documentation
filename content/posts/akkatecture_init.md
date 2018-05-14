@@ -1,7 +1,7 @@
 ---
 title: "Akkatecture Init"
 cover: "https://unsplash.it/400/300/?random?BoldMage"
-date: "01/06/2018"
+date: "15/05/2018"
 category: "tech"
 type: "post"
 tags: []    
@@ -15,16 +15,16 @@ Akkatecture uses the actor model as the universal primitive of concurrent comput
 
 **Processing** - actors can do work when requested to, the requested work can be initiated by a message, typically in the form of a command or an event, the locality of this processing is done within the instantiation of an actor itself.
 
-**Storage** - actors can store local internal state, in memory, and defer storing its state to persistence. This state is also thread safe from anything outside of the actors locality since actors process one message at a time and cannot be inspected by normal means.
+**Storage** - actors can store local internal state, in memory, and defer the storing of its state to a persistent store. This state is also thread safe from anything outside of the actors locality since actors process one message at a time and cannot be inspected externally.
 
 **Communication** - actors can communicate with each other using a pre-defined communication protocol. Typically addressed by using location transparent actor addresses. Actors communicate with message passing and that is the only way that the outside world can communicate with the actor system. Messages beign commands, or events.
 The actor model in computer science is a mathematical model of concurrent computation that treats "actors" as the universal primitives of concurrent computation. In response to a message that it receives, an actor can: make local decisions, create more actors, send more messages, and determine how to respond to the next message received. Actors may modify their own private state, but can only affect each other through messages (avoiding the need for any defining of critical sections, or wierd mutexs).
 
-Akka based systems have been used to drive hugely scalable and highly available systems (such as Netflix and The Guardian). Even though these companies tend to run into issues at scale on a daily basis, I still see value in modelling the business domain using actors since (with some haggling), they are quite descriptive of what actually happens in the real world.
+Akka based systems have been used to drive hugely scalable and highly available systems (such as Netflix and The Guardian). Even though these companies tend to run into issues at scale on a daily basis, I still see value in modelling the business domain using actors since, with some haggling, they are quite descriptive and indicative of what actually happens in the real world.
 
-Please have a look at our documentation, go through the basic concepts, and the walkthroughs to get a good understanding of what Akkatecture looks like. Akkatecture is intended for developers who understand cqrs / event sourcing. Knowledge of akka.net will give you more knowledge on how to extend Akkatecture through akka's highly extensible configuration. In my opinion its highly required to be comfortable with these things in order to use Akkatecture effectively
+Please have a look at our [documentation](), go through the basic concepts, and the walkthroughs to get a good understanding of what Akkatecture looks like. Akkatecture is intended for developers who understand cqrs / event sourcing. Knowledge of akka.net will give you more knowledge on how to extend Akkatecture through akka's highly extensible configuration. In my opinion its highly required to be comfortable with these things in order to use Akkatecture effectively
 
-Please find me on [Discord](/community) or [file GitHub issues](https://github.com/Lutando/Akkatecture/issues) for any questions, guidance, or support-y stuff 👋.
+Please find me on [Discord](/community), [Twitter](https://twitter.com/LutandoNgqakaza), or [file GitHub a issue](https://github.com/Lutando/Akkatecture/issues) for any questions, guidance, or support-y stuff 👋.
 
 ### Status of Akkatecture
 Akkatecture is still currently in development, however most of the basic building blocks have been built out, but as of yet no v1 to speak of on NuGet.
@@ -32,7 +32,8 @@ Akkatecture is still currently in development, however most of the basic buildin
 The next plan is to work on the current core library and branch it out to support:
 
 * typed actor references*.
-* snapshotting state
+* persisted event metadata.
+* snapshotting state.
 
 **nice-to-have features, not crucial and might be axed for first version*
 
