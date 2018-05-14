@@ -16,4 +16,4 @@ Actors are objects which encapsulate state and behavior, they communicate exclus
 
 Akka.net is just an implementation of an actor sytem that fascilitates the actor model. Go to [akka.net](https://getakka.net/)'s website to get familiar with their implementation of the actor model. To use Akkatecture even more effectively, we suggest that you go on further and complete the [petabridge akka bootcamp](https://github.com/petabridge/akka-bootcamp). It is a good way to get a solid understanding of akka.net, and how it works.
 
-[[Next, Configuration →]](/docs/configuration)
+[Next, Configuration →](/docs/configuration)

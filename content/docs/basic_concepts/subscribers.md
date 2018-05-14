@@ -33,4 +33,4 @@ One can do absolutely anything from these subscribers, persist projections (othe
 
 > If you want a subscriber to interact between aggregate or domain boundaries, Akkatecture ships with an `AggregateSaga<,,>` implementation that has been specifically tailored for this use case. To learn more about sagas (otherwise known as process managers, or activities, go [here](/docs/sagas))
 
-[[Next, Akka →]](/docs/akka)
+[Next, Akka →](/docs/akka)

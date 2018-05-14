@@ -117,4 +117,4 @@ public class AccountState : AggregateState<Account, AccountId>,
 
 Head over to the next section on **specifications**.
 
-[NEXT →](/docs/your-first-specifications)
+[Next →](/docs/your-first-specifications)

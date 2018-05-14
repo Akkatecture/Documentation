@@ -187,4 +187,4 @@ public void Ping(PingCommand command)
 
 > You can add things like operation identifiers, build numbers, environment names, deployment regions, performance data, and other things to this metadata container, it is really up to you. The quicker you collect telemetry the better.
 
-[[Next, Commands →]](/docs/commands)
+[Next, Commands →](/docs/commands)

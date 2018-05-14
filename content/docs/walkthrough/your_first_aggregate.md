@@ -78,4 +78,4 @@ public class AccountManager : AggregateManager<Account, AccountId, Command<Accou
 
 Now we need to interact with our aggregate through **commands**. Lets proceed to the next part of the walkthrough.
 
-[NEXT →](/docs/your-first-commands)
+[Next →](/docs/your-first-commands)

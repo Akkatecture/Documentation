@@ -1,5 +1,5 @@
 ---
-title: "Akkatecture Init"
+title: "Welcome"
 cover: "https://unsplash.it/400/300/?random?BoldMage"
 date: "15/05/2018"
 category: "tech"
@@ -7,7 +7,7 @@ type: "post"
 tags: []    
 ---
 
-Akkatecture began because I found the lack of comprehensive cqrs and es examples for akka.net as a huge oppertunity to help others. I suspect that most akka users, are the ones on the JVM side of the fence, which shows by the higher amount of community members in that open source project. Ok... onwards to Akkatecture, and why I decided to build it. I really like the APIs that ReceiveActors and ReceivePersistentActors expose as opposed to their base variants. I find the APIs to be far more cleaner and geared towards a better functional programming paradigm, which can lead to code that is more readable, testable, and maintainable. Although nothing is perfect. Akkatecture tries to make your domain semi-declarative and at least highly readable and maintainable.
+Akkatecture began because I found that the lack of comprehensive cqrs and es examples for akka.net was a huge oppertunity to help others. I suspect that most akka users, are the ones on the JVM side of the fence, which shows by the higher amount of community members in that open source project. Ok... onwards to Akkatecture, and why I decided to build it. I really like the APIs that ReceiveActors and ReceivePersistentActors expose as opposed to their base variants. I find the APIs to be far more cleaner and geared towards a better functional programming paradigm, which can lead to code that is more readable, testable, and maintainable. Although nothing is perfect. Akkatecture tries to make your domain semi-declarative and at least highly readable and maintainable.
 
 Akkatecture is set of constructs and patterns written in C# ontop of akka.net. The main goal of Akkatecture is to allow developers who are using akka.net to model their business domain within the akka.net framework easily. Akkatecture is built on reactive messaging & treats events as first class constructs, making it highly reactive and scalable, thanks akka.net! Akkatecture focusses mainly on messaging integration patterns between domain entities so you dont have to.
 

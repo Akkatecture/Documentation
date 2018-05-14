@@ -13,13 +13,13 @@ tags:
     - csharp
     - dotnet
 ---
-Before we dive into how to construct aggregate sagas in Akkatecture, we are missing some crucial bits. We have laid out some fundamental building blocks, but have not put them all together. Let's do that quickly.
+Before we dive into how to construct aggregate sagas in Akkatecture, we are missing some crucial bits. We have laid out some fundamental building blocks, but have not put them all together. Let us do that before proceeding to the next chunky task.
 
 ### Putting It All Together
 
 We need to tell our aggregate how to handle commands.
 
-Use the `AggregateRoot.Command<T>(Func<T,bool> handler)` to register your command handlers
+Use the `AggregateRoot.Command<T>(Func<T,bool> handler)` to register your command handlers:
 
 ```csharp
 public class Account : AggregateRoot<Account, AccountId, AccountState>
@@ -35,7 +35,7 @@ public class Account : AggregateRoot<Account, AccountId, AccountState>
 }
 ```
 
-Lets implement the Command Handlers
+Lets implement the command handlers as `Execute(...)`:
 ```csharp
 public bool Execute(OpenNewAccountCommand command)
 {
@@ -54,6 +54,7 @@ public bool Execute(OpenNewAccountCommand command)
 > We return true from the execute method, to let akka know that we handled the command successfully.
 
 To be able to send money the business requirements specified that; *The transaction fee for a successful money deposit is €0.25. The minimum amount of money allowed to transfer is €1.00. Which means that the minimum amount of money allowed to exit a bank account is €1.25*. 
+We can model these requirements as specifications as:
 
 ```csharp
 public class MinimumTransferAmountSpecification : Specification<Account> 
@@ -118,4 +119,4 @@ We codified our business specifications (rules) into models that derive from `Sp
 
 Next we shall go over how to craft your own **sagas**. Which add an extra dimension of capabilities in Akkatecture.
 
-[NEXT →](/docs/your-first-aggregate-saga)
+[Next →](/docs/your-first-aggregate-saga)

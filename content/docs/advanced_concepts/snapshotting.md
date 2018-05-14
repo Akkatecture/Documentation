@@ -12,4 +12,4 @@ tags:
     - csharp
     - dotnet
 ---
-Snapshotting is a future feature being worked on and will be documented when it becomes available. 😊
+Event snapshotting is an optimization that you can use to reduce the amount of events that are replayed upon aggregate instantiation. As of right now snapshotting is a future feature being worked on with high priority and will be documented when it becomes available.

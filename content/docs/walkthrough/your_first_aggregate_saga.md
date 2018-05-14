@@ -13,9 +13,11 @@ tags:
     - csharp
     - dotnet
 ---
-In Akkatecuture `AggregateSaga<,,>`'s are usefuly for coordinating message passing between service or aggregate boundaries in domain driven design. More about sagas can be said in our documentation over [here](/docs/sagas) however over here we will re-iterate some concepts and implement them here in the walkthrough. One of the major component missing in our current task is the ability to tell other Account's that there is money to be received. In other words, we lack the ability to command bank accounts to receive money as a result of a bank account having sent the money. 
+In Akkatecuture `AggregateSaga<,,>`s are usefuly for coordinating message passing between service or aggregate boundaries in domain driven design. More about sagas can be said in our documentation over [here](/docs/sagas), but in this walkthrough we will re-iterate over some of the concepts and implement them to our needs. 
 
-Since we are making a saga incharge of coordinating money transfer, lets call it the `MoneyTransferSaga`.
+One of the major component missing in our current task is the ability to tell other Account's that there is money to be received. In other words, we lack the ability to command bank accounts to receive money as a result of another bank account having sent the money. 
+
+Since we are making a saga incharge of coordinating money transfer, lets call it the `MoneyTransferSaga`. Bare with the explanation but we will model it one stab. Sagas need to implement `ISagaIsStartedBy<,,>` and (sometimes) `ISagaHandles<,,>` interfaces. These interfaces give you a nice description of how the saga works and which boundaries it operates between.
 
 ```csharp
 public class MoneyTransferSaga : AggregateSaga<MoneyTransferSaga, MoneyTransferSagaId, MoneyTransferSagaState>,
@@ -62,9 +64,6 @@ public class MoneyTransferSaga : AggregateSaga<MoneyTransferSaga, MoneyTransferS
 
 Lets talk about the first `Handle` method in depth. Esentially it is responsible for handling the `MoneySentEvent`. Which means telling the receiver aggregate that it is to receive money. We do this using a command that we made in the [previous lesson on commmands](/docs/your-first-commands) using the `ReceiveMoneyCommand`. After creating that command we just tell it to the correct account and that is that. After that we can emit an event that expresses the fact that the saga has begun using the `MoneyTransferStartedEvent`.
 
-
-Lets talk about the other things that are happening in this walkthrough.
-
 The `SagaId<>` gives us a way to address the saga in the actor system, and much like `Identity<>` it is also a `SingleValueObject<>`. We can define our `MoneyTransferSagaId` as follows:
 
 ```csharp
@@ -77,7 +76,7 @@ public class MoneyTransferSagaId : SagaId<MoneyTransferSagaId>
 }
 ```
 
-Akkatecture aggregate sagas are also similar to aggregate roots in that they have a state model, but this time it is based on `SagaState<>`. We can define our `SagaState<>` as follows:
+Akkatecture aggregate sagas are also similar to aggregate roots in that they have a state model, but this time it is based on `SagaState<,,>`. We can define our `SagaState<,,>` as follows:
 
 ```csharp
 public class MoneyTransferSagaState : SagaState<MoneyTransferSaga,MoneyTransferSagaId,IEventApplier<MoneyTransferSaga, MoneyTransferSagaId>>,
@@ -108,7 +107,7 @@ public class MoneyTransferSagaState : SagaState<MoneyTransferSaga,MoneyTransferS
 * Cancelled
 * PartiallySucceeded
 
-> To set the saga into those states we recommend you use the methods that set the status member into the specified state. The respective methods are; `Running()`,`Completed()`,...,`PartiallySucceeded()`.
+> To set the saga into those states we recommend you use the methods that set the status member into the specified state. The respective methods are; `Running()`,`Completed()`,...,`PartiallySucceeded()`. And these should only ideally be used as a result of an aggregate saga event `Apply(...)`.
 
 ### AggregateSagaManager
 
@@ -153,5 +152,5 @@ We used a common bit of information that exists between these events to compose 
 
 > Final note, we could have used a domain event subscriber to do all of this but then we would need to build in all the nice features specific to aggregate sagas. Which is why in Akkaecture we built them out since aggregate sagas are special kinds of stateful domain event subscribers who specialize in these kind of scenarios. Lets have a look at a domain event **subscriber** next.
 
-[NEXT →](/docs/your-first-subscribers)
+[Next →](/docs/your-first-subscribers)
 

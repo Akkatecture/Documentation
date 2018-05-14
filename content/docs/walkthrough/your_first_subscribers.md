@@ -69,6 +69,6 @@ public class RevenueRepository : ReceiveActor
 }
 ```
 
-This repository handles a `AddRevenueCommand` which is just a data transfer object (dto) that holds the amount of money to add to the current revenue. The repository also handles a query `GetRevenueQuery`. You can now see a hint of how the read/query side of an Akkatecture application might work. On to the next section on read models.
+This repository handles a `AddRevenueCommand` which is just a data transfer object (dto) that holds the amount of money to add to the current revenue. The repository also handles a query `GetRevenueQuery`. You can now see a hint of how the read/query side of an Akkatecture application might work. On to the next section on **read models**.
 
-[NEXT →](/docs/your-first-read-models)
+[Next →](/docs/your-first-read-models)

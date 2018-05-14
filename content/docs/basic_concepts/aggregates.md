@@ -69,4 +69,4 @@ The aggregate manager works by resolving the addresses of aggregate roots and ro
 
 > Aggregate managers should not do anything that violates the error kernel pattern. What this means is that the aggregate manager should not do *dangerous* `I/O` within the aggregate manager, since it will be responsible for many aggregates underneath it.
 
-[[Next, Events →]](/docs/events)
+[Next, Events →](/docs/events)

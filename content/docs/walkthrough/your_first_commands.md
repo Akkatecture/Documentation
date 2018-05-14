@@ -82,4 +82,4 @@ public class ReceiveMoneyCommand : Command<Account, AccountId>
 
 Now we can make some events for the business domain. Events are the funamendamental building blocks of event sourced systems. Go on ahead next to create your first **events**.
 
-[NEXT →](/docs/your-first-events)
+[Next →](/docs/your-first-events)

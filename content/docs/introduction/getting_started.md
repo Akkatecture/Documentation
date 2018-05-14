@@ -40,9 +40,9 @@ var createUserAccountCommand = new CreateUserAccountCommand(aggregateId, "foo ba
 aggregateManager.Tell(createUserAccountCommand);
 ```
 
-Akkatecture also ships with a companion package called `Akkatecture.Clustering`. Go to the [clustering documentation](/docs/cluistering) to hear more about it.
+Akkatecture also ships with a companion package called `Akkatecture.Clustering`. Go to the [clustering documentation](/docs/clustering) to hear more about it.
 
 > This example is part of the Akkatecture simple example [project](https://github.com/Lutando/Akkatecture/tree/master/examples/simple), checkout [the
 code](https://github.com/Lutando/Akkatecture/blob/master/examples/simple/Akkatecture.Examples.UserAccount.Application/Program.cs#L13) and give it a run to see how it works.
 
-Be sure to also go through our [basic concepts](/docs/primitives) and [walkthrough](/docs/walkthrough-introduction). If you have any suggestions, or edits for Akkatecture's documentation, please visit the [documentation repository](https://github.com/Akkatecture/Documentation) and submit us a pull request 😊.
+Be sure to also go through our [basic concepts](/docs/primitives) and [walkthrough](/docs/walkthrough-introduction). If you have any suggestions, or edits for Akkatecture's documentation, please visit the [documentation repository](https://github.com/Akkatecture/Documentation) and submit us a pull request.

@@ -17,7 +17,7 @@ There actually is a long laundry list of things one might want to consider prior
 # Event Store
 Since events stored per aggregate are read in a paginated way, it makes sense to chose a persistence that supports this kind of query well. SQL data bases are fine also, just make sure you do not ship with the defaul akka inmemory persistence plugin. As you can see there are many plugins ([1](https://github.com/AkkaNetContrib/Akka.Persistence.MongoDB),[2](https://github.com/AkkaNetContrib/Akka.Persistence.PostgreSql),[3](https://github.com/AkkaNetContrib/Akka.Persistence.RocksDb),[4](https://github.com/akkadotnet/Akka.Persistence.SqlServer)). Doing some research here is crucial to match your needs.
 
-# Testing
+# Testing Serialization
 Test all your models to make sure that they are serializable and deserializable. This will give you good assurances on production usage, especially in clustered scenarios.
 
 # Clustering Seed Node

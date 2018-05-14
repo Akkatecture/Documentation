@@ -97,4 +97,4 @@ To test and manage actors that do not use akka.net's Become() methods can become
 
 ## Validate Inputs
 
-In CQRS that typically means validate your commands. Do as much validation as possible, `null` checks, and checks for `default(T)` such things are highly recommended where applicable.
+Validating inputs in CQRS that typically means validate your commands and queries. Do as much *static* validation as possible, `null` checks, and checks for `default(T)` such things are highly recommended where applicable.

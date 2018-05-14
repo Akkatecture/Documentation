@@ -38,4 +38,4 @@ In the walkthrough we will implement this bank together step by step starting wi
 
 > The full working example that completes the walkthrough can be found on the projects GitHub over [here](https://github.com/Lutando/Akkatecture/tree/master/examples/walkthrough).
 
-[BEGIN →](/docs/your-first-aggregate)
+[Begin →](/docs/your-first-aggregate)

@@ -114,4 +114,4 @@ public class Account : Entity<AccountId>
 
 > As you can see `Account` has an `AccountId` entity identifier, and is itself an value object because `Entity<>` inherits from `SingleValueObject<>`, and has a ValueObject member `AccountNumber`.
 
-[[Next, Aggregates →]](/docs/aggregates)
+[Next, Aggregates →](/docs/aggregates)
