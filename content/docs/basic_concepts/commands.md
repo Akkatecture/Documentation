@@ -90,7 +90,7 @@ public class TransferMoneyCommand : Command<AccountAggregate, AccountId>
     public Money Amount { get; }
     public DestinationAccountId { get; }
 
-    public UserUpdatePasswordCommand(
+    public TransferMoneyCommand(
         AccountId id,
         ISourceId sourceId,
         AccountId destinationAccountId,
@@ -115,7 +115,7 @@ public class TransferMoneyCommand : DistinctCommand<AccountAggregate, AccountId>
     public Money Amount { get; }
     public DestinationAccountId { get; }
 
-    public UserUpdatePasswordCommand(
+    public TransferMoneyCommand(
         AccountId id,
         ISourceId sourceId,
         AccountId destinationAccountId,
