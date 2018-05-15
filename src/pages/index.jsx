@@ -28,8 +28,8 @@ class Index extends React.Component {
               <h2>Akkatecture is a cqrs and event sourcing framework for dotnet core.</h2>
               <p>Akkatecture is an open source framework for building reactive microservice systems. Akkatecture is built ontop of akka.net and the principles of the actor model. The framework subscribes to the tenets of cqrs and message passing so that you can be sure that your application is:</p>
               <BenefitsList>
+                <li><b>reactive.</b></li>
                 <li><b>distributed.</b></li>
-                <li><b>message based.</b></li>
                 <li><b>event sourced.</b></li>
                 <li><b>scaleable.</b></li>
               </BenefitsList>
