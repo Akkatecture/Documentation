@@ -105,7 +105,7 @@ Do practive unit testing your aggregate state as it is a prime candidate for suc
 
 ## Replaying Events
 
-In Akkatecture, the default behaviour for the aggregate roots is to apply the event back to the aggregate state on event replay. Akkatecture has a default `Recover(...)` method on the base `AggregateRoot<,,>` class that you can use do event recovery. All you need to do is tell akka how to apply the persisted event. Do do this, register your recovery event to akka.net's `Recover<>` registry. This is what a typical example will look like.
+In Akkatecture, the default behaviour for the aggregate roots is to apply the event back to the aggregate state on event replay. Akkatecture has a default `Recover(...)` method on the base `AggregateRoot<,,>` class that you can use do event recovery. All you need to do is tell akka how to apply the persisted event. To do this, register your recovery event to akka.net's `Recover<>` registry. This is what a typical example will look like.
 
 ```csharp
 public class UserAccountAggregate : AggregateRoot<UserAccountAggregate, UserAccountId, UserAccountState>

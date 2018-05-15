@@ -23,7 +23,7 @@ public class TransferMoneyCommand : Command<AccountAggregate, AccountId>
     public Money Amount { get; }
     public DestinationAccountId { get; }
 
-    public UserUpdatePasswordCommand(
+    public TransferMoneyCommand(
         AccountId id,
         AccountId destinationAccountId,
         Money amount)
