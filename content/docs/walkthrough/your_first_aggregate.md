@@ -38,7 +38,7 @@ public class AccountState : AggregateState<Account, AccountId>
 }
 ```
 
-Lets make a simple `Money` ValueObject<decimal> that will represent money in our application, that must be non-negative.
+Lets make a simple `Money` ValueObject<decimal> that will represent money in our application, lets put some simple domain logic into the value object that states that its value must be non-negative.
 
 ```csharp
 public class Money : SingleValueObject<decimal>
@@ -54,9 +54,9 @@ public class Money : SingleValueObject<decimal>
 }
 ```
 
-> Now we have a value object that represents money in our domain.
+> Now we have a value object that represents money in our domain. In the fully worked walkthrough in the Akkatecture repository we have overloaded the `+` and `-` operators accordingly.
 
-Now we can make our `Account` aggregate.
+Now we can make our `Account` aggregate root.
 
 ```csharp
 public class Account : AggregateRoot<Account, AccountId, AccountState>
@@ -76,6 +76,6 @@ public class AccountManager : AggregateManager<Account, AccountId, Command<Accou
 }
 ```
 
-Now we need to interact with our aggregate through **commands**. Lets proceed to the next part of the walkthrough.
+We have made the basic skeleton of our aggregate domain. To interact with our aggregate we need to use **commands**. Lets proceed to the next part of the walkthrough.
 
 [Next →](/docs/your-first-commands)

@@ -13,7 +13,7 @@ tags:
     - csharp
     - dotnet
 ---
-If you ever need to access the data in your aggregates efficiently, its important that read models (otherwise known as projections) are used from some form of persistent store. Loading aggregates from the event store takes time and its impossible to query for e.g. aggregates that have a specific value in its state. Read models can be described to be a representation of some state in your domain.
+If you ever need to access the data in your aggregates efficiently, its important that read models (otherwise known as projections) are used from some form of persistent store. Loading aggregates from the event store takes time and its impossible to do queries for e.g. aggregates that have a specific value in its state. Read models can be described to be a representation of some state in your domain.
 
 Akkatecture has no opinions about how to make read models. since they are just essentially data transfer objects for projections. It is up to you to decide what is best read model for the underlying persistence at hand.
 
@@ -32,7 +32,7 @@ public class RevenueReadModel
     }
 }
 ```
-> The `int:Transactions` is purely there for extra flavour
+> The `int:Transactions` is purely there for extra flavour.
 
 Our simple query model for retreiving the revenue could be as follows.
 

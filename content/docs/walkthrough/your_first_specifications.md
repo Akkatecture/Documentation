@@ -13,7 +13,7 @@ tags:
     - csharp
     - dotnet
 ---
-Before we dive into how to construct aggregate sagas in Akkatecture, we are missing some crucial bits. We have laid out some fundamental building blocks, but have not put them all together. Let us do that before proceeding to the next chunky task.
+Before we dive into how to construct aggregate sagas in Akkatecture. We still need to wire up some crucial bits. We have laid out some fundamental building blocks, but have not put them all together. Let us do that before proceeding to the building out aggregate sagas.
 
 ### Putting It All Together
 
@@ -53,7 +53,7 @@ public bool Execute(OpenNewAccountCommand command)
 
 > We return true from the execute method, to let akka know that we handled the command successfully.
 
-To be able to send money the business requirements specified that; *The transaction fee for a successful money deposit is €0.25. The minimum amount of money allowed to transfer is €1.00. Which means that the minimum amount of money allowed to exit a bank account is €1.25*. 
+To be able to send money from one account to another the business requirements specified that; *The transaction fee for a successful money deposit is €0.25. The minimum amount of money allowed to transfer is €1.00. Which means that the minimum amount of money allowed to exit a bank account is €1.25*. 
 We can model these requirements as specifications as:
 
 ```csharp
@@ -99,9 +99,9 @@ public bool Execute(TransferMoneyCommand command)
 }
 ```
 
-> We have a command that actually produced two events as the outcome of its sucessful execution. This is quite normal and can happen from time to time. One successful command does not necessarily mean one event being emitted. Transfering money reduces the account balance and charges a fee. For auditing purposes this is a good thing to have.
+> We have a command that actually produced two events as the outcome of its sucessful execution. This is quite ok and can happen from time to time. One successful command does not necessarily that only one event can be emitted. Transfering money reduces the account balance and charges a fee. For auditing purposes, it is a good to have these as separate events.
 
-And finally we need to handle the receiving of money from `ReceiveMoneyCommand`.
+Finally we need to handle the receiving of money from `ReceiveMoneyCommand`.
 
 ```csharp
 public bool Execute(ReceiveMoneyCommand command)
@@ -115,7 +115,7 @@ public bool Execute(ReceiveMoneyCommand command)
 
 ### Summary
 
-We codified our business specifications (rules) into models that derive from `Specification<>`. This allows us to have testable specifications that live in one place. We used the specifications to guard our domains against rule breaking commands & intents. We even used an `AndSpecification<>` to compose our specifications. you can build your own compositions as well using [these](https://github.com/Lutando/Akkatecture/tree/master/src/Akkatecture/Specifications/Provided). Do not over use your specifications, it is not a silver bullet, and be aware of the [criticisms](https://en.wikipedia.org/wiki/Specification_pattern#Criticisms) of specifications, finally, one should also be wary of using them outside of your domain layer. Reducing duplication also increases coupling.
+We codified our business specifications (rules) into models that derive from `Specification<>`. This allows us to have testable specifications that live in one place. We used the specifications to guard our domains against rule breaking commands. We even used an `AndSpecification<>` to compose our specifications. you can build your own compositions as well using [these](https://github.com/Lutando/Akkatecture/tree/master/src/Akkatecture/Specifications/Provided). Do not over use your specifications, it is not a silver bullet, and be aware of the [criticisms](https://en.wikipedia.org/wiki/Specification_pattern#Criticisms) of specifications, finally, one should also be wary of using them outside of your domain layer. Reducing code duplication also increases code coupling.
 
 Next we shall go over how to craft your own **sagas**. Which add an extra dimension of capabilities in Akkatecture.
 

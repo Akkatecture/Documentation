@@ -13,14 +13,14 @@ tags:
     - csharp
     - dotnet
 ---
-Lets tie up the loose ends so that we can run it. We need to orchestrate the startup of the actor system. Typically in akkatecture this means instantiating:
+Lets tie up the loose ends so that we can run it. We need to orchestrate the startup of the actor system. Typically in Akkatecture this means instantiating:
 
 * AggregateManagers
 * AggregateSagaManagers
 * DomainEventSubscribers
 * Persistence Dependencies
 
-The persistence dependencies is up to you to implement. The `RevenueRepository` in this walkthrough is an implementation detail and will depend on your persistence requirements.
+The persistence dependencies is normally application specific. The `RevenueRepository` in this walkthrough is an implementation detail and will depend on your persistence requirements.
 
 ## Startup
 
@@ -93,7 +93,7 @@ Console.WriteLine($"From: {revenue.Transactions} transaction(s).");
 
 ```
 
-There we have our sample application working, congradulations for making it this far.
+There we have our sample application working, congragulations for making it this far.
 
 ## In Closing
 

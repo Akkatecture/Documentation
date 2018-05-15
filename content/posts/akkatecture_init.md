@@ -7,13 +7,13 @@ type: "post"
 tags: []    
 ---
 
-Akkatecture began because I found that the lack of comprehensive cqrs and es examples for akka.net was a huge oppertunity to help others. I suspect that most akka users, are the ones on the JVM side of the fence, which shows by the higher amount of community members in that open source project. Ok... onwards to Akkatecture, and why I decided to build it. I really like the APIs that ReceiveActors and ReceivePersistentActors expose as opposed to their base variants. I find the APIs to be far more cleaner and geared towards a better functional programming paradigm, which can lead to code that is more readable, testable, and maintainable. Although nothing is perfect. Akkatecture tries to make your domain semi-declarative and at least highly readable and maintainable.
+Akkatecture began because I found that the lack of comprehensive cqrs and es examples for akka.net was a huge oppertunity to help others. I suspect that most akka users, are the ones on the JVM side of the fence, which shows by the higher amount of community members in that open source project. Ok... onwards onto what is Akkatecture pholosophically, and why I decided to build it.
 
-Akkatecture is set of constructs and patterns written in C# ontop of akka.net. The main goal of Akkatecture is to allow developers who are using akka.net to model their business domain within the akka.net framework easily. Akkatecture is built on reactive messaging & treats events as first class constructs, making it highly reactive and scalable, thanks akka.net! Akkatecture focusses mainly on messaging integration patterns between domain entities so you dont have to.
+Akkatecture is set of constructs and patterns written in C# ontop of akka.net. The main goal of Akkatecture is to allow developers who are using akka.net to model their business domain within the akka.net framework with less friction. Akkatecture is built on reactive messaging & treats events as first class concept, making it highly scalable, thanks akka.net! Akkatecture focusses mainly on messaging integration patterns within your domain so that you dont have to.
 
 Akkatecture uses the actor model as the universal primitive of concurrent computation. This means that aggregates, sagas, jobs, and other domain concepts are modelled within the actor model. Invoking or interacting with the domain is done by having these actors either react through commands (sent from outside of the aggregate boundary), or through domain events, emitted from within the domain boundary, both of which are fundamentally messages. A strong case can be made for using the actor system as a basis for designing your distributed domain, because actors in actor systems embody 3 things fundamentally:
 
-**Processing** - actors can do work when requested to, the requested work can be initiated by a message, typically in the form of a command or an event, the locality of this processing is done within the instantiation of an actor itself.
+**Processing** - actors can do work when requested to, the requested work can only be initiated by a message, typically in the form of a command or an event, the locality of this processing is done within the instantiation of an actor itself.
 
 **Storage** - actors can store local internal state, in memory, and defer the storing of its state to a persistent store. This state is also thread safe from anything outside of the actors locality since actors process one message at a time and cannot be inspected externally.
 
@@ -22,9 +22,9 @@ The actor model in computer science is a mathematical model of concurrent comput
 
 Akka based systems have been used to drive hugely scalable and highly available systems (such as Netflix and The Guardian). Even though these companies tend to run into issues at scale on a daily basis, I still see value in modelling the business domain using actors since, with some haggling, they are quite descriptive and indicative of what actually happens in the real world.
 
-Please have a look at our [documentation](), go through the basic concepts, and the walkthroughs to get a good understanding of what Akkatecture looks like. Akkatecture is intended for developers who understand cqrs / event sourcing. Knowledge of akka.net will give you more knowledge on how to extend Akkatecture through akka's highly extensible configuration. In my opinion its highly required to be comfortable with these things in order to use Akkatecture effectively
+Please have a look at our [documentation](/docs/getting-started), go through the [basic concepts](/docs/primitives), and the [walkthrough](/docs/walkthrough-introduction) to get a good understanding of what Akkatecture looks like.
 
-Please find me on [Discord](/community), [Twitter](https://twitter.com/LutandoNgqakaza), or [file GitHub a issue](https://github.com/Lutando/Akkatecture/issues) for any questions, guidance, or support-y stuff 👋.
+Please find me on [Discord](/community), or [file GitHub a issue](https://github.com/Lutando/Akkatecture/issues) for any questions, guidance, or support-y stuff or just say hi👋.
 
 ### Status of Akkatecture
 Akkatecture is still currently in development, however most of the basic building blocks have been built out, but as of yet no v1 to speak of on NuGet.
@@ -34,7 +34,8 @@ The next plan is to work on the current core library and branch it out to suppor
 * typed actor references*.
 * persisted event metadata.
 * snapshotting state.
+* schedueled jobs
 
-**nice-to-have features, not crucial and might be axed for first version*
+**nice-to-have features, not crucial, and might be axed for first version.*
 
 Some of the issues highlighted above can be seen [here](https://github.com/Lutando/Akkatecture/issues). However I plan to knock these off 1 by 1 and launch the first beta by June.

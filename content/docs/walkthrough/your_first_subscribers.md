@@ -13,11 +13,10 @@ tags:
     - csharp
     - dotnet
 ---
-If we look back at our task requirements the last one states that;
+If we look back at our task requirements, the last one states that;
+*The bank would like to keep track of how much money it has gained as revenue as a result of the transaction fees.*
 
-> The bank would like to keep track of how much money it has gained as revenue as a result of the transaction fees.
-
-The best way to satisfy this requirement is to use a `DomainEventSubscriber` that Subscribes to the `FeesDeductedEvent` domain event, which then tells the persistence mechanism to store the result so that it can later be read by a `ReadModel`.
+One way to satisfy this requirement is to use a `DomainEventSubscriber` that Subscribes to the `FeesDeductedEvent` domain event, which then tells the persistence mechanism to store the result so that it can later be read by a `ReadModel`.
 
 ```csharp
 public class RevenueSubscriber : DomainEventSubscriber,
@@ -39,7 +38,7 @@ public class RevenueSubscriber : DomainEventSubscriber,
 }
 ```
 
-Our mock revenue repository is going to be modelled as an actor, but typically this would be a type of persistent storage that applies to the use case.
+Our mock revenue repository is going to be modelled as an actor, but typically this would be a type of persistent storage that applies to your use case.
 
 ```csharp
 public class RevenueRepository : ReceiveActor

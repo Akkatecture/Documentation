@@ -13,12 +13,12 @@ tags:
     - csharp
     - dotnet
 ---
-Let us recall some of the business requiremtents for the bank:
+Let us remind ourselves of some of the business requiremtents for the task that we are trying to do:
 
-* The bank needs to allow customers to create bank accounts for free with a non-negative opening balance.
+* The bank needs to allow customers to create accounts for free with a non-negative opening balance.
 * The bank needs to allow customers to transfer money between accounts.
 
-We could see these as three commands, one for creating the bank account. And another one for initiating a money transfer:
+We could see these as two commands, one for creating the bank account. And another one for initiating a money transfer:
 
 ```csharp
 //command for creating the bank account
@@ -41,43 +41,55 @@ And the transfer money command can be made as follows:
 //command for initiating (sending) a money transfer
 public class TransferMoneyCommand : Command<Account, AccountId>
 {
-    public AccountId ReceiverId { get; }
-    public Money Amount { get; }
+    public Transaction Transaction { get; }
     public TransferMoneyCommand(
-        AccountId aggregateId, 
-        AccountId receiverId,
-        Money amount) 
-        : base(aggregateId) 
-        {
-            if(amount == null) throw new ArgumentNullException(nameof(amount));
-
-            Amount = amount;
-            ReceiverId = receiverId;
-        }
+    AccountId aggregateId,
+    Transaction transaction)
+        : base(aggregateId)
+    {
+        Transaction = transaction;
+    }
 }
 ```
+
+But there is actually a third command, we need a command to have an account aggregate receive money.
 
 ```csharp
 //command for receiving a money transfer
-public class ReceiveMoneyCommand : Command<Account, AccountId>
+public class ReceiveMoneyCommand : Command<Account,AccountId>
 {
-    public AccountId SenderId { get; }
-    public Money Amount { get; }
+    public Transaction Transaction { get; }
+        
     public ReceiveMoneyCommand(
-        AccountId aggregateId, 
-        AccountId senderId,
-        Money amount) 
+    AccountId aggregateId, 
+    Transaction transaction) 
         : base(aggregateId) 
-        {
-            if(amount == null) throw new ArgumentNullException(nameof(amount));
-
-            Amount = amount;
-            SenderId = senderId;
-        }
+    {
+        Transaction = transaction;
+    }
 }
 ```
 
-> Typically when designing a business domain, one would start with the events first. Instead of modelling how external actors interact with the system, one should start with desgining how the system interacts with itself through a process called [event storming](https://en.wikipedia.org/wiki/Event_storming).
+We have glossed over this `Transaction` model. The transaction model is a model that encompasses the details of the money transaction. The sender and the receiver accounts along with the amount to be transferred. In this walkthrough it will be modelled as an `Entity<TransactionId>`:
+
+```csharp
+public class Transaction : Entity<TransactionId>
+{
+    public AccountId Sender { get; }
+    public AccountId Receiver { get; }
+    public Money Amount { get; }
+        
+    public Transaction(TransactionId entityId, AccountId sender, AccountId receiver, Money amount)
+        : base(entityId)
+    {
+        Sender = sender;
+        Receiver = receiver;
+        Amount = amount;
+    }
+}
+```
+
+> Typically when designing a business domain, one would start with the events first. Instead of modelling how external players interact with the system, one should start with desgining how the system interacts with itself through a process called [event storming](https://en.wikipedia.org/wiki/Event_storming).
 
 
 Now we can make some events for the business domain. Events are the funamendamental building blocks of event sourced systems. Go on ahead next to create your first **events**.

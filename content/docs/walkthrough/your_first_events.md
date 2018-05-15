@@ -13,12 +13,11 @@ tags:
     - csharp
     - dotnet
 ---
-We now need to design the aggregate events that will alert the system that something has happened. Some events that occur in this system according to the [business requirements](/docs/walkthrough-introduction#business-requirements).
+We now need to design the aggregate events that will form as the basis of your domain. Some of events that occur in this system could be:
 
-What are some facts that happen in our system:
 * Bank account can be opened.
 * Money can be sent to a bank account.
-* Bank fees for sent money can be deducted from bank account.
+* Bank fees for the sending of money can be deducted from bank account.
 * Money can be received by a bank account.
 
 Lets model these events accordingly.
@@ -40,12 +39,10 @@ The event that represents a bank account having sent money
 ```csharp
 public class MoneySentEvent : AggregateEvent<Account,AccountId> 
 {
-    public Money Amount { get; }
-    public AccountId ReceiverId { get; }
-    public MoneySentEvent(AccountId receiverId, Money amount)
+    public Transaction Transaction { get; }    
+    public MoneySentEvent(Transaction transaction)
     {
-        Amount = amount;
-        ReceiverId = receiverId;
+        Transaction = transaction;
     }
 }
 
@@ -67,12 +64,10 @@ The event that represents a bank account receiving money
 ```csharp
 public class MoneyReceivedEvent : AggregateEvent<Account,AccountId> 
 {
-    public Money Amount { get; }
-    public AccountId SenderId { get; }
-    public MoneyReceivedEvent(AccountId senderId, Money amount)
+    public Transaction Transaction { get; }
+    public MoneyReceivedEvent(Transaction transaction)
     {
-        Amount = amount;
-        SenderId = senderId;
+        Transaction = transaction;
     }
 }
 
@@ -98,7 +93,7 @@ public class AccountState : AggregateState<Account, AccountId>,
 
     public void Apply(MoneySentEvent aggregateEvent) 
     {
-        Balance -= aggregateEvent.Amount;
+        Balance -=  aggregateEvent.Transaction.Amount;
     }
 
     public void Apply(FeesDeductedEvent aggregateEvent) 
@@ -108,7 +103,7 @@ public class AccountState : AggregateState<Account, AccountId>,
 
     public void Apply(MoneyReceivedEvent aggregateEvent) 
     {
-        Balance += aggregateEvent.Amount;
+        Balance +=  aggregateEvent.Transaction.Amount;
     }
 }
 ```
