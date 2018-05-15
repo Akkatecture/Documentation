@@ -7,7 +7,7 @@ type: "post"
 tags: []    
 ---
 
-Akkatecture began because I found that the lack of comprehensive cqrs and es examples for akka.net was a huge oppertunity to help others. I suspect that most akka users, are the ones on the JVM side of the fence, which shows by the higher amount of community members in that open source project. Ok... onwards onto what is Akkatecture pholosophically, and why I decided to build it.
+Akkatecture began because I found that the lack of comprehensive cqrs and es examples for akka.net was a huge oppertunity to help others. I suspect that most akka users, are the ones on the JVM side of the fence, which shows by the higher amount of community members in that open source project. Ok... onwards onto what is Akkatecture philosophically, and why I decided to build it.
 
 Akkatecture is set of constructs and patterns written in C# ontop of akka.net. The main goal of Akkatecture is to allow developers who are using akka.net to model their business domain within the akka.net framework with less friction. Akkatecture is built on reactive messaging & treats events as first class concept, making it highly scalable, thanks akka.net! Akkatecture focusses mainly on messaging integration patterns within your domain so that you dont have to.
 
@@ -17,8 +17,8 @@ Akkatecture uses the actor model as the universal primitive of concurrent comput
 
 **Storage** - actors can store local internal state, in memory, and defer the storing of its state to a persistent store. This state is also thread safe from anything outside of the actors locality since actors process one message at a time and cannot be inspected externally.
 
-**Communication** - actors can communicate with each other using a pre-defined communication protocol. Typically addressed by using location transparent actor addresses. Actors communicate with message passing and that is the only way that the outside world can communicate with the actor system. Messages beign commands, or events.
-The actor model in computer science is a mathematical model of concurrent computation that treats "actors" as the universal primitives of concurrent computation. In response to a message that it receives, an actor can: make local decisions, create more actors, send more messages, and determine how to respond to the next message received. Actors may modify their own private state, but can only affect each other through messages (avoiding the need for any defining of critical sections, or wierd mutexs).
+**Communication** - actors can communicate with each other using a pre-defined communication protocol. Typically addressed by using location transparent actor addresses. Actors communicate with message passing and that is the only way that the outside world can communicate with the actor system. Messages being commands, or events.
+The actor model in computer science is a mathematical model of concurrent computation that treats "actors" as the universal primitives of concurrent computation. In response to a message that it receives, an actor can: make local decisions, create more actors, send more messages, and determine how to respond to the next message received. Actors may modify their own private state, but can only affect each other through messages (avoiding the need for any defining of critical sections, or weird mutexs).
 
 Akka based systems have been used to drive hugely scalable and highly available systems (such as Netflix and The Guardian). Even though these companies tend to run into issues at scale on a daily basis, I still see value in modelling the business domain using actors since, with some haggling, they are quite descriptive and indicative of what actually happens in the real world.
 
@@ -34,7 +34,7 @@ The next plan is to work on the current core library and branch it out to suppor
 * typed actor references*.
 * persisted event metadata.
 * snapshotting state.
-* schedueled jobs
+* scheduled jobs
 
 **nice-to-have features, not crucial, and might be axed for first version.*
 

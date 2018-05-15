@@ -31,7 +31,7 @@ class Index extends React.Component {
                 <li><b>distributed.</b></li>
                 <li><b>message based.</b></li>
                 <li><b>event sourced.</b></li>
-                <li><b>scaleable.</b></li>
+                <li><b>scalable.</b></li>
               </BenefitsList>
               <p>Akkatecture treats event sourcing, and the axioms of the actor model as a primary fundamental concept. As a result of being built ontop of akka.net, Akkatecture also enjoys great levels of extensibility, and configurability, so that you can make a resilient, distributed application.</p>
             </BodyContents>
@@ -50,7 +50,7 @@ class Index extends React.Component {
             <BodyContentsInverted>
               <h2>Getting Started</h2>
               <p>Akkatecture is written in .net core targeting the netstandard 2.0 framework, while also using the greatest and latest open source dotnet core technologies.</p>
-              <p>If you are familiar with domain driven design, cqrs, and event sourcing, then learning Akkatecture will be a breaze. If you are not, don't worry, why not learn these concepts while using Akkatecture through our walkthrough style tutorial in our documentation.</p>
+              <p>If you are familiar with domain driven design, cqrs, and event sourcing, then learning Akkatecture will be a breeze. If you are not, don't worry, why not learn these concepts while using Akkatecture through our walkthrough style tutorial in our documentation.</p>
               <p>This project comes complete with documentation that covers the concepts and constructs that it employs.</p>
               <div> 
                 <CtaButton  to={'/docs/getting-started'}> GET STARTED</CtaButton>

@@ -58,7 +58,7 @@ public class AccountId : Identity<AccountId>
 
 3. `New`: Uses the standard `Guid.NewGuid()`.
 
-4.  `NewDeterministic(...)`: Creates a name-based `Guid` using the algorithm from [RFC 4122 §4.3](https://www.ietf.org/rfc/rfc4122.txt), which allows identities to be generated based on known data, e.g. an user e-mail, i.e., it always returns the same identity for the same arguments.
+4.  `NewDeterministic(...)`: Creates a name-based `Guid` using the algorithm from [RFC 4122 §4.3](https://www.ietf.org/rfc/rfc4122.txt), which allows identities to be generated based on known data, e.g. an e-mail, i.e., it always returns the same identity for the same arguments.
 
 5.  `NewComb()`: Creates a sequential `Guid` that can be used to e.g. avoid database fragmentation.
 

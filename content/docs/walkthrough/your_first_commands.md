@@ -13,7 +13,7 @@ tags:
     - csharp
     - dotnet
 ---
-Let us remind ourselves of some of the business requiremtents for the task that we are trying to do:
+Let us remind ourselves of some of the business requirements for the task that we are trying to do:
 
 * The bank needs to allow customers to create accounts for free with a non-negative opening balance.
 * The bank needs to allow customers to transfer money between accounts.
@@ -89,9 +89,9 @@ public class Transaction : Entity<TransactionId>
 }
 ```
 
-> Typically when designing a business domain, one would start with the events first. Instead of modelling how external players interact with the system, one should start with desgining how the system interacts with itself through a process called [event storming](https://en.wikipedia.org/wiki/Event_storming).
+> Typically when designing a business domain, one would start with the events first. Instead of modelling how external players interact with the system, one should start with designing how the system interacts with itself through a process called [event storming](https://en.wikipedia.org/wiki/Event_storming).
 
 
-Now we can make some events for the business domain. Events are the funamendamental building blocks of event sourced systems. Go on ahead next to create your first **events**.
+Now we can make some events for the business domain. Events are the fundamental building blocks of event sourced systems. Go on ahead next to create your first **events**.
 
 [Next →](/docs/your-first-events)
