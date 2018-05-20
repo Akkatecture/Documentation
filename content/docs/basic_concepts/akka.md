@@ -16,4 +16,13 @@ Actors in the [actor model](https://en.wikipedia.org/wiki/Actor_model) are objec
 
 Akka.net is just an implementation of an actor sytem that fascilitates the actor model. Go to [akka.net](https://getakka.net/)'s website to get familiar with their implementation of the actor model. To use Akkatecture even more effectively, we suggest that you go on further and complete the [petabridge akka bootcamp](https://github.com/petabridge/akka-bootcamp). It is a good way to get a solid understanding of akka.net, and how it works.
 
+```mermaid
+graph LR
+A[Christmas] -->|Get money| B(Go shopping)
+B --> C{Let me think}
+C -->|One| D[Laptop]
+C -->|Two| E[iPhone]
+C -->|Three| F[Car]
+```
+
 [Next, Configuration →](/docs/configuration)

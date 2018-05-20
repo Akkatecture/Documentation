@@ -46,6 +46,14 @@ module.exports = {
           {
             resolve: 'gatsby-remark-responsive-iframe'
           },
+          {
+            resolve: 'gatsby-remark-graph',
+            options: {
+              language: 'mermaid',
+              theme: null,
+              themeCSS: ".node polygon { fill: #2980B9;stroke:#3498DB; } .node rect { fill: #2980B9;stroke:#3498DB; }"
+            }
+          },
           'gatsby-remark-prismjs',
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-autolink-headers'
