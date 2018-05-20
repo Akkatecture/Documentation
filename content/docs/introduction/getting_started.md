@@ -14,6 +14,10 @@ tags:
 ---
 
 <img src="https://raw.githubusercontent.com/Lutando/Akkatecture/master/logo.svg?sanitize=true" width="100%" height="200">
+<div align="center">
+  <img src="https://img.shields.io/nuget/v/Akkatecture.svg?style=flat" >
+</div>
+
 
 ### Welcome to Akkatecture
 
@@ -40,7 +44,7 @@ var createUserAccountCommand = new CreateUserAccountCommand(aggregateId, "foo ba
 aggregateManager.Tell(createUserAccountCommand);
 ```
 > The above example is part of the Akkatecture simple example [project](https://github.com/Lutando/Akkatecture/tree/master/examples/simple), pull [the
-code](https://github.com/Lutando/Akkatecture/blob/master/examples/simple/Akkatecture.Examples.UserAccount.Application/Program.cs#L13) and give it a run to see how it works.
+code](https://github.com/Lutando/Akkatecture/blob/master/examples/simple/Akkatecture.Examples.Application/Program.cs#L36) and give it a run to see how it works.
 
 Akkatecture also ships with a companion package for clustering called `Akkatecture.Clustering`. Go to the [clustering documentation](/docs/clustering) to learn more about it.
 

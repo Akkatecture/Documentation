@@ -20,6 +20,7 @@ Akkatecture has no opinions about how to make read models. since they are just e
 For the purposes of the walkthrough our read model needs to at least return how much revenue the bank has earned, this cane be modelled as followed:
 
 ```csharp
+//Walkthrough.Domain/Repositories/Revenue/ReadModels/RevenueReadModel.cs
 public class RevenueReadModel
 {
     public Money Revenue { get; }
@@ -37,6 +38,7 @@ public class RevenueReadModel
 Our simple query model for retreiving the revenue could be as follows.
 
 ```csharp
+//Walkthrough.Domain/Repositories/Revenue/Queries/GetRevenueQuery.cs
 public class GetRevenueQuery
 {        
 }

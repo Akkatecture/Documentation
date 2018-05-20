@@ -24,6 +24,7 @@ Lets model these events accordingly.
 
 The event that represents a bank account being opened
 ```csharp
+//Walkthrough.Domain/Model/Account/Events/AccountOpenedEvent.cs
 public class AccountOpenedEvent : AggregateEvent<Account,AccountId> 
 {
     public Money OpeningBalance { get; }
@@ -37,6 +38,7 @@ public class AccountOpenedEvent : AggregateEvent<Account,AccountId>
 
 The event that represents a bank account having sent money
 ```csharp
+//Walkthrough.Domain/Model/Account/Events/MoneySentEvent.cs
 public class MoneySentEvent : AggregateEvent<Account,AccountId> 
 {
     public Transaction Transaction { get; }    
@@ -50,6 +52,7 @@ public class MoneySentEvent : AggregateEvent<Account,AccountId>
 
 The event that represents a bank account deducting bank fees
 ```csharp
+//Walkthrough.Domain/Model/Account/Events/FeesDeductedEvent.cs
 public class FeesDeductedEvent : AggregateEvent<Account,AccountId> 
 {
     public Money Amount { get; }
@@ -62,6 +65,7 @@ public class FeesDeductedEvent : AggregateEvent<Account,AccountId>
 
 The event that represents a bank account receiving money
 ```csharp
+//Walkthrough.Domain/Model/Account/Events/MoneyReceivedEvent.cs
 public class MoneyReceivedEvent : AggregateEvent<Account,AccountId> 
 {
     public Transaction Transaction { get; }
@@ -78,6 +82,7 @@ We need to add each aggregate event applier method to the [aggregate state](/doc
 `AccountState` becomes:
 
 ```csharp
+//Walkthrough.Domain/Model/Account/AccountState.cs
 public class AccountState : AggregateState<Account, AccountId>,
     IApply<AccountOpenedEvent>,
     IApply<MoneySentEvent>,

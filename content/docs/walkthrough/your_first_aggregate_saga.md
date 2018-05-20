@@ -20,6 +20,7 @@ One of the major components missing in our current task is the ability to tell o
 Since we are making a saga responsible for coordinating money transfer, lets call it the `MoneyTransferSaga`. Bare with the explanation but we will model it one stab. Sagas need to implement `ISagaIsStartedBy<,,>` and (sometimes) `ISagaHandles<,,>` interfaces. These interfaces give you a nice description of how the saga works and which boundaries it operates between.
 
 ```csharp
+//Walkthrough.Domain/Sagas/MoneyTransfer/MoneyTransferSaga.cs
 public class MoneyTransferSaga : AggregateSaga<MoneyTransferSaga, MoneyTransferSagaId, MoneyTransferSagaState>,
     ISagaIsStartedBy<Account, AccountId, MoneySentEvent>,
     ISagaHandles<Account, AccountId, FeesDeductedEvent>
@@ -67,6 +68,7 @@ Lets talk about the first `Handle` method in depth. Esentially it is responsible
 The `SagaId<>` gives us a way to address the saga in the actor system, and much like `Identity<>` it is also a `SingleValueObject<>`. We can define our `MoneyTransferSagaId` as follows:
 
 ```csharp
+//Walkthrough.Domain/Sagas/MoneyTransfer/MoneyTransferSagaId.cs
 public class MoneyTransferSagaId : SagaId<MoneyTransferSagaId>
 {
     public MoneyTransferSagaId(string value)
@@ -79,6 +81,7 @@ public class MoneyTransferSagaId : SagaId<MoneyTransferSagaId>
 Akkatecture aggregate sagas are also similar to aggregate roots in that they have a state model, but this time it is based on `SagaState<,,>`. We can define our `SagaState<,,>` as follows:
 
 ```csharp
+//Walkthrough.Domain/Sagas/MoneyTransfer/MoneyTransferSagaState.cs
 public class MoneyTransferSagaState : SagaState<MoneyTransferSaga,MoneyTransferSagaId,IEventApplier<MoneyTransferSaga, MoneyTransferSagaId>>,
     IApply<MoneyTransferStartedEvent>,
     IApply<MoneyTransferCompletedEvent>
@@ -114,6 +117,7 @@ public class MoneyTransferSagaState : SagaState<MoneyTransferSaga,MoneyTransferS
 The `AggregateSagaManager<,,>` functions just like the `AggregateManager<,,>`. It is responsible for coordinating the message passing of messages to sagas. In this case it is not `Commands<,>`, but `IDomainEvent`s. We can define our saga manager as follows:
 
 ```csharp
+//Walkthrough.Domain/Sagas/MoneyTransfer/MoneyTransferSagaManager.cs
 public class MoneyTransferSagaManager : AggregateSagaManager<MoneyTransferSaga,MoneyTransferSagaId,MoneyTransferSagaLocator>
 {
     public MoneyTransferSagaManager(Expression<Func<MoneyTransferSaga>> factory)
@@ -129,6 +133,7 @@ If you notice, the saga manager needs to have a factory method passed to its con
 `ISagaLocator<>`s are used to return `SagaId<>`s for any given saga, these Ids are used to address sagas in the actor system. Unlike aggregate roots which are located by an aggregateId, Sagas are not. Sagas are locateable from a group or class of events that are related to that saga. In our case, we need to use the `MoneySentEvent` and the `MoneyReceivedEvent` events  addresses the saga that is required to process the event. Both events have a `Transaction.Id` member so we can do that to address the saga. Lets define our `ISagaLocator<>`:
 
 ```csharp
+//Walkthrough.Domain/Sagas/MoneyTransfer/MoneyTransferSagaLocator.cs
 public class MoneyTransferSagaLocator : ISagaLocator<MoneyTransferSagaId>
 {
     public const string LocatorIdPrefix = "moneytransfer";

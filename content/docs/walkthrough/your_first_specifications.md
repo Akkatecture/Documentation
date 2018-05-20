@@ -57,6 +57,7 @@ To be able to send money from one account to another the business requirements s
 We can model these requirements as specifications as:
 
 ```csharp
+//Walkthrough.Domain/Model/Account/Specifications/MinimumTransferAmountSpecification.cs
 public class MinimumTransferAmountSpecification : Specification<Account> 
 {
     protected override IEnumerable<string> IsNotSatisfiedBecause(Account obj)
@@ -68,6 +69,7 @@ public class MinimumTransferAmountSpecification : Specification<Account>
     }
 }
 
+//Walkthrough.Domain/Model/Account/Specifications/EnoughBalanceAmountSpecification.cs
 public class EnoughBalanceAmountSpecification : Specification<Account> 
 {
     protected override IEnumerable<string> IsNotSatisfiedBecause(Account obj)

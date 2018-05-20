@@ -20,6 +20,7 @@ On analysis of the business requirements, it is apparent that the main aggregate
 First we need to make an `Identity<>` for our aggregate.
 
 ```csharp
+//Walkthrough.Domain/Model/Account/AccountId.cs
 public class AccountId : Identity<AccountId>
 {
     public AccountId(string value)
@@ -32,6 +33,7 @@ public class AccountId : Identity<AccountId>
 Then we need to make the `Account` aggregate state model that will hold our balance:
 
 ```csharp
+//Walkthrough.Domain/Model/Account/AccountState.cs
 public class AccountState : AggregateState<Account, AccountId>
 {
     public Money Balance { get; set; }
@@ -41,6 +43,7 @@ public class AccountState : AggregateState<Account, AccountId>
 Lets make a simple `Money` ValueObject<decimal> that will represent money in our application, lets put some simple domain logic into the value object that states that its value must be non-negative.
 
 ```csharp
+//Walkthrough.Domain/Model/Account/ValueObjects/Money.cs
 public class Money : SingleValueObject<decimal>
 {
     public Money(decimal value)
@@ -59,6 +62,7 @@ public class Money : SingleValueObject<decimal>
 Now we can make our `Account` aggregate root.
 
 ```csharp
+//Walkthrough.Domain/Model/Account/Account.cs
 public class Account : AggregateRoot<Account, AccountId, AccountState>
 {
     public Account(AccountId aggregateId)
@@ -71,6 +75,7 @@ public class Account : AggregateRoot<Account, AccountId, AccountState>
 And finally we need to make our aggregate root manager, which will be responsible for supervising, and creating the aggregate roots.
 
 ```csharp
+//Walkthrough.Domain/Model/Account/AccountManager.cs
 public class AccountManager : AggregateManager<Account, AccountId, Command<Account, AccountId>> 
 {
 }

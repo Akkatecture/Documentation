@@ -22,6 +22,7 @@ We could see these as two commands, one for creating the bank account. And anoth
 
 ```csharp
 //command for creating the bank account
+//Walkthrough.Domain/Model/Account/Commands/OpenNewAccountCommand.cs
 public class OpenNewAccountCommand : Command<Account, AccountId> 
 {
     public Money OpeningBalance { get; }
@@ -39,6 +40,7 @@ And the transfer money command can be made as follows:
 
 ```csharp
 //command for initiating (sending) a money transfer
+//Walkthrough.Domain/Model/Account/Commands/TransferMoneyCommand.cs
 public class TransferMoneyCommand : Command<Account, AccountId>
 {
     public Transaction Transaction { get; }
@@ -56,6 +58,7 @@ But there is actually a third command, we need a command to have an account aggr
 
 ```csharp
 //command for receiving a money transfer
+//Walkthrough.Domain/Model/Account/Commands/ReceiveMoneyCommand.cs
 public class ReceiveMoneyCommand : Command<Account,AccountId>
 {
     public Transaction Transaction { get; }
@@ -73,6 +76,7 @@ public class ReceiveMoneyCommand : Command<Account,AccountId>
 We have glossed over this `Transaction` model. The transaction model is a model that encompasses the details of the money transaction. The sender and the receiver accounts along with the amount to be transferred. In this walkthrough it will be modelled as an `Entity<TransactionId>`:
 
 ```csharp
+//Walkthrough.Domain/Model/Account/Entities/Transaction.cs
 public class Transaction : Entity<TransactionId>
 {
     public AccountId Sender { get; }
@@ -88,6 +92,7 @@ public class Transaction : Entity<TransactionId>
     }
 }
 ```
+Be sure to also model the corresponding `TransactionId` for the `Transaction` entity.
 
 > Typically when designing a business domain, one would start with the events first. Instead of modelling how external players interact with the system, one should start with designing how the system interacts with itself through a process called [event storming](https://en.wikipedia.org/wiki/Event_storming).
 

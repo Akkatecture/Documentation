@@ -19,6 +19,7 @@ If we look back at our task requirements, the last one states that;
 One way to satisfy this requirement is to use a `DomainEventSubscriber` that Subscribes to the `FeesDeductedEvent` domain event, which then tells the persistence mechanism to store the result so that it can later be read by a `ReadModel`.
 
 ```csharp
+//Walkthrough.Domain/Subscribers/Revenue/RevenueSubscriber.cs
 public class RevenueSubscriber : DomainEventSubscriber,
     ISubscribeTo<Account,AccountId,FeesDeductedEvent>
 {
@@ -41,6 +42,7 @@ public class RevenueSubscriber : DomainEventSubscriber,
 Our mock revenue repository is going to be modelled as an actor, but typically this would be a type of persistent storage that applies to your use case.
 
 ```csharp
+//Walkthrough.Domain/Repositories/RevenueRepository.cs
 public class RevenueRepository : ReceiveActor
 {
     public Money Revenue { get; private set; } = new Money(0.00m);

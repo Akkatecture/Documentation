@@ -27,6 +27,7 @@ The persistence dependencies is normally application specific. The `RevenueRepos
 We can make a method `CreateActorSystem()` that instantiates all the actors accordingly:
 
 ```csharp
+//Walkthrough.Application.Program.cs
 //Create actor system
 var system = ActorSystem.Create("bank-system");
 
@@ -49,7 +50,7 @@ system.ActorOf(Props.Create(() =>
 In our console application's `Main(...)` method:
 
 ```csharp
-
+//Walkthrough.Application.Program.cs
 //initialize actor system
 CreateActorSystem();
 
