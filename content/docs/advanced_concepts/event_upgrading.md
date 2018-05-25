@@ -12,7 +12,7 @@ tags:
     - csharp
     - dotnet
 ---
-At some point you might find the need to replace a event with zero or more events. Some use cases might be:
+Also sometimes known as event upcasting. At some point you might find the need to replace a event with zero or more events. Some use cases might be:
 
 * A previous application version introduced a domain error in the form of a wrong event being emitted from the aggregate.
 * The domain has changed, either from a change in requirements or simply from a better understanding of the domain.
