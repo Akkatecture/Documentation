@@ -23,7 +23,7 @@ class SEO extends Component {
       image = config.siteLogo;
     }
     const realPrefix = config.pathPrefix === "/" ? "" : config.pathPrefix;
-    image = config.siteUrl + realPrefix + image;
+    image = 'https://raw.githubusercontent.com/Akkatecture/Documentation/master/static/logos/logo-512.png';
     const blogURL = config.siteUrl + config.pathPrefix;
     const schemaOrgJSONLD = [
       {
