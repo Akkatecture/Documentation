@@ -23,7 +23,7 @@ class SEO extends Component {
       image = config.siteLogo;
     }
     const realPrefix = config.pathPrefix === "/" ? "" : config.pathPrefix;
-    image = 'https://raw.githubusercontent.com/Akkatecture/Documentation/master/static/logos/logo-512.png';
+    image = 'https://akkatecture.net/logos/logo-300.png';
     const blogURL = config.siteUrl + config.pathPrefix;
     const schemaOrgJSONLD = [
       {
@@ -83,6 +83,9 @@ class SEO extends Component {
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={image} />
+        <meta property="og:image:width" content="300" />
+        <meta property="og:image:height" content="300" />
+        <meta property="og:image:type" content="image/png"/>
         <meta
           property="fb:app_id"
           content={config.siteFBAppID ? config.siteFBAppID : ""}
