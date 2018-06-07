@@ -23,7 +23,7 @@ Since we are making a saga responsible for coordinating money transfer, lets cal
 //Walkthrough.Domain/Sagas/MoneyTransfer/MoneyTransferSaga.cs
 public class MoneyTransferSaga : AggregateSaga<MoneyTransferSaga, MoneyTransferSagaId, MoneyTransferSagaState>,
     ISagaIsStartedBy<Account, AccountId, MoneySentEvent>,
-    ISagaHandles<Account, AccountId, FeesDeductedEvent>
+    ISagaHandles<Account, AccountId, MoneyReceivedEvent>
 {
     public IActorRef AccountAggregateManager { get; }
     public MoneyTransferSaga(IActorRef accountAggregateManager)
