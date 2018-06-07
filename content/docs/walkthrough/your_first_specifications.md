@@ -91,7 +91,7 @@ public bool Execute(TransferMoneyCommand command)
     var andSpec = balanceSpec.And(minimumTransferSpec);
     if(andSpec.IsSatisfiedBy(this))
     {
-        var moneySentEvent = new MoneySentEvent(command.ReceiverId, command.Amount)
+        var moneySentEvent = new MoneySentEvent(command.Transaction);
         Emit(moneySentEvent);
 
         var feesDeductedEvent = new FeesDeductedEvent(new Money(0.25m));
@@ -101,14 +101,14 @@ public bool Execute(TransferMoneyCommand command)
 }
 ```
 
-> We have a command that actually produced two events as the outcome of its sucessful execution. This is quite ok and can happen from time to time. One successful command does not necessarily that only one event can be emitted. Transfering money reduces the account balance and charges a fee. For auditing purposes, it is a good to have these as separate events.
+> We have a command that actually produced two events as the outcome of its sucessful execution. This is quite ok and can happen from time to time. One successful command does not necessarily mean that only one event can be emitted. Transfering money reduces the account balance and charges a fee. For auditing purposes, it is a good to have these as separate events.
 
 Finally we need to handle the receiving of money from `ReceiveMoneyCommand`.
 
 ```csharp
 public bool Execute(ReceiveMoneyCommand command)
 {
-    var moneyReceivedEvent = new MoneyReceivedEvent(command.SenderId,command.Amount);
+    var moneyReceivedEvent = new MoneyReceivedEvent(command.Transaction);
 
     Emit(moneyReceivedEvent);
     return true;
@@ -117,7 +117,7 @@ public bool Execute(ReceiveMoneyCommand command)
 
 ### Summary
 
-We codified our business specifications (rules) into models that derive from `Specification<>`. This allows us to have testable specifications that live in one place. We used the specifications to guard our domains against rule breaking commands. We even used an `AndSpecification<>` to compose our specifications. you can build your own compositions as well using [these](https://github.com/Lutando/Akkatecture/tree/master/src/Akkatecture/Specifications/Provided). Do not over use your specifications, it is not a silver bullet, and be aware of the [criticisms](https://en.wikipedia.org/wiki/Specification_pattern#Criticisms) of specifications, finally, one should also be wary of using them outside of your domain layer. Reducing code duplication also increases code coupling.
+We codified our business specifications (rules) into models that derive from `Specification<>`. This allows us to have testable specifications that live in one place. We used the specifications to guard our domains against rule breaking commands. We even used an `AndSpecification<>` to compose our specifications. You can build your own compositions as well using [these](https://github.com/Lutando/Akkatecture/tree/master/src/Akkatecture/Specifications/Provided). Do not over use your specifications, it is not a silver bullet, and be aware of the [criticisms](https://en.wikipedia.org/wiki/Specification_pattern#Criticisms) of specifications, finally, one should also be wary of using them outside of your domain layer. Reducing code duplication also increases code coupling.
 
 Next we shall go over how to craft your own **sagas**. Which add an extra dimension of capabilities in Akkatecture.
 
