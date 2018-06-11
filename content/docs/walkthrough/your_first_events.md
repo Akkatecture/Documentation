@@ -15,10 +15,10 @@ tags:
 ---
 We now need to design the aggregate events that will form as the basis of your domain. Some of events that occur in this system could be:
 
-* Bank account can be opened.
-* Money can be sent to a bank account.
-* Bank fees for the sending of money can be deducted from bank account.
-* Money can be received by a bank account.
+* Bank account has been opened.
+* Money has been sent to a bank account.
+* Bank fees for the sending of money have been deducted from bank account.
+* Money has been received by a bank account.
 
 Lets model these events accordingly.
 

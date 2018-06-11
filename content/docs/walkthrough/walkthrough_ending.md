@@ -38,7 +38,7 @@ var aggregateManager = system.ActorOf(Props.Create(() => new AccountManager()),"
 var revenueRepository = system.ActorOf(Props.Create(() => new RevenueRepository()),"revenue-repository");
 
 //Create subscriber for revenue repository
-system.ActorOf(Props.Create(() => new RevenueSubscriber(RevenueRepository)),"revenue-subscriber");
+system.ActorOf(Props.Create(() => new RevenueSubscriber(revenueRepository)),"revenue-subscriber");
 
 //Create saga manager for money transfer
 system.ActorOf(Props.Create(() =>

@@ -17,7 +17,7 @@ If you ever need to access the data in your aggregates efficiently, its importan
 
 Akkatecture has no opinions about how to make read models. since they are just essentially data transfer objects for projections. It is up to you to decide what is best read model for the underlying persistence at hand.
 
-For the purposes of the walkthrough our read model needs to at least return how much revenue the bank has earned, this cane be modelled as followed:
+For the purposes of the walkthrough our read model needs to at least return how much revenue the bank has earned, this can be modelled as followed:
 
 ```csharp
 //Walkthrough.Domain/Repositories/Revenue/ReadModels/RevenueReadModel.cs
