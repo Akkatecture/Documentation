@@ -46,10 +46,9 @@ Your apply methods should be functional and idempotent, meaning the application 
 
 Keep in mind, that you need to keep the event types in your code for as long as these events are in the event source, which in most cases are *forever* as storage is cheap and information, i.e., your domain events, are expensive. Distinguish between old event types and broken event types with high scrutiny as these are the fundamental building blocks of your domain.
 
-[//]: # (TODO LINK)
 However, you should still clean your code, have a look at how you can
-`upgrade and version your events <event-upgrade>` for details on
-how Akkatecture supports you in this.
+[upgrade and version your events ](/docs/event-upgrading) for details on
+how Akkatecture suggests to you in how to solve this.
 
 ## Unit Testing
 
@@ -93,8 +92,35 @@ If `M5` is delivered it must be delivered before `M6`.
 
 ## Actor Behaviours
 
-To test and manage actors that do not use akka.net's Become() methods can become cumbersome. Akkatecture comes with a [specification pattern implementation](/docs/specifications) that will give you the option to do some rich, expressive, domain validation within the actors. Specifications are also highly testable. Feel free to use this at your pleasure.
+To test and manage actors that do not use akka.net's `Become()` methods can become cumbersome. Akkatecture comes with a [specification pattern implementation](/docs/specifications) that will give you the option to do some rich, expressive, domain validation within the actors. Specifications are also highly testable. Feel free to use this at your pleasure.
 
 ## Validate Inputs
 
-Validating inputs in CQRS that typically means validate your commands and queries. Do as much *static* validation as possible, `null` checks, and checks for `default(T)` such things are highly recommended where applicable.
+Validating inputs in CQRS that typically means validate your commands and queries. Do as much *static* or *shallow* validation as possible, `null` checks, and checks for `default(T)` such things are highly recommended where applicable.
+
+**Aggregate Event Members Should Be Primitive**
+
+Make sure that your event in its serialized form can be deserialized to any primitive type. Using complex a type as a member in your aggregate event definition can be problematic, if the complex type changes by mistake or otherwise, it can render your aggregate event useless.
+
+For example consider this case:
+
+```csharp
+public class GameEndedEvent : AggregateEvent<GameAggregate, GameAggregateId>
+{
+    //ZonedDateTime is a NodaTime type from a NuGet package
+    public ZonedDateTime TimeEnded { get; } 
+    //Team is an Entity<TeamId> from this example's domain project
+    public Team WinningTeam { get; } 
+
+    public GameEndedEvent(ZonedDateTime timeEnded, Team winningTeam)
+    {
+        TimeEnded = timeEnded;
+        WinningTeam = winningTeam;
+    }
+}
+```
+
+In the `GameEndedEvent` class definition, there are two members called `TimeEnded` and `WinningTeam`, with the types `ZonedDateTime` (from [NodaTime](https://nodatime.org/)) and `Team` respectively. The issue with an event like this is that unless we freeze the version of the NodaTime package at the point of this events instantiation, we cant guarantee that this event will be able to be used in the future due to NodaTime making their own independant changes to the `ZonedDateTime` type. The issue with the `Team` entity existing in the aggregate event itself can also be problematic since the `Team` entity can evolve within your codebase independantly of the GameEndedEvent. In short, be very careful when adding types to your aggregate event that may evolve. BCL types and primitive types are safe bets because they evolve quite slow in comparison to other types from libraries or your own domain code. See [this](https://buildplease.com/pages/vos-in-events/) post which might persuade you even more.
+
+
+> Caveats or points of contention of this rule may include simple value objects like single value objects in Akkatecture that get serialized into a single primitive type. As long as you do not change the underlying primitive type of the `SingleValueObject` you will be fine.
