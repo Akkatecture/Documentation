@@ -21,12 +21,12 @@ As an example, imagine you are implementing the command for initiating a bank tr
 public class TransferMoneyCommand : Command<AccountAggregate, AccountId>
 {
     public Money Amount { get; }
-    public DestinationAccountId { get; }
+    public AccountId DestinationAccountId { get; }
 
     public TransferMoneyCommand(
         AccountId id,
-        AccountId destinationAccountId,
-        Money amount)
+        Money amount,
+        AccountId destinationAccountId)
         : base(id)
     {
         Amount = amount;
