@@ -29,3 +29,4 @@ tags:
 
 #### Other
 - [Microsoft REST Api Guidelines](https://github.com/Microsoft/api-guidelines/blob/vNext/Guidelines.md) by Microsoft
+- [Race Conditions Don't Exist](http://udidahan.com/2010/08/31/race-conditions-dont-exist/) by Udi Dahan
