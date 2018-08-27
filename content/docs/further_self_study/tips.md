@@ -100,7 +100,7 @@ Validating inputs in CQRS that typically means validate your commands and querie
 
 **Aggregate Event Members Should Be Primitive**
 
-Make sure that your event in its serialized form can be deserialized to any primitive type. Using complex a type as a member in your aggregate event definition can be problematic, if the complex type changes by mistake or otherwise, it can render your aggregate event useless.
+This is to protect against invariants of domain models, Make sure that your event in its serialized form can be deserialized to any primitive type. Using complex (class) a type as a member in your aggregate event definition can be problematic, if the complex type changes by mistake or otherwise, it can render your aggregate event useless.
 
 For example consider this case:
 
@@ -122,5 +122,30 @@ public class GameEndedEvent : AggregateEvent<GameAggregate, GameAggregateId>
 
 In the `GameEndedEvent` class definition, there are two members called `TimeEnded` and `WinningTeam`, with the types `ZonedDateTime` (from [NodaTime](https://nodatime.org/)) and `Team` respectively. The issue with an event like this is that unless we freeze the version of the NodaTime package at the point of this events instantiation, we cant guarantee that this event will be able to be used in the future due to NodaTime making their own independant changes to the `ZonedDateTime` type. The issue with the `Team` entity existing in the aggregate event itself can also be problematic since the `Team` entity can evolve within your codebase independantly of the GameEndedEvent. In short, be very careful when adding types to your aggregate event that may evolve. BCL types and primitive types are safe bets because they evolve quite slow in comparison to other types from libraries or your own domain code. See [this](https://buildplease.com/pages/vos-in-events/) post which might persuade you even more.
 
+an example of a better `GameEndedEvent` might be:
+
+```csharp
+public class GameEndedEvent : AggregateEvent<GameAggregate, GameAggregateId>
+{
+    public DateTime TimeEnded { get; }
+    public Guid WinningTeamId { get; } 
+    public string WinningTeamName { get; }
+    public IReadOnlyList<Guid> WinningTeamMemberIds {get;} 
+
+    public GameEndedEvent(
+        DateTime timeEnded,
+        Guid winningTeamId,
+        string winningTeamName,
+        IReadOnlyList<Guid> winningTeamMemberIds)
+    {
+        TimeEnded = timeEnded;
+        WinningTeamId = winningTeamId;
+        WinningTeamName = winningTeamName;
+        WinningTeamMemberIds = winningTeamMemberIds
+    }
+}
+```
+
+In the event model above, the members are defined by BCL types that are "quite invariant", however if you want to be super safe, rather use primitive types or arrays of those primitive types or maps of those primitive types.
 
 > Caveats or points of contention of this rule may include simple value objects like single value objects in Akkatecture that get serialized into a single primitive type. As long as you do not change the underlying primitive type of the `SingleValueObject` you will be fine.
