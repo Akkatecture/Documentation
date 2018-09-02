@@ -87,6 +87,7 @@ public class MoneyTransferSagaState : SagaState<MoneyTransferSaga,MoneyTransferS
     IApply<MoneyTransferCompletedEvent>
 {
     public Transaction Transaction { get; private set; }
+    
     public void Apply(MoneyTransferStartedEvent aggregateEvent)
     {
         Transaction = aggregateEvent.Transaction;

@@ -28,6 +28,7 @@ The event that represents a bank account being opened
 public class AccountOpenedEvent : AggregateEvent<Account,AccountId> 
 {
     public Money OpeningBalance { get; }
+
     public AccountOpenedEvent(Money openingBalance)
     {
         OpeningBalance = openingBalance;
@@ -42,6 +43,7 @@ The event that represents a bank account having sent money
 public class MoneySentEvent : AggregateEvent<Account,AccountId> 
 {
     public Transaction Transaction { get; }    
+
     public MoneySentEvent(Transaction transaction)
     {
         Transaction = transaction;
@@ -56,6 +58,7 @@ The event that represents a bank account deducting bank fees
 public class FeesDeductedEvent : AggregateEvent<Account,AccountId> 
 {
     public Money Amount { get; }
+
     public FeesDeductedEvent(Money amount)
     {
         Amount = amount;
@@ -69,6 +72,7 @@ The event that represents a bank account receiving money
 public class MoneyReceivedEvent : AggregateEvent<Account,AccountId> 
 {
     public Transaction Transaction { get; }
+    
     public MoneyReceivedEvent(Transaction transaction)
     {
         Transaction = transaction;

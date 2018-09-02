@@ -103,7 +103,10 @@ An `Entity` is an object that has some intrinsic identity, apart from the rest o
 public class Account : Entity<AccountId>
 {
   public AccountNumber AccountNumber {get;}
-  public Account(AccountId entityId, AccountNumber accountNumber)
+
+  public Account(
+    AccountId entityId,
+    AccountNumber accountNumber)
     : base(entityId)
   {
       //do some model validation, null checks etc.

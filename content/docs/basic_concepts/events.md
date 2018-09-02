@@ -21,7 +21,9 @@ public class PingEvent : AggregateEvent<PingAggregate, PingAggregateId>
     public long TimeSent { get; }
     public string Data { get; }
 
-    public PingEvent(long timeSent, string data)
+    public PingEvent(
+    long timeSent, 
+    string data)
     {
         TimeSent = timeSent;
         Data = data;

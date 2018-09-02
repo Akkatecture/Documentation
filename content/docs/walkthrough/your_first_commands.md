@@ -26,7 +26,9 @@ We could see these as two commands, one for creating the bank account. And anoth
 public class OpenNewAccountCommand : Command<Account, AccountId> 
 {
     public Money OpeningBalance { get; }
-    public OpenNewAccountCommand(AccountId aggregateId, Money openingBalance)
+    public OpenNewAccountCommand(
+        AccountId aggregateId,
+        Money openingBalance)
         : base(aggregateId)
     {
         if(openingBalance == null) throw new ArgumentNullException(nameof(openingBalance));
@@ -44,9 +46,10 @@ And the transfer money command can be made as follows:
 public class TransferMoneyCommand : Command<Account, AccountId>
 {
     public Transaction Transaction { get; }
+
     public TransferMoneyCommand(
-    AccountId aggregateId,
-    Transaction transaction)
+        AccountId aggregateId,
+        Transaction transaction)
         : base(aggregateId)
     {
         Transaction = transaction;
@@ -64,8 +67,8 @@ public class ReceiveMoneyCommand : Command<Account,AccountId>
     public Transaction Transaction { get; }
         
     public ReceiveMoneyCommand(
-    AccountId aggregateId, 
-    Transaction transaction) 
+        AccountId aggregateId, 
+        Transaction transaction) 
         : base(aggregateId) 
     {
         Transaction = transaction;
@@ -83,7 +86,11 @@ public class Transaction : Entity<TransactionId>
     public AccountId Receiver { get; }
     public Money Amount { get; }
         
-    public Transaction(TransactionId entityId, AccountId sender, AccountId receiver, Money amount)
+    public Transaction(
+        TransactionId entityId,
+        AccountId sender,
+        AccountId receiver,
+        Money amount)
         : base(entityId)
     {
         Sender = sender;

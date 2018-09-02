@@ -26,7 +26,9 @@ public class RevenueReadModel
     public Money Revenue { get; }
     public int Transactions { get; }
 
-    public RevenueReadModel(Money revenue, int transactions)
+    public RevenueReadModel(
+        Money revenue,
+        int transactions)
     {
         Revenue = revenue;
         Transactions = transactions;

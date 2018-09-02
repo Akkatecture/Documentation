@@ -112,7 +112,9 @@ public class GameEndedEvent : AggregateEvent<GameAggregate, GameAggregateId>
     //Team is an Entity<TeamId> from this example's domain project
     public Team WinningTeam { get; } 
 
-    public GameEndedEvent(ZonedDateTime timeEnded, Team winningTeam)
+    public GameEndedEvent(
+        ZonedDateTime timeEnded,
+        Team winningTeam)
     {
         TimeEnded = timeEnded;
         WinningTeam = winningTeam;
