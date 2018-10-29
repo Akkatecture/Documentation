@@ -47,5 +47,3 @@ ClusterFactory<MoneyTransferSagaManager, MoneyTransferSaga, MoneyTransferSagaId,
 We usually do not need to get a reference to proxy into the aggregate saga manager because they are invoked through domain events. If you instantiate a saga cluster on the worker that would be enough.
 
 Clustering is a huge concept with many moving parts, in the meantime, refer to the akka.net documentation on clustering if you want more configuration power. If you want to see a working Akkatecture clustering sample, have a look at the [cluster sample](https://github.com/Lutando/Akkatecture/tree/master/examples/cluster) Which makes use of `Akkatecture.Cluster` factory methods.
-
-Expect more comprehensive documentation moving forward.
