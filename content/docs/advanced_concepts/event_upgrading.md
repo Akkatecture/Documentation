@@ -17,46 +17,63 @@ Also sometimes known as event upcasting. At some point you might find the need t
 * A previous application version introduced a domain error in the form of a wrong event being emitted from the aggregate.
 * The domain has changed, either from a change in requirements or simply from a better understanding of the domain.
 
-In the above cases, Akkatecture suggests that you encapsulate the event upgrading logic in your aggregate state event apply methods.
+In the above cases, Akkatecture suggests that you implement an `AggregateEventUpcaster<,>` and then you can add your own upcast implementation by implementing `IUpcast<,>` on the upcaster. Lets do this with an example.
 
-In the `ShoppingCartState` event upgrading example below we have an event `ProductAddedEvent` that is has been deprecated in the face of domain improvements. The new version is called `ProductAddedEventV2`. We apply the upgrade logic in the deprecated apply method and invoke the correct `Apply()` method.
+Imagine we have an OrderAggregate that emits `ProductAddedEvent`s, due to new domain improvements or required it has been deemed necessary to have a new version of that event called `ProductAddedEventV2`. We make changes to the aggregate to emit the new version of the event, but we have a problem in that the old event is persisted in the event journal. To remedy this we will implement a suitable `AggregateEventUpcaster<,>`.
 
 ```csharp
-public class ShoppingCartState : AggregateState<ShoppingCartState, ShoppingCartId>,
-    IApply<ProductAddedEvent>,
-    IApply<ProductRemovedEvent>,
-    IApply<ProductAddedEventV2>,
-{
-    public ShoppingCart Cart { get; private set; }
-
-    public void Apply(ProductAddedEvent aggregateEvent) 
+public class OrderAggregateEventUpcaster : AggregateEventUpcaster<OrderAggregate, OrderId>,
+        IUpcast<ProductAddedEventV2, ProductAddedEvent>
     {
-        //we want to convert ProductAddedEvent to V2 then Apply that event
-        var productAddedEventv2 = ProductAddedEventV2Factory.From(aggregateEvent);
-        Apply(productAddedEventv2);
+        public ProductAddedEventV2 Upcast(ProductAddedEvent aggregateEvent)
+        {
+            return new ProductAddedEventV2(
+                aggregateEvent.AggregateId,
+                /* other things to enrich the event */
+                string.Empty);
+        }
     }
+```
 
-    public void Apply(ProductRemovedEvent aggregateEvent) 
-    {
-        Cart.Remove(aggregateEvent.Product);
-    }
+and then our read journal hocon configuration requires the following to be added to it
 
-    public void Apply(ProductAddedEventV2 aggregateEvent) 
-    {
-        Cart.Add(aggregateEvent.Product);
-    }
-}
-
-//ProductAddedEventV2Factory.cs
-public static class ProductAddedEventV2Factory 
-{
-    public static ProductAddedEventV2 From(ProductAddedEvent upgradableEvent)
-    {
-        return new ProductAddedEventV2(upgradableEvent.Foo,upgradableEvent.Product);
+```json
+akka.persistence {
+    journal {
+        plugin = ""akka.persistence.journal.some-plugin""
+        some-plugin {
+			event-adapters {
+                ##fully qualified class name and assembly of the upcaster
+				aggregate-event-tagger  = ""YourDomain.OrderAggregateEventUpcaster, YourDomain""
+			}
+			event-adapter-bindings = {
+				""Akkatecture.Aggregates.ICommittedEvent, Akkatecture"" = aggregate-event-tagger
+			}
+        }
     }
 }
 ```
 
-In the `Apply(ProductAddedEvent aggregateEvent)` there is the mapping from the events base version to its second version. After such the correct `Apply(ProductAddedEventV2 aggregateEvent)` is invoked. This is also a great candidate for unit testing the correct behaviour.
+Now in our order aggrege state, we only need to implement the apply method of the new aggregate event
 
->A general rule when versioning events is that adding things does not cause a versioning conflict. Adding a new version of an event is therefore not a problem, as long as we don’t break the definition of a new version event; it must be convertible from an old version of the same event. If this is not possible, then it’s a new event.
+
+```csharp
+public class OrderState : AggregateState<OrderState, OrderId>,
+    IApply<ProductAddedEventV2>,
+    IApply<ProductRemovedEvent>,
+{
+    public Products Products { get; private set; }
+
+    public void Apply(ProductRemovedEvent aggregateEvent) 
+    {
+        Products.Remove(aggregateEvent.Product);
+    }
+
+    public void Apply(ProductAddedEventV2 aggregateEvent) 
+    {
+        Products.Add(aggregateEvent.Product);
+    }
+}
+```
+
+> The event upcaster works as a normal `IReadEventAdapter` from [akka.net](https://getakka.net/articles/persistence/event-adapters.html)

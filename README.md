@@ -1,7 +1,7 @@
 <a href="https://akkatecture.net/"><img src="https://raw.githubusercontent.com/Lutando/Akkatecture/master/logo.svg?sanitize=true" width="100%" height="200"></a>
 
 # Akkatecture Documentation
-
+To serve the documentation locally do the following:
 ```
 npm install 
 ```
@@ -10,12 +10,12 @@ or
 yarn install
 ```
 
-then
+and then
 ```
 gatsby develop
 ````
 
-to run, this will run a hot-reloadable version of the documentation website
+this will run a hot-reloadable version of the documentation website.
 
 ## Contributor Notes
 The markdown files  in `/content/docs` folder contains all the documentation for the akkatecture documentation pages.
