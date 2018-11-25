@@ -18,6 +18,7 @@ export default class LessonTemplate extends React.Component {
     if (!post.id) {
       post.category_id = config.postDefaultCategoryID;
     }
+
     return (
       <div>
         <Helmet>
@@ -112,22 +113,24 @@ const ToCContainer = styled.div`
 /* eslint no-undef: "off" */
 export const pageQuery = graphql`
   query LessonBySlug($slug: String!, $category: String!) {
-    allPostTitles: allMarkdownRemark(filter: { frontmatter: { category:{ eq: $category }}}){
-        edges {
-          node {
-            frontmatter {
-              title
-              lesson
-              category
-              chapter
-              type              
-            }
-            fields {
-              slug
+    allPostTitles: allMarkdownRemark(
+      sort: { order: ASC, fields: [frontmatter___lesson, frontmatter___chapter]},
+      filter: { frontmatter: { category:{ eq: $category }}}){
+          edges {
+            node {
+              frontmatter {
+                title
+                lesson
+                category
+                chapter
+                type              
+              }
+              fields {
+                slug
+              }
             }
           }
         }
-      }
       postBySlug: markdownRemark(fields: { slug: { eq: $slug } }, frontmatter: { category: { eq: $category }}) {
         html
         timeToRead
