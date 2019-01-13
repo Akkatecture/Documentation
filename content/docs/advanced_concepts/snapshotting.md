@@ -26,7 +26,7 @@ You can implement your own SnapshotStrategy by implementing the `ISnapshotStrate
 
 # Wiring It All Up
 
-Lets say we have an `OrderAggregate`. And we want to implement a snapshot strategy for it. As before mentioned, the aggregates use the `SnapshotNeverStrategy`. If you want to change this behaviour you can use
+Lets say we have an `OrderAggregate`. And we want to set its snapshot strategy. We can do the following.
 
 ```csharp
 public class OrderAggregate : AggregateRoot<OrderAggregate, OrderId, OrderState>
@@ -39,11 +39,11 @@ public class OrderAggregate : AggregateRoot<OrderAggregate, OrderId, OrderState>
     }
 }
 ```
-> SetSnapshotStrategy can also be used during the aggregates lifetime, ie you can change the strategy as the aggregate evolves during runtime by codifying this behaviour.
+> SetSnapshotStrategy can also be used during the aggregates lifetime, ie you can change the strategy as the aggregate evolves during runtime by codifying this behaviour in the aggregates command handlers.
 
 ## Setting Up The Aggregate State
 
-We have to now make our aggregate state aware of the fact that it can be hydrated from a snapshot (as well as being hydrated from a stream of event apply methods)
+We have to now make our aggregate state aware of the fact that it can be hydrated from a snapshot (as well as being hydrated from a stream of event apply methods).
 
 
 ```csharp
