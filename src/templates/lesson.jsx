@@ -123,7 +123,7 @@ export const pageQuery = graphql`
                 lesson
                 category
                 chapter
-                type              
+                type
               }
               fields {
                 slug

@@ -71,7 +71,9 @@ padding: ${props => props.theme.sitePadding};
 /* eslint no-undef: "off" */
 export const pageQuery = graphql`
 query AllBlogPosts {
-  allMarkdownRemark(filter: {frontmatter: {type: {eq: "post"}}}) {
+  allMarkdownRemark(
+      filter: {frontmatter: {type: {eq: "post"}}},
+      sort: { order: DESC, fields: [frontmatter___date] }) {
     edges {
       node {
         html
@@ -79,7 +81,7 @@ query AllBlogPosts {
         excerpt
         frontmatter {
           title
-          cover          
+          cover
           date
           category
           tags

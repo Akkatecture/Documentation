@@ -4,7 +4,7 @@ cover: "https://unsplash.it/400/300/?random?BoldMage"
 date: "15/05/2018"
 category: "tech"
 type: "post"
-tags: []    
+tags: []
 ---
 
 Akkatecture began because I found that the lack of comprehensive cqrs and es examples for akka.net was a huge oppertunity to help others. I suspect that most akka users, are the ones on the JVM side of the fence, which shows by the higher amount of community members in that open source project. Ok... onwards onto what is Akkatecture philosophically, and why I decided to build it.

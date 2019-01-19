@@ -73,7 +73,7 @@ public class MoneyTransferSagaId : SagaId<MoneyTransferSagaId>
 {
     public MoneyTransferSagaId(string value)
         : base(value)
-    {        
+    {
     }
 }
 ```
@@ -82,12 +82,12 @@ Akkatecture aggregate sagas are also similar to aggregate roots in that they hav
 
 ```csharp
 //Walkthrough.Domain/Sagas/MoneyTransfer/MoneyTransferSagaState.cs
-public class MoneyTransferSagaState : SagaState<MoneyTransferSaga,MoneyTransferSagaId,IEventApplier<MoneyTransferSaga, MoneyTransferSagaId>>,
+public class MoneyTransferSagaState : SagaState<MoneyTransferSaga,MoneyTransferSagaId,IMessageApplier<MoneyTransferSaga, MoneyTransferSagaId>>,
     IApply<MoneyTransferStartedEvent>,
     IApply<MoneyTransferCompletedEvent>
 {
     public Transaction Transaction { get; private set; }
-    
+
     public void Apply(MoneyTransferStartedEvent aggregateEvent)
     {
         Transaction = aggregateEvent.Transaction;
