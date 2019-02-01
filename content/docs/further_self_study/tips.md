@@ -24,7 +24,7 @@ Make sure that when your aggregate events are JSON serialized. Since these aggre
 It is ok to have this information in the event metadata for analytics or other concerns however they serve no business sense (normally) to be part of the events data payload.
 
 Here's an example of good clean event JSON produced from a create user
-event. 
+event.
 
 ```json
 {
@@ -38,9 +38,9 @@ event.
 
 A good rule of thumb is to minimize the amount of noisey data that can exist in the aggregate event. If your state event applying method uses all of the event member variables on invokation, then you have a good event. adding bloat and extra data to events waters down how true the events are. Events embody 'facts which happened' in your domain. If you add unessacary 'facts' that dont pertain to that event in your event model, then that event becomes less 'fact-y'.
 
-**Idempotent Apply Methods**
+**Functional Apply Methods**
 
-Your apply methods should be functional and idempotent, meaning the application of the same event over the state object multiple times should produce the same result as if it were applied only once.
+Your apply methods should be functional over your aggregate's state. Meaning, the application of an aggregate event `eₓ` over the aggregate state `S` at sequence number `n` should be `Sₙ₊₁ = apply Sₙ eₓ`, for any given or fixed `n` this function should always return the same `Sₙ₊₁`.
 
 **Keep Old Event Types**
 
@@ -108,9 +108,9 @@ For example consider this case:
 public class GameEndedEvent : AggregateEvent<GameAggregate, GameAggregateId>
 {
     //ZonedDateTime is a NodaTime type from a NuGet package
-    public ZonedDateTime TimeEnded { get; } 
+    public ZonedDateTime TimeEnded { get; }
     //Team is an Entity<TeamId> from this example's domain project
-    public Team WinningTeam { get; } 
+    public Team WinningTeam { get; }
 
     public GameEndedEvent(
         ZonedDateTime timeEnded,

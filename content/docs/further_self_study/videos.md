@@ -15,6 +15,7 @@ tags:
 
 Below are some video resources that you can use to bootstrap your fundamental knowledge about the concepts that are seen throughout Akkatecture.
 
+- [Reactive DDD - When Concurrent Waxes Fluent](https://youtu.be/JMdS_cHFaBY) by Vaughn Vernon
 - [Fundamentals About Actor Systems](https://channel9.msdn.com/Shows/Going+Deep/Hewitt-Meijer-and-Szyperski-The-Actor-Model-everything-you-wanted-to-know-but-were-afraid-to-ask) by Hewitt Meijer and Szyperski
 - [CQRS and Event Sourcing](https://www.youtube.com/watch?v=JHGkaShoyNs) by Eric Evans
 - [An Introduction to CQRS and Event Sourcing Patterns](https://www.youtube.com/watch?v=9a1PqwFrMP0) by Mathew McLoughling
