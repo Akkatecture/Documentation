@@ -39,7 +39,7 @@ var aggregateManager = system.ActorOf(Props.Create(() => new UserAccountAggregat
 //Build create user account aggregate command with name "foo bar"
 var aggregateId = UserAccountId.New;
 var createUserAccountCommand = new CreateUserAccountCommand(aggregateId, "foo bar");
-            
+
 //Send the command to create the aggregate
 aggregateManager.Tell(createUserAccountCommand);
 ```
@@ -48,4 +48,4 @@ code](https://github.com/Lutando/Akkatecture/blob/master/examples/simple/Akkatec
 
 Akkatecture also ships with a companion package for clustering called `Akkatecture.Clustering`. Go to the [clustering documentation](/docs/clustering) to learn more about it.
 
-Be sure to also go through our [basic concepts](/docs/primitives) and [walkthrough](/docs/walkthrough-introduction). If you have any suggestions, or edits for Akkatecture's documentation, please visit the [documentation repository](https://github.com/Akkatecture/Documentation) and submit us a pull request.
+Be sure to also go through our [basic concepts documentation](/docs/primitives) and the [walkthrough](/docs/walkthrough-introduction). If you have any suggestions for improvements for Akkatecture's documentation, please visit the [documentation repository](https://github.com/Akkatecture/Documentation) and submit us a pull request.

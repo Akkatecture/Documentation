@@ -18,11 +18,11 @@ The basic core primitives of Akkatecture are:
 - [Identities](#identities)
 - [Entities](#entities)
 
-A `ValueObject` is an immutable type that is distinguishable only by the state of its properties. That is, unlike an `Entity`, which has a unique identifier and remains distinct even if its properties are otherwise identical, two `ValueObject`s with the exact same properties can be considered equal. An `Entity` always has a globally unique identifier, so if two entities have the same identity, they are the same entity, regardless of their member values. Akkatecture uses these primitives all over the project and you are highly encouraged to use them as well so that your domain design is highly expressive, readable, and reasonable.
+A `ValueObject` is an immutable type that is distinguishable only by the state of its properties. That is, unlike an `Entity`, which has a unique identifier and remains distinct even if its properties are otherwise identical, two `ValueObject`s with the exact same properties can be considered equal. An `Entity` always has a globally unique identifier, that is, if two entities have the same identity, they are the same entity, regardless if their member values are different. Akkatecture uses these primitives all over the project, and you are highly encouraged to use them as well, so that your domain design is highly expressive, and readable.
 
 # Value Objects
 
-The `SingleValueObject<>` generic primitive provides you with the necessary class overrides you need to have, so that they can be compared on the basis of their collective state. If all of their component properties are equal to one another, then two `ValueObject`s can be said to be equal. Feel free to derive from this class:
+In Akkatecture, the `ValueObject` abstract class type is used to represent value object. These should be immutable by implementation. There also is the `SingleValueObject<>` generic primitive, that allows for the modelling of domain value objects that are only valued by a single c# dotnet primitive.
 
 ```csharp
 public class AccountNumber : SingleValueObject<string>
@@ -38,9 +38,7 @@ public class AccountNumber : SingleValueObject<string>
 
 # Identities
 
-The `Identity<>` value object provides generic functionality to create
-and validate the identities of e.g. aggregate roots. Its basically a wrapper
-around a `Guid`.
+The `Identity<>` value object provides generic functionality to model and validate the identities of e.g. aggregate roots. Its basically a wrapper around a `Guid`. It is possible to model your own `Identity<>` by implementing the `IIdentity<>` interface.
 
 ```csharp
 public class AccountId : Identity<AccountId>
@@ -54,7 +52,7 @@ public class AccountId : Identity<AccountId>
 
 1. The identity follow the form `{class without "Id"}-{guid}` e.g. `account-c93fdb8c-5c9a-4134-bbcd-87c0644ca34f` for the above `AccountId` example.
 
-2. The internal `Guid` can be generated using one of the following methods/properties. Note that you can access the `Guid` factories directly by accessing the static methods on the `GuidFactories` class.
+2. The internal `Guid` can be generated using one of the following methods/properties as described by points 3-5 on this list. You can access the `Guid` factories directly by accessing the static methods on the `GuidFactories` class.
 
 3. `New`: Uses the standard `Guid.NewGuid()`.
 
@@ -73,6 +71,7 @@ Here's some examples on we can use our newly created `AccountId`
 
 ```csharp
 // Uses the default Guid.NewGuid()
+// as described in point 3 above
 var accountId = AccountId.New
 ```
 
@@ -84,12 +83,14 @@ var emailNamespace = Guid.Parse("769077C6-F84D-46E3-AD2E-828A576AAAF3");
 // useful to use when you want to create Id's
 // deterministically from other real world "identifiers",
 // especially in distributed situations
+// as described in point 4 above
 var accountId = AccountId.NewDeterministic(emailNamespace, "test@example.com");
 ```
 
 ```csharp
 // Creates a new identity every time, but an identity when used in e.g.
 // database indexes, minimizes fragmentation
+// as described in point 5 above
 var accountId = AccountId.NewComb()
 ```
 
@@ -115,6 +116,6 @@ public class Account : Entity<AccountId>
 }
 ```
 
-> As you can see `Account` has an `AccountId` entity identifier, and is itself an value object because `Entity<>` inherits from `SingleValueObject<>`, and has a ValueObject member `AccountNumber`.
+> When you look at the `Account` class/model definition above, you could describe it using object oriented programming language. That is, The `Account` class/model *is-an* `Entity<>` that *has-an* `AccountId`, and *has-an*  `AccountNumber`. 
 
 [Next, Aggregates →](/docs/aggregates)
