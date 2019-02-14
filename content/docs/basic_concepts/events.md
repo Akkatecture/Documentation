@@ -22,7 +22,7 @@ public class PingEvent : AggregateEvent<PingAggregate, PingAggregateId>
     public string Data { get; }
 
     public PingEvent(
-    long timeSent, 
+    long timeSent,
     string data)
     {
         TimeSent = timeSent;
@@ -43,7 +43,7 @@ public bool Execute(PingCommand command)
     var aggregateEvent = new PingEvent(command.Data);
 
     Emit(aggregateEvent);
-    
+
     return true;
 }
 
@@ -71,33 +71,14 @@ public class PingState : AggregateState<PingAggregate, PingAggregate>,
 
 ## Replaying Events
 
-Akkatecture has defined default behaviours to employ when replaying events persisted to the event journal. This behaviour is defined by the `Recover(...)` method on the base `AggregateRoot<,,>` class. If you want to override this behaviour for some particular use case you can. To do this, register your recovery event to akka.net's `Recover<>` registry. This is what a typical example will look like:
-
-```csharp
-public class UserAccountAggregate : AggregateRoot<UserAccountAggregate, UserAccountId, UserAccountState>
-{
-    public UserAccountAggregate(UserAccountId id)
-        : base(id)
-    {
-        //command handler registrations
-        Command<CreateUserAccountCommand>(Execute);
-        Command<UserAccountChangeNameCommand>(Execute);
-
-        //custom recovery handler registrations
-        Recover<ICommittedEvent<UserAccountAggregate,UserAccountId,UserAccountCreatedEvent>(CustomRecover);
-        Recover<ICommittedEvent<UserAccountAggregate,UserAccountId,UserAccountNameChangedEvent>(CustomRecover);
-    }
-}
-```
-
-> It is imperative that you make sure to register all of your events for this aggregate root to avoid having inconsistent state when you do event replay. If you use akka behaviours, make sure that on recovery that you re-establish the correct actor behaviour when you do a  `Become()`.
+Akkatecture has defined default behaviours to employ when replaying events persisted to the event journal. This behaviour is defined by the `Recover(...)` method on the base `AggregateRoot<,,>` class. Proceed with caution when using `Become()` for actor behaviours as this effectively clears the command and recovery handlers of the actor.
 
 > You need to make sure that you have configured a persistent event store before deploying your application to production since the default persistent provider in Akkatecture is using the same default provider that is used in akka.net persistent actors, namely, the in-memory event journal and in-memory snapshot store. Go ahead and look at how this all works in our [event store production readiness](/docs/production-readiness#event-store) documentation.
 
 ## Published Events
 In domain driven design end event sourcing the application of aggregate events to it's state is a means to maintain a consitency boundary. When an aggregate publishes an event, the aggregate is letting the rest of the domain know that something has happened. This event will get picked up by any parties interested in that particular event.
 
-> CAP theory comes into play as soon as you publish an event. The "world view" of your other domain entities will be in-consistent with the world view of your aggregates at the time of event publishing. Keep this in mind when designing your system. The best you can hope for is an eventually consistent system within the Akkatecture framework. 
+> CAP theory comes into play as soon as you publish an event. The "world view" of your other domain entities will be in-consistent with the world view of your aggregates at the time of event publishing. Keep this in mind when designing your system. The best you can hope for is an eventually consistent system within the Akkatecture framework.
 
 ### Domain Events
 Domain events are aggregate events that have been published. In Akkatecture a domain event looks as follows:
@@ -140,7 +121,7 @@ public void Ping(PingCommand command)
     //Fancy domain logic here that validates against aggregate state...
 
     var metadata = Metadata.Empty;
-    var data = new Dictionary<string,string> 
+    var data = new Dictionary<string,string>
     {
         {"environment","staging"},
         {"app_version","1.0.3"}

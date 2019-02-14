@@ -38,7 +38,7 @@ public class AccountNumber : SingleValueObject<string>
 
 # Identities
 
-The `Identity<>` value object provides generic functionality to model and validate the identities of e.g. aggregate roots. Its basically a wrapper around a `Guid`. It is possible to model your own `Identity<>` by implementing the `IIdentity<>` interface.
+The `Identity<>` value object provides generic functionality to model and validate the identities of e.g. aggregate roots. Its esentially a wrapper around a `Guid`. It is possible to model your own `Identity<>` by implementing the `IIdentity<>` interface.
 
 ```csharp
 public class AccountId : Identity<AccountId>

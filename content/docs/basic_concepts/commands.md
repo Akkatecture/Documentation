@@ -13,9 +13,9 @@ tags:
     - dotnet
 ---
 
-Commands are the basic `ValueObject`s, that represent the operations of intent that you want to perform in your domain, they represent the "c" side of cqrs. Aggregate commands are sent to aggregate roots, via aggregate managers, typically, on successful execution, a command can result in one or more aggregate events being emitted.
+Commands are basic `ValueObject`s that describe messages of intent that you want to perform in your domain, they represent the `C` side of `CQRS`. Commands are important because they are the *source of potential change* in the domain. Aggregate commands are sent to aggregate roots via aggregate managers. Typically, on successful execution, a command can result in one or more aggregate events being emitted.
 
-As an example, imagine you are implementing the command for initiating a bank transfer from one account (your account) to another. it might look something like this.
+As an example, imagine that you are implementing the command for initiating a bank transfer from one account to another. That command might look something like this:
 
 ```csharp
 public class TransferMoneyCommand : Command<AccountAggregate, AccountId>
@@ -37,7 +37,7 @@ public class TransferMoneyCommand : Command<AccountAggregate, AccountId>
 
 > Note that the Money class is merely a `ValueObject`, created to hold the amount of money and to do basic validation. In Akkatecture, you don’t have to use the default Akkatecture `Command<,>` implementation to, you can create your own implementation, it merely have to implement the `ICommand<,>` interface.
 
-A command by itself doesn’t do anything and will be swollowed by the underlying actor as unprocessed if no command handler exists for it. To make a command work, you need to implement a command handler which is responsible for the processing of the command.
+A command by itself doesn’t do anything and will be swollowed by the underlying actor as unprocessed if no command handler exists for it, these messages go into the deadletter. To make a command work, you need to implement a command handler which is responsible for the processing of the command. In akka.net this is done by registering a command to akka.net's `Command<T>()` handler registry.
 
 ```csharp
     public class AccountAggregate : AggregateRoot<AccountAggregate, AccountAggregateId, AccountState>
@@ -67,7 +67,7 @@ A command by itself doesn’t do anything and will be swollowed by the underlyin
     }
 ```
 
-> The domain validation `if` statements above that check if there is enough balance, or if the destination account identifier is not the same as the current account can be modelled in `Specifications<>`. You can find out more about specifications in Akkatecture documentation [here](/docs/specifications).
+> Commands typically will be handled by first doing domain validation on the command against the aggregate state and then the corresponding event(e) would be emitted as a result of a successful command execution. In the above example, there are a few conditional statements that do basic domain validation on the command against the aggregate's state. This sort of pattern can be abstracted into `Specification<>`s. You can find out more about specifications in Akkatecture documentation [here](/docs/specifications).
 
 ## Ensure Idempotency
 
@@ -106,8 +106,8 @@ public class TransferMoneyCommand : Command<AccountAggregate, AccountId>
 Note the use of the other `protected` constructor of `Command<,>` that takes a `ISourceId` in addition to the aggregate root identity. This `sourceId` can be supplied from outside the aggregate boundary eg the API surface.
 You can then use a circular buffer or "list of processed" commands within your aggregate root to reject previously seen commands.
 
-## Easier ISourceId calculation
-Ensuring the correct calculation of the command `ISourceId` can be somewhat cumbersome, which is why Akkatecture provides another base command you can use, the `DistinctCommand<,>`. By using the `DistinctCommand<,>` you merely have to implement the `GetSourceIdComponents()` and providing the `IEnumerable<byte[]>` that makes the command unique. The bytes is used to create a deterministic GUID to be used as an ISourceId.
+## Easier ISourceId Calculation
+Ensuring the correct calculation of the command `ISourceId` can be somewhat cumbersome, which is why Akkatecture provides another base command you can use, the `DistinctCommand<,>`. By using the `DistinctCommand<,>` you merely have to implement the `GetSourceIdComponents()` and providing the `IEnumerable<byte[]>` that makes the command unique. The bytes is used to create a deterministic GUID to be used as an `ISourceId`.
 
 ```csharp
 public class TransferMoneyCommand : DistinctCommand<AccountAggregate, AccountId>
@@ -134,6 +134,8 @@ public class TransferMoneyCommand : DistinctCommand<AccountAggregate, AccountId>
 }
 ```
 
-The `GetBytes()` merely returns the `Encoding.UTF8.GetBytes(...)` of the value object.
+> The `GetBytes()` method returns the `Encoding.UTF8.GetBytes(...)` of the value object.
+
+`DistinctCommand<,,>`s allows the aggregate to reject commands that it has already seen or processed. Akkatecture comes with a build in `CircularBuffer<>` implementation, and you can use the aggreggate root's `_previousSourceIds` member (which is a circular buffer of `SourceIds`) to keep track of the commands that have already been processed.
 
 [Next, Specifications →](/docs/specifications)
