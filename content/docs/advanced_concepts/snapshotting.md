@@ -12,7 +12,7 @@ tags:
     - csharp
     - dotnet
 ---
-Event snapshotting is an optimization that you can use to reduce the amount of events that are replayed upon aggregate instantiation. In essence if your aggregate has comitted `N` events, and your last aggregate snapshot was at `N - 18` events ago, instead of replaying all N events from the event journal, Akka will hydrate your aggregate with your snapshot and then will replay the remaining journaled events from offset `N-18 to N`, thus completing your aggregate recovery/loading. So the optimisation here is that you do not need to load all the comitted events that precede `N - 18`. In cases where your aggregate has thousands of events this can be a worthwhile optimisation.
+State snapshotting is an optimization that you can use to reduce the amount of events that are replayed upon aggregate instantiation. The affect of snapshotting is the limit the 'at most amount of events to replay' limits for your aggregates. Snapshotting works in the following way; if your aggregate has comitted `N` events, and your last aggregate snapshot was at `N - x` events ago, instead of replaying all N events from the event journal (`[1 to N]`), Akka will hydrate your aggregate with your snapshot and then will replay the remaining journaled events from offset `[N-x to N]`, thus completing your aggregate recovery process. So the optimisation here is that you do not need to load all the comitted events that precede `N - x`. In cases where your aggregate has thousands of events this can be a worthwhile optimisation to reduce replay time and the load on your event journal.
 
 Snapshotting can be applied to both aggregates and sagas. Since, in Akkatecture sagas are modelled similarly to aggregates, the same documentation here applies to sagas, ie the mechanics of snapshotting is the same in both aggregates and sagas.
 
@@ -114,4 +114,4 @@ To get snapshots working in Akkatecture you need to:
 * Make your aggregate state model implement `IHydrate<>`
 * Override the `Aggregate.CreateSnapshot()` which maps the aggregates state to the aggregates snapshot model.
 
-> The snapshot model should be treated as an invariant since it gets stored by akka.net's snapshot store. The same versioning strategies used in event sourcing for events, are applicable to snapshots as well.
+> The snapshot model should be treated as an invariant since it gets stored by akka.net's snapshot store. The same versioning strategies used in event sourcing for events, are applicable to snapshots as well. If the snapshot loading fails. The aggregate will be reloaded from the event journal and not the snapshot store.

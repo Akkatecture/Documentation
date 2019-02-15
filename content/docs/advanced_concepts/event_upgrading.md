@@ -56,7 +56,6 @@ akka.persistence {
 
 Now in our order aggrege state, we only need to implement the apply method of the new aggregate event
 
-
 ```csharp
 public class OrderState : AggregateState<OrderState, OrderId>,
     IApply<ProductAddedEventV2>,
@@ -76,4 +75,4 @@ public class OrderState : AggregateState<OrderState, OrderId>,
 }
 ```
 
-> The event upcaster works as a normal `IReadEventAdapter` from [akka.net](https://getakka.net/articles/persistence/event-adapters.html)
+> The event upcaster works as a normal `IReadEventAdapter` from [akka.net](https://getakka.net/articles/persistence/event-adapters.html).
