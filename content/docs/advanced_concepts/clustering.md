@@ -12,7 +12,7 @@ tags:
     - csharp
     - dotnet
 ---
-To get clustering working in Akkatecture, you need to  install its companion package to Akkatecture called `Akkatecture.Clustering`. This library includes some factories to get your distributed domain going, without doing any changes to your domain code (as it should be). To install the NuGet package from package manager command prompt:
+To get clustering working in Akkatecture, you need to install Akkatecture's companion package called `Akkatecture.Clustering` to your .net project. This library includes some factories to get your clustered actorsystem going, without doing any changes to your domain code (as it should be). To install the NuGet package from package manager command prompt:
 
 ```csharp
 //Add the Akkatecture.Clustering package to your project named FirstAkkatectureProject.
@@ -26,7 +26,7 @@ To start an aggregate manager in a clustered environment, you need to use the `C
 var userAccountAggregateManagerCluster = ClusterFactory<UserAccountAggregateManager, UserAccountAggregate, UserAccountId>
     .StartAggregateCluster(actorSystem);
 ```
-The above method invocation will start the actual cluster on that particular node, in addition to returning an `IActorRef`. It is usually suitable to do this on beefy worker nodes which are responsible for carrying out the more intense calculations of your application.
+The above method invocation will start the actual cluster on that particular node, in addition to returning an `IActorRef`. It is usually suitable to do this on beefy worker nodes which are responsible for carrying out the more intense units of computation in your application.
 
 To start a proxy to the aggregate manager in a clustered environment, you need to use the `ClusterFactory<,,>.StartAggregateClusterProxy(...)` method as follows:
 ```csharp

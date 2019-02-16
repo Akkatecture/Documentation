@@ -12,7 +12,7 @@ tags:
     - csharp
     - dotnet
 ---
-Akkatecture comes with an implementation of the specification pattern which could be used to e.g. make complex business rules more manageable to read and test.
+Akkatecture comes with an implementation of the [specification pattern](https://en.wikipedia.org/wiki/Specification_pattern) which could be used to e.g. make complex business rules more manageable to read and test.
 
 To use the specification implementation shipped with Akkatecture, simply create a class that inherits from `Specification<>`.
 
