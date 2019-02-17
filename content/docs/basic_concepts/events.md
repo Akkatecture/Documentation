@@ -35,7 +35,7 @@ public class PingEvent : AggregateEvent<PingAggregate, PingAggregateId>
 
 ## Emitting Events
 
-In order to emit an event from an aggregate, call the `AggregateRoot.Emit(...)` method which commits the event to the event store and then applies the event to the aggregate state. In akka.net terms it calls the `PersistentActor.Persist(...)` method with a call-back to apply the event to aggregate state after persistence is successful. Below is an example of how it works.
+In order to emit an event from an aggregate, call the `AggregateRoot.Emit(...)` method which commits the event to the event store and then applies the event to the aggregate state. In akka.net terms it calls the `PersistentActor.Persist(...)` method with a call-back to apply the event to aggregate state after persistence is successful. Below is an example of how it works:
 
 ```csharp
 public bool Execute(PingCommand command)
@@ -48,6 +48,8 @@ public bool Execute(PingCommand command)
 }
 
 ```
+If there is a requirement to Emit multiple events as a consequence of a command being handled, there is an `EmitAll(...)` method that guarantees the transaction and consistency boundary of persisting multiple events to the event journal.
+
 > In Akkatecture, the act of emitting an event does three things, it persists the event to the event journal, it then applies the event to aggregate state, and finally the aggregate will publish the event as a `IDomainEvent` to the akka.net event stream. Please continue reading about [published events](/docs/events#published-events) to understand how aggregate events look like when they get published outside of the aggregate root boundary.
 
 > Events in Akkatecture are journalled as `IComittedEvent<,,>`
