@@ -23,10 +23,11 @@ Make sure that when your aggregate events are JSON serialized. Since these aggre
 
 It is ok to have this information in the event metadata for analytics or other concerns however they serve no business sense (normally) to be part of the events data payload.
 
-Here's an example of good clean event JSON produced from a create user
+Here's an example of good clean aggregate event JSON produced from a create user
 event.
 
 ```json
+//AggregateEvent
 {
     "Username": "root",
     "PasswordHash": "1234567890ABCDEF",
@@ -70,13 +71,17 @@ It will be most advantageous to learn akka.net's [test kit](http://getakka.net/a
 
 Your domain code is your business model codified. Make sure that you apply the principle of a ubiquitous language to your domain by being explicit but terse in your naming conventions, this leads to a far more enjoyable developer expirience for those who share the code base. With the fall in popularity of UML diagrams and other forms of non-code business domain models, code written in a ddd way **is** your business domain model.
 
-## Plan For Uncertainty & Inconsistency
+## Plan For Uncertainty & Inconsistency In Clustered Scenarios
 
-Akka.net, and by extension, Akkatecture's default messaging policy is [at most once message delivery delivery](https://developer.lightbend.com/blog/2017-08-10-atotm-akka-messaging-part-1/index.html). In at most once delivery, an attempt is made by actors to send a message to the receiver. However, there are no guarantees that the message will be delivered. Any number of things may happen that prevent the successful delivery of an asynchronous message, including, but not limited to packet loss over a network transport. 
+In an asynchronous message passing system, there are always trade offs to be made when it comes to messaging guarantees in a distributed environment. Especially when the distributed environment is partitioned by a network. Akka's default message delivery semantics can result in a really high throughput and scalable system, however sometimes at most once message delivery semantics may not be ideal for your use case. It is also worthy to note that message ordering in akka might need to be taken into consideration when designing your actor system.
 
+### Message Sending Guarantees
+For local scenarios, message sending is [mostly guaranteed](https://getakka.net/articles/concepts/message-delivery-reliability.html#reliability-of-local-message-sends) in akka.net. However since akka.net, and by extension, Akkatecture's default messaging policy being [at most once message delivery delivery](https://developer.lightbend.com/blog/2017-08-10-atotm-akka-messaging-part-1/index.html), in a networked environment message sending guarantees become more important to the integrity of your application. In at most once delivery, an attempt is made by actors to send a message to the receiver. Any number of things may happen that prevent the successful delivery of an asynchronous message, including, but not limited to packet loss over a network transport.
+
+### Message Receiving Order
 Another general rule that is message ordering can only be guaranteed on a sender-receiver pair level.
 
-The guarantee is illustrated in the following:
+The ordering guarantee is illustrated in the following:
 
 Actor `A1` sends messages `M1` `M2` `M3` to `A2`.
 Actor `A3` sends messages `M4` `M5` `M6` to `A2`.
