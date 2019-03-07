@@ -101,7 +101,7 @@ public class MoneyTransferSagaState : SagaState<MoneyTransferSaga,MoneyTransferS
 }
 ```
 
-> Check out how the saga events are modelled the source code [here](https://github.com/Lutando/Akkatecture/tree/master/examples/walkthrough/Akkatecture.Walkthrough.Domain/Sagas/MoneyTransfer/Events).
+> Check out how the saga events are modelled the source code [here](https://github.com/Akkatecture/Walkthrough/Akkatecture.Walkthrough.Domain/Sagas/MoneyTransfer/Events).
 
 `SagaState.Status` is an enum that describes the overall status of the saga. The status can be any of the following:
 * NotStarted
