@@ -16,24 +16,24 @@ tags:
 If we look back at our task requirements, the last one states that;
 *The bank would like to keep track of how much money it has gained as revenue as a result of the transaction fees.*
 
-One way to satisfy this requirement is to use a `DomainEventSubscriber` that Subscribes to the `FeesDeductedEvent` domain event, which then tells the persistence mechanism to store the result so that it can later be read by a `ReadModel`.
+One way to satisfy this requirement is to use a `DomainEventSubscriber` that Subscribes to the `FeesDeductedEvent` domain event, which then tells the persistence mechanism to store the result so that it can later be read by a `Projection`.
 
 ```csharp
 //Walkthrough.Domain/Subscribers/Revenue/RevenueSubscriber.cs
 public class RevenueSubscriber : DomainEventSubscriber,
     ISubscribeTo<Account,AccountId,FeesDeductedEvent>
 {
-    public IActorRef RevenueRepository { get; }    
+    public IActorRef RevenueRepository { get; }
     public RevenueSubscriber(IActorRef revenueRepository)
     {
         RevenueRepository = revenueRepository;
     }
-        
+
     public Task Handle(IDomainEvent<Account, AccountId, FeesDeductedEvent> domainEvent)
     {
         var command = new AddRevenueCommand(domainEvent.AggregateEvent.Amount);
         RevenueRepository.Tell(command);
-            
+
         return Task.CompletedTask;
     }
 }
@@ -63,13 +63,13 @@ public class RevenueRepository : ReceiveActor
 
     private bool Handle(GetRevenueQuery query)
     {
-        var readModel = new RevenueReadModel(Revenue, Transactions);
-        Sender.Tell(readModel);
+        var projection = new RevenueProjection(Revenue, Transactions);
+        Sender.Tell(projection);
         return true;
     }
 }
 ```
 
-This repository handles a `AddRevenueCommand` which is just a data transfer object (dto) that holds the amount of money to add to the current revenue. The repository also handles a query `GetRevenueQuery`. You can now see a hint of how the read/query side of an Akkatecture application might work. On to the next section on **read models**.
+This repository handles a `AddRevenueCommand` which is just a data transfer object (dto) that holds the amount of money to add to the current revenue. The repository also handles a query `GetRevenueQuery`. You can now see a hint of how the read/query side of an Akkatecture application might work. On to the next section on **projection**.
 
-[Next →](/docs/your-first-read-models)
+[Next →](/docs/your-first-projections)

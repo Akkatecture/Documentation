@@ -30,7 +30,7 @@ public class Account : AggregateRoot<Account, AccountId, AccountState>
         //register command handlers
         Command<OpenNewAccountCommand>(Execute);
         Command<TransferMoneyCommand>(Execute);
-        Command<ReceiveMoneyCommand>(Execute);       
+        Command<ReceiveMoneyCommand>(Execute);
     }
 }
 ```

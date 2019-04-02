@@ -9,7 +9,7 @@ type: "docs"
 tags:
     - walkthrough
     - akkatecture
-    - readmodels
+    - projections
     - csharp
     - dotnet
 ---
@@ -86,7 +86,7 @@ Console.WriteLine("Press Enter to get the revenue:");
 Console.ReadLine();
 
 //get the revenue stored in the repository
-var revenue = RevenueRepository.Ask<RevenueReadModel>(new GetRevenueQuery(), TimeSpan.FromMilliseconds(500)).Result;
+var revenue = RevenueRepository.Ask<RevenueProjection>(new GetRevenueQuery(), TimeSpan.FromMilliseconds(500)).Result;
 
 //print the results
 Console.WriteLine($"The Revenue is: {revenue.Revenue.Value}.");
