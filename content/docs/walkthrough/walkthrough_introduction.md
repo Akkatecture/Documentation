@@ -46,6 +46,6 @@ Walkthrough/
 
 Now that we have done the project init, Let's begin with designing your first aggregate. 
 
-> The full working example that completes the walkthrough can be found on the projects GitHub over [here](https://github.com/Lutando/Akkatecture/tree/master/examples/walkthrough).
+> The full working example that completes the walkthrough can be found on the projects GitHub over [here](https://github.com/Akkatecture/Walkthrough).
 
 [Begin →](/docs/your-first-aggregate)
