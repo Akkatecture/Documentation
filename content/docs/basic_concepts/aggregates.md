@@ -34,7 +34,6 @@ The `Identity<>` value object provides generic functionality to create and valid
 Additionally, to create your aggregate state, which will be used for applying aggregate events to, you can create your own state model by inheriting from the base `AggregateState<,,>` class in the following way:
 
 ```csharp
-//
 public class StoreState : AggregateState<StoreAggregate, StoreId>
 {
 }
