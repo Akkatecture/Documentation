@@ -44,10 +44,10 @@ akka.persistence {
         some-plugin {
 			event-adapters {
                 ##fully qualified class name and assembly of the upcaster
-				aggregate-event-tagger  = ""YourDomain.OrderAggregateEventUpcaster, YourDomain""
+				aggregate-event-upcaster  = ""YourDomain.OrderAggregateEventUpcaster, YourDomain""
 			}
 			event-adapter-bindings = {
-				""Akkatecture.Aggregates.ICommittedEvent, Akkatecture"" = aggregate-event-tagger
+				""Akkatecture.Aggregates.ICommittedEvent, Akkatecture"" = aggregate-event-upcaster
 			}
         }
     }
@@ -63,12 +63,12 @@ public class OrderState : AggregateState<OrderState, OrderId>,
 {
     public Products Products { get; private set; }
 
-    public void Apply(ProductRemovedEvent aggregateEvent) 
+    public void Apply(ProductRemovedEvent aggregateEvent)
     {
         Products.Remove(aggregateEvent.Product);
     }
 
-    public void Apply(ProductAddedEventV2 aggregateEvent) 
+    public void Apply(ProductAddedEventV2 aggregateEvent)
     {
         Products.Add(aggregateEvent.Product);
     }
