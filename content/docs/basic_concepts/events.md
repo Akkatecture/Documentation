@@ -113,28 +113,24 @@ It is important to note here is that the `AggregateSequenceNumber` is the "age" 
 
 The `IMetadata` of the domain event, is essentially a dictionary of keys and values of any metadata related to that domain event. You can add anything to this container to be used as a 'bag of tricks' for your domain. You can add things like telemetry data to this IMetadata container. The container should be seen as a mechanism to allow you to better enrich the domain event without having to add unnecessary or unrelated data contained in the `IAggregateEvent`. The aggregate event should be mostly pure to the aggregate root that emitted the event, but you can add additional information to it via the metadata container.
 
-To add your own `IMetadata` to your DomainEvent ontop of the Akkatecture defaults, use the `Emit(aggregateEvent, metadata)` method when doing an event emit from withing your aggregate root. 
+To add your own `IMetadata` to your DomainEvent ontop of the Akkatecture defaults, use the `Emit(aggregateEvent, metadata)` method when doing an event emit from withing your aggregate root.
 
 
 ```csharp
 public void Ping(PingCommand command)
 {
-    //Within aggregate root command handler
-    //Fancy domain logic here that validates against aggregate state...
+    //After domain logic passes
 
-    var metadata = Metadata.Empty;
-    var data = new Dictionary<string,string>
+    var metadata = new Metadata
     {
         {"environment","staging"},
         {"app_version","1.0.3"}
     };
 
-    metadata = metadata.With(data);
-
     Emit(new PingEvent(command.Data), metadata);
 }
 ```
 
-> You can add things like operation identifiers, build numbers, environment names, deployment regions, performance data, and other things to this metadata container, it is really up to you. The quicker you collect telemetry the better.
+> The `Metadata` class works just like a dictionary. You can add things like operation identifiers, build numbers, environment names, deployment regions, performance data, and other things to this metadata container, it is really up to you. The quicker you collect telemetry the better.
 
 [Next, Commands →](/docs/commands)
