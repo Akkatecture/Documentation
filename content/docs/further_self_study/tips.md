@@ -51,6 +51,12 @@ However, you should still clean your code, have a look at how you can
 [upgrade and version your events ](/docs/event-upgrading) for details on
 how Akkatecture suggests to you in how to solve this.
 
+**Honour Transactional Boundaries**
+
+Sometimes you may have a command that has the potential to cause multiple events to be applied and emitted to the aggregate. Which means you will have to resort to using multiple `Emit(...)` methods procedurally. The problem with using multiple `Emit(...)`s for the same command context is that out of the `N` events emitted in the same context one of them  may fail, which will cause the rest of the subsequent events to fail as well. This can put your aggregate root into an intermediate and unrecognisable state. To get around this, use the `EmitAll(...)` api from the aggregate root to ensure that the string of events can be stored as one transaction.
+
+> Depending on your event journal you may not have these transaction guarantees, consult your chosen `Akka.Persistence` plugin's documentation to discern how this behaviour works.
+
 ## Unit Testing
 
 Unit test your aggregates and sagas in isolation from one another. By using black box style  testing you can follow this approach.

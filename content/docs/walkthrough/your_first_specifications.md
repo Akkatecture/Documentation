@@ -58,23 +58,23 @@ We can model these requirements as specifications as:
 
 ```csharp
 //Walkthrough.Domain/Model/Account/Specifications/MinimumTransferAmountSpecification.cs
-public class MinimumTransferAmountSpecification : Specification<Account> 
+public class MinimumTransferAmountSpecification : Specification<AccountState> 
 {
-    protected override IEnumerable<string> IsNotSatisfiedBecause(Account obj)
+    protected override IEnumerable<string> IsNotSatisfiedBecause(AccountState state)
     {
-        if (obj.State.Balance.Value < 1.00m)
+        if (state.Balance.Value < 1.00m)
         {
-            yield return $"'{obj.State.Balance.Value}' is lower than 1.25 '{obj.GetIdentity()}' is not new";
+            yield return $"Account Balance={state.Balance.Value} is lower than 1.00";
         }
     }
 }
 
 //Walkthrough.Domain/Model/Account/Specifications/EnoughBalanceAmountSpecification.cs
-public class EnoughBalanceAmountSpecification : Specification<Account> 
+public class EnoughBalanceAmountSpecification : Specification<AccountState> 
 {
-    protected override IEnumerable<string> IsNotSatisfiedBecause(Account obj)
+    protected override IEnumerable<string> IsNotSatisfiedBecause(AccountState state)
     {
-        if (obj.State.Balance.Value < 1.25m)
+        if (state.Balance.Value < 1.25m)
         {
             yield return $"'Balance for Account: {obj.Id} is {obj.State.Balance.Value}' is lower than 1.25";
         }
