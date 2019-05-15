@@ -44,7 +44,7 @@ Walkthrough/
     └── Program.cs
 ```
 
-Now that we have done the project init, Let's begin with designing your first aggregate. 
+Now that we have done the project init, Let's begin with designing your first aggregate.
 
 > The full working example that completes the walkthrough can be found on the projects GitHub over [here](https://github.com/Akkatecture/Walkthrough).
 

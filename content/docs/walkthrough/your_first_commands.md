@@ -65,11 +65,11 @@ But there is actually a third command, we need a command to have an account aggr
 public class ReceiveMoneyCommand : Command<Account,AccountId>
 {
     public Transaction Transaction { get; }
-        
+
     public ReceiveMoneyCommand(
-        AccountId aggregateId, 
-        Transaction transaction) 
-        : base(aggregateId) 
+        AccountId aggregateId,
+        Transaction transaction)
+        : base(aggregateId)
     {
         Transaction = transaction;
     }
@@ -85,7 +85,7 @@ public class Transaction : Entity<TransactionId>
     public AccountId Sender { get; }
     public AccountId Receiver { get; }
     public Money Amount { get; }
-        
+
     public Transaction(
         TransactionId entityId,
         AccountId sender,

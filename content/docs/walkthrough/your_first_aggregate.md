@@ -52,7 +52,7 @@ public class Money : SingleValueObject<decimal>
         if(value < 0) throw new ArgumentException(nameof(value));
     }
 
-    //overload the + and - operators to support the 
+    //overload the + and - operators to support the
     //addition and subtraction of money
 }
 ```
@@ -76,7 +76,7 @@ And finally we need to make our aggregate root manager, which will be responsibl
 
 ```csharp
 //Walkthrough.Domain/Model/Account/AccountManager.cs
-public class AccountManager : AggregateManager<Account, AccountId, Command<Account, AccountId>> 
+public class AccountManager : AggregateManager<Account, AccountId, Command<Account, AccountId>>
 {
 }
 ```

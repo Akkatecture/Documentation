@@ -40,9 +40,9 @@ public class AccountOpenedEvent : AggregateEvent<Account,AccountId>
 The event that represents a bank account having sent money
 ```csharp
 //Walkthrough.Domain/Model/Account/Events/MoneySentEvent.cs
-public class MoneySentEvent : AggregateEvent<Account,AccountId> 
+public class MoneySentEvent : AggregateEvent<Account,AccountId>
 {
-    public Transaction Transaction { get; }    
+    public Transaction Transaction { get; }
 
     public MoneySentEvent(Transaction transaction)
     {
@@ -55,7 +55,7 @@ public class MoneySentEvent : AggregateEvent<Account,AccountId>
 The event that represents a bank account deducting bank fees
 ```csharp
 //Walkthrough.Domain/Model/Account/Events/FeesDeductedEvent.cs
-public class FeesDeductedEvent : AggregateEvent<Account,AccountId> 
+public class FeesDeductedEvent : AggregateEvent<Account,AccountId>
 {
     public Money Amount { get; }
 
@@ -72,7 +72,7 @@ The event that represents a bank account receiving money
 public class MoneyReceivedEvent : AggregateEvent<Account,AccountId> 
 {
     public Transaction Transaction { get; }
-    
+
     public MoneyReceivedEvent(Transaction transaction)
     {
         Transaction = transaction;
@@ -95,29 +95,29 @@ public class AccountState : AggregateState<Account, AccountId>,
 {
     public Money Balance { get; }
 
-    public void Apply(AccountOpenedEvent aggregateEvent) 
+    public void Apply(AccountOpenedEvent aggregateEvent)
     {
         Balance = aggregateEvent.OpeningBalance;
     }
 
-    public void Apply(MoneySentEvent aggregateEvent) 
+    public void Apply(MoneySentEvent aggregateEvent)
     {
         Balance -=  aggregateEvent.Transaction.Amount;
     }
 
-    public void Apply(FeesDeductedEvent aggregateEvent) 
+    public void Apply(FeesDeductedEvent aggregateEvent)
     {
         Balance -= aggregateEvent.Amount;
     }
 
-    public void Apply(MoneyReceivedEvent aggregateEvent) 
+    public void Apply(MoneyReceivedEvent aggregateEvent)
     {
         Balance +=  aggregateEvent.Transaction.Amount;
     }
 }
 ```
 
-> Notice how events are treated as facts. The only domain logic here is how to apply the event to the aggregate state. If you have `if-else` statements in your state model, reconsider your modelling of events and state. 
+> Notice how events are treated as facts. The only domain logic here is how to apply the event to the aggregate state. If you have `if-else` statements in your state model, reconsider your modelling of events and state.
 
 Head over to the next section on **specifications**.
 

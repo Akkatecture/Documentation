@@ -1,6 +1,6 @@
 ---
 title: "Your First Aggregate Saga"
-lesson: 6
+lesson: 7
 chapter: 3
 cover: "https://unsplash.it/400/300/?random?BoldMage"
 date: "01/07/2018"
@@ -13,9 +13,9 @@ tags:
     - csharp
     - dotnet
 ---
-In Akkatecuture `AggregateSaga<,,>`s are usefuly for coordinating message passing between service or aggregate boundaries. More about sagas can be said in our documentation over [here](/docs/sagas), but in this walkthrough we will re-iterate over some of the concepts and implement them to our needs. 
+In Akkatecuture `AggregateSaga<,,>`s are usefuly for coordinating message passing between service or aggregate boundaries. More about sagas can be said in our documentation over [here](/docs/sagas), but in this walkthrough we will re-iterate over some of the concepts and implement them to our needs.
 
-One of the major components missing in our current task is the ability to tell other Account's that there is money to be received. In other words, we lack the ability to command bank accounts to receive money as a result of another bank account having sent the money. 
+One of the major components missing in our current task is the ability to tell other Account's that there is money to be received. In other words, we lack the ability to command bank accounts to receive money as a result of another bank account having sent the money.
 
 Since we are making a saga responsible for coordinating money transfer, lets call it the `MoneyTransferSaga`. Bare with the explanation but we will model it one stab. Sagas need to implement `ISagaIsStartedBy<,,>` and (sometimes) `ISagaHandles<,,>` interfaces. These interfaces give you a nice description of how the saga works and which boundaries it operates between.
 
@@ -39,12 +39,12 @@ public class MoneyTransferSaga : AggregateSaga<MoneyTransferSaga, MoneyTransferS
             var command = new ReceiveMoneyCommand(
                 domainEvent.AggregateEvent.Transaction.Receiver,
                 domainEvent.AggregateEvent.Transaction);
-            
+
             AccountAggregateManager.Tell(command);
-                
+
             Emit(new MoneyTransferStartedEvent(domainEvent.AggregateEvent.Transaction));
         }
-            
+
         return Task.CompletedTask;
     }
 
@@ -55,7 +55,7 @@ public class MoneyTransferSaga : AggregateSaga<MoneyTransferSaga, MoneyTransferS
         {
             Emit(new MoneyTransferCompletedEvent(domainEvent.AggregateEvent.Transaction));
         }
-            
+
         return Task.CompletedTask;
     }
 }
@@ -123,7 +123,7 @@ public class MoneyTransferSagaManager : AggregateSagaManager<MoneyTransferSaga,M
 {
     public MoneyTransferSagaManager(Expression<Func<MoneyTransferSaga>> factory)
         : base(factory)
-    {            
+    {
     }
 }
 ```
