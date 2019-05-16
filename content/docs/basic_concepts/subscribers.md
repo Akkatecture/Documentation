@@ -20,7 +20,7 @@ public class GamesEndedSubscriber : DomainEventSubscriber,
     ISubscribeTo<GameAggregate, GameAggregateId, GameEndedEvent>
 {
     public int Count { get; set;} = 0;
-        
+ 
     public bool Handle(IDomainEvent<GameAggregate, GameAggregateId, GameEndedEvent> domainEvent)
     {
         Count++;

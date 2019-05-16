@@ -128,7 +128,6 @@ class Navigation extends React.Component {
         inputSelector: '#search-box',
         debug: false,       // Set debug to true if you want to inspect the dropdown,
         algoliaOptions: {
-          //filters: searchFilter,
           attributesToRetrieve: ['*']
         }
       });

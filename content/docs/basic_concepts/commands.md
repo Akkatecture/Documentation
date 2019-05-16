@@ -117,7 +117,6 @@ public class TransferMoneyCommand : DistinctCommand<AccountAggregate, AccountId>
 
     public TransferMoneyCommand(
         AccountId id,
-        ISourceId sourceId,
         AccountId destinationAccountId,
         Money amount)
         : base(id)

@@ -16,7 +16,7 @@ tags:
 If we look back at our task requirements, the last one states that;
 *The bank would like to keep track of how much money it has gained as revenue as a result of the transaction fees.*
 
-One way to satisfy this requirement is to use a `DomainEventSubscriber` that Subscribes to the `FeesDeductedEvent` domain event, which then tells the persistence mechanism to store the result so that it can later be read by a `Projection`.
+One way to satisfy this requirement is to use a `DomainEventSubscriber` that Subscribes to the `FeesDeductedEvent` domain event, which then tells the persistence mechanism to store the result so that it can later be read by a `Query`.
 
 ```csharp
 //Walkthrough.Domain/Subscribers/Revenue/RevenueSubscriber.cs
@@ -29,12 +29,12 @@ public class RevenueSubscriber : DomainEventSubscriber,
         RevenueRepository = revenueRepository;
     }
 
-    public Task Handle(IDomainEvent<Account, AccountId, FeesDeductedEvent> domainEvent)
+    public bool Handle(IDomainEvent<Account, AccountId, FeesDeductedEvent> domainEvent)
     {
         var command = new AddRevenueCommand(domainEvent.AggregateEvent.Amount);
         RevenueRepository.Tell(command);
 
-        return Task.CompletedTask;
+        return true;
     }
 }
 ```

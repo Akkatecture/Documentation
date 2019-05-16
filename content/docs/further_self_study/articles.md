@@ -23,6 +23,7 @@ tags:
  - [Busting some CQRS myths](https://lostechies.com/jimmybogard/2012/08/22/busting-some-cqrs-myths/) by Jimmy Bogard
  - [CQRS applied](https://lostechies.com/gabrielschenker/2015/04/12/cqrs-applied/) by Gabriel Schenker
  - [Akka HowTo: Common Patterns](https://doc.akka.io/docs/akka/2.5/howto.html)
+ - [Versioning in an Event Sourced System](https://leanpub.com/esversioning/read) by Greg Young
 
 #### Eventual consistency
  - [How To Ensure Idempotency In An Eventual Consistent DDD/CQRS Application](http://blog.sapiensworks.com/post/2015/08/26/How-To-Ensure-Idempotency) by Mike Mogosanu

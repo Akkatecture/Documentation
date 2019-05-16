@@ -95,10 +95,8 @@ Console.WriteLine($"From: {revenue.Transactions} transaction(s).");
 
 ```
 
-There we have our sample application working, congragulations for making it this far.
+There we have our sample application working, congragulations for making it this far. Make sure to checkout the code and run the [walkthrough](https://github.com/Akkatecture/Walkthrough). A full example can be found in the repository.
 
 ## In Closing
-
-Make sure to checkout the code and run the [walkthrough](https://github.com/Akkatecture/Walkthrough). A full example can be found in the repository
 
 Fantastic. You have finished the walkthrough. But don't stop there. Further your understanding by looking at some of the external resources that we have collected in [video](/docs/videos), and in [article](/docs/articles) form.
