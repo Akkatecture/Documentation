@@ -91,25 +91,26 @@ public class MoneyTransferSagaState : SagaState<MoneyTransferSaga,MoneyTransferS
     public void Apply(MoneyTransferStartedEvent aggregateEvent)
     {
         Transaction = aggregateEvent.Transaction;
-        Start();
     }
 
     public void Apply(MoneyTransferCompletedEvent aggregateEvent)
     {
-       Complete();
+        //do nothing
     }
 }
 ```
 
-> Check out how the saga events are modelled the source code [here](https://github.com/Akkatecture/Walkthrough/Akkatecture.Walkthrough.Domain/Sagas/MoneyTransfer/Events).
+> Check out how the saga events are modelled the source code [here](https://github.com/Akkatecture/Walkthrough/tree/master/src/Domain/Sagas/MoneyTransfer/Events).
 
-`SagaState.Status` is an enum that describes the overall status of the saga. The status can be any of the following:
+Sagas could have some internal state status member that can model progress. It could be as fine grained as a percentage, or it could be a set of enums like follows: 
 * NotStarted
 * Running
 * Completed
 * Failed
 * Cancelled
 * PartiallySucceeded
+
+This is very similar to how Microsoft prescribes this sort of behaviour for long running operations in their publicly available [conventions.](https://github.com/Microsoft/api-guidelines/blob/vNext/Guidelines.md#1325-operation-resource)
 
 > To set the saga into those states we recommend you use the methods that set the status member into the specified state. The respective methods are; `Start()`,`Complete()`,...,`PartiallySucceed()`. And these should only ideally be used as a result of an aggregate saga event int a  `SagaState.Apply(...)`.
 
