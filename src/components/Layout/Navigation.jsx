@@ -127,6 +127,10 @@ class Navigation extends React.Component {
         indexName: 'akkatecture',
         inputSelector: '#search-box',
         debug: false,       // Set debug to true if you want to inspect the dropdown,
+        transformData: function(suggestions) {
+          console.log("transforming" )
+          console.log(suggestions);
+        },
         algoliaOptions: {
           attributesToRetrieve: ['*']
         }

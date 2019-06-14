@@ -114,4 +114,4 @@ To get snapshots working in Akkatecture you need to:
 * Make your aggregate state model implement `IHydrate<>`
 * Override the `Aggregate.CreateSnapshot()` which maps the aggregates state to the aggregates snapshot model.
 
-> The snapshot model should be treated as an invariant since it gets stored by akka.net's snapshot store. The same versioning strategies used in event sourcing for events, are applicable to snapshots as well. If the snapshot loading fails. The aggregate will be reloaded from the event journal and not the snapshot store.
+> The snapshot model should be treated as an invariant since it gets stored by akka.net's snapshot store. The same versioning strategies used in event sourcing for events, are applicable to snapshots as well. If the snapshot loading fails. The aggregate will be reloaded from the event journal and not the snapshot store. The take away from this mechanic is that snapshots are an aggregate derivative of events. Your domain model should not reply on snapshots by any means.
