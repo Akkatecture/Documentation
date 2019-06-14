@@ -117,19 +117,24 @@ class Navigation extends React.Component {
     this.state = { menuOpen: false, docSearchMounted: false };
   }
   mountDocsearch() {
-    console.log("mounted")
-    const searchFilter = window.location.pathname.indexOf('javascript') >= 0
-      ? 'version:javascript'
-      : (window.location.pathname.indexOf('reasonml') >= 0 ? 'version:reasonml' : '');
+  
     if (!this.state.docSearchMounted) {
       docsearch({
         apiKey: 'ae65d215a543e8083851249381e2f391',
         indexName: 'akkatecture',
         inputSelector: '#search-box',
         debug: false,       // Set debug to true if you want to inspect the dropdown,
-        transformData: function(suggestions) {
-          console.log("transforming" )
-          console.log(suggestions);
+        handleSelected: function(input, event, suggestion, datasetNumber, context) {
+          // Do nothing if click on the suggestion, as it's already a <a href>, the
+          // browser will take care of it. This allow Ctrl-Clicking on results and not
+          // having the main window being redirected as well
+          console.log(suggestion.url)
+          if (context.selectionMethod === 'click') {
+            window.location.replace(suggestion.url);
+          }
+      
+          input.setVal('');
+          window.location.replace(suggestion.url);
         },
         algoliaOptions: {
           attributesToRetrieve: ['*']
