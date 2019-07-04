@@ -6,6 +6,17 @@
 trigger:
 - master
 
+variables:
+  majorVersion: '0'
+  minorVersion: '1'
+
+patchVersion:
+  dayOfYear: $(DayOfYear)
+  revision: $(Rev:r)
+
+name: ${{ format('{0}.{1}.{2}-{3}-{4}{5}', variables.majorVersion, variables.minorVersion, join(patchVersion, '')) }}
+
+
 jobs:
   - job: Build
     pool:
