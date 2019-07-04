@@ -1,0 +1,26 @@
+# Akkatecture Documents CI CD pipeline definition
+# This definition is responsible for building and releasing
+# the project within the context of pull requests. as a
+# static build it only builds and tests the project.
+
+trigger: none
+
+pr:
+  autoCancel: true
+  branches:
+    include:
+    - '*'
+
+jobs:
+  - job: Build
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    variables:
+      buildConfiguration: 'Release'
+
+    steps:
+    - task: InstallSSHKey@0
+      inputs:
+        hostName: '*'
+        sshPublicKey:
+        sshKeySecureFile: 'ssh_id_akkatecture_azuredevops'
