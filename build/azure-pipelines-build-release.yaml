@@ -13,7 +13,7 @@ variables:
     dayOfYear: $(DayOfYear)
     revision: $(Rev:r)
 
-name: ${{ format('{0}.{1}.{2}-{3}-{4}{5}', variables.majorVersion, variables.minorVersion, join(variables.patchVersion, '')) }}
+name: ${{ format('{0}.{1}.{2}', variables.majorVersion, variables.minorVersion, join(variables.patchVersion, '')) }}
 
 
 jobs:
