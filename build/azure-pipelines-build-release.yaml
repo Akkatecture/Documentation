@@ -35,7 +35,7 @@ jobs:
       inputs:
         versionSpec: '8.16.0'
 
-    - script: 'ssh-add -L:'
+    - script: 'ssh-add -L'
 
     - script: 'git remote remove origin'
       displayName: 'Remove Origin [Documentation]' 
