@@ -41,6 +41,12 @@ jobs:
     - script: 'git remote add origin git@github.com:Akkatecture/Akkatecture.github.io.git'
       displayName: 'Set Origin [Akkatecture.github.io]'
 
+    - script: 'git config user.name "Lutando Ngqakaza"'
+      displayName: 'Set Config Username [Akkatecture.github.io]'
+
+    - script: 'git config user.email "lutando@ngqakaza.com"'
+      displayName: 'Set Config Email [Akkatecture.github.io]'
+
     - script: 'npm install'
       displayName: 'Npm Install [Documentation]'
     
