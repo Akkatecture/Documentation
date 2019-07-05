@@ -11,11 +11,9 @@ variables:
   minorVersion: '1'
   dayOfYear: $(DayOfYear)
   revision: $(Rev:r)
-  patchVersion: 
-    - $(DayOfYear)
-    - $(Rev:r)
+  patchVersion: ${{ format('{0}{1}, variables.dayOfYear, variables.revistion) }}
 
-name: ${{ format('{0}.{1}.{2}', variables.majorVersion, variables.minorVersion, join(variables.patchVersion, '')) }}
+name: ${{ format('{0}.{1}.{2}', variables.majorVersion, variables.minorVersion, variables.patchVersion) }}
 
 
 jobs:
@@ -31,3 +29,5 @@ jobs:
         hostName: 'github.com,140.82.118.3 AAAAB3NzaC1yc2EAAAADAQABAAACAQDR3wNrTSu4zwQ/MDf/M7CpclflMhUe1LGl3yYFwrrLJry+pm0OX2kCjn2zPjkJlQkk/VXO+CrBdPArbWe0oRG3LDqIp+UHlnii5TlUwwrcxi9C3GHp02op+4LN7pjC49L3IZyWktPY25Itk/wYNAFd+3UpbwXAf2Odt9koGFh1jAWZ3WO7+eSlE/lomK1WFSDdAynK44MARC66m02T6PSd8A1FntcaTmvlQ8+BJBAvY95LvB4kgU3IKBVpGJkxPJ48FuQhFO8Rc9mjij2A54NDtfspYt01BvmiMyMorSMoxPtaQ3MzcPsSIHSKtiNEVpy7nDm1W8+okXRDHYQFhx7QUg5jANfc48Q8ZsisWmk1WTS5zTTrOou694Af/uHHmKyqbSYKUCKnAxdta96t/KvU552H6WkBQM1ZVD9TQB9W9rpnTyLD9q7sFxMFFz90eCIuv3CrruLcIXZVKUZZ63bpMvf0zZ63YgeZHzAdkJUyLki8bO9OMGW4yGZYqtUfRCxm3eZPeCWlMusirO2F1Z2luUfyMhnaTpJRrCyrWJg0rrWSlR50AuEwXHGRRLc0wEY0MbSb0trM4P/xsRMNGmVevhicld0qJsvQ7klY9KXKbtqaDXXIFeJGI3V6ygJvvGlBALu7w/CImI5yoR3r5q4+TwbxqCcvoXfIRLsU6pZhGw=='
         sshPublicKey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDR3wNrTSu4zwQ/MDf/M7CpclflMhUe1LGl3yYFwrrLJry+pm0OX2kCjn2zPjkJlQkk/VXO+CrBdPArbWe0oRG3LDqIp+UHlnii5TlUwwrcxi9C3GHp02op+4LN7pjC49L3IZyWktPY25Itk/wYNAFd+3UpbwXAf2Odt9koGFh1jAWZ3WO7+eSlE/lomK1WFSDdAynK44MARC66m02T6PSd8A1FntcaTmvlQ8+BJBAvY95LvB4kgU3IKBVpGJkxPJ48FuQhFO8Rc9mjij2A54NDtfspYt01BvmiMyMorSMoxPtaQ3MzcPsSIHSKtiNEVpy7nDm1W8+okXRDHYQFhx7QUg5jANfc48Q8ZsisWmk1WTS5zTTrOou694Af/uHHmKyqbSYKUCKnAxdta96t/KvU552H6WkBQM1ZVD9TQB9W9rpnTyLD9q7sFxMFFz90eCIuv3CrruLcIXZVKUZZ63bpMvf0zZ63YgeZHzAdkJUyLki8bO9OMGW4yGZYqtUfRCxm3eZPeCWlMusirO2F1Z2luUfyMhnaTpJRrCyrWJg0rrWSlR50AuEwXHGRRLc0wEY0MbSb0trM4P/xsRMNGmVevhicld0qJsvQ7klY9KXKbtqaDXXIFeJGI3V6ygJvvGlBALu7w/CImI5yoR3r5q4+TwbxqCcvoXfIRLsU6pZhGw== lutando@ngqakaza.com'
         sshKeySecureFile: 'ssh_id_akkatecture_azuredevops'
+
+    - script: git remote -v
