@@ -19,7 +19,7 @@ name: ${{ format('{0}.{1}.{2}', variables.majorVersion, variables.minorVersion, 
 jobs:
   - job: Build
     pool:
-      vmImage: 'Ubuntu 16.04'
+      vmImage: 'macOS-10.14'
     variables:
       buildConfiguration: 'Release'
 
@@ -27,7 +27,7 @@ jobs:
     - task: InstallSSHKey@0
       displayName: 'Install SSH Key'
       inputs:
-        hostName: 'github.com'
+        knownHostsEntry: 'github.com,140.82.118.4 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ=='
         sshPublicKey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDtR/A7yrgMiL7GZpXX+UEMPzomBwrtYfWqcd+L8KRNQ2wNuyqSOGtlZZH2imBiBObONzNE1Zst0F+y7Fu0RjalMJ5OJIKyNb0sPMKdx3g3h+p8MRWUuap5AtjyKynCE/0jOFZAHZHLie3PDqRylKdxXK6IZkddDXIDOrq6djvX7lzjbpoGGx+VGbF8vVkfc0h+Uxd9p3oHkS8I1V8KGcA+YdZSQ1b7Z8QaUax6e9DjQWHoEEUhe6JYu1PK/6TYim3vnL0ns9/+P6YkTMpqcYyIn6aZiM+XYhCspN2LlQhc/iSqCOpSN5XZrIkuE116hV+aIUdbZ05QocvRnb/HuErtlhpDz67Sgm81AW/Wl3JHSx1Sj//2Elpiu9UkkG3Jf7Ux7tcJbZCR9IY8Hh+pQ/1AaOM9DEdHc7F5jLIgiemjwuU9EkqwLJ5rysq63KiJgGxtjKXnsw6CnxnEFwgaLVS7M5TsaKBxE8R4Mj9JNzLo5hC5OwHTygr8FSsE6D2PEyqGSz3X++P1rMilLH+MvDfwteJ2R2N9D4P0MfWuuqcknVlhjxHwQmEbeCbVo3IJLy8n/JGog1AQEusfP/O3RFwUZFkDlvrRi7efGBjbAQHgmr47Zjl73sRNsX6ebkc8Z4EGT9hnOdvONMA7zAq5j5CCSc5XBcFD8srIOHWKithlgQ== Deployment key for Azure Dev Ops to deploy to Akkatecture.github.io'
         sshKeySecureFile: 'id_azuredevops_github'
 
