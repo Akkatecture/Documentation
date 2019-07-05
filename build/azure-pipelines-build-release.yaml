@@ -44,3 +44,7 @@ jobs:
     - script: 'git remote -v'
 
     - script: 'npm install -g gatsby-cli'
+
+    - script: 'npm install'
+    
+    - script: 'npm run deploy'
