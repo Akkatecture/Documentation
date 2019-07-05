@@ -11,7 +11,9 @@ variables:
   minorVersion: '1'
   dayOfYear: $(DayOfYear)
   revision: $(Rev:r)
-  patchVersion: $[variables.dayOfYear, variables.revisions]
+  patchVersion: 
+    - $(DayOfYear)
+    - $(Rev:r)
 
 name: ${{ format('{0}.{1}.{2}', variables.majorVersion, variables.minorVersion, join(variables.patchVersion, '')) }}
 
