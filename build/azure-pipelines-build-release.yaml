@@ -9,9 +9,7 @@ trigger:
 variables:
   majorVersion: '0'
   minorVersion: '1'
-  patchVersion:
-    dayOfYear: $(DayOfYear)
-    revision: $(Rev:r)
+  patchVersion: $[ $(DayOfYear), $(Rev:r)]
 
 name: ${{ format('{0}.{1}.{2}', variables.majorVersion, variables.minorVersion, join(variables.patchVersion, '')) }}
 
