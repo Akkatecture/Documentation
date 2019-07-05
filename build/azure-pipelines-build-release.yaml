@@ -35,12 +35,12 @@ jobs:
       inputs:
         versionSpec: '8.16.0'
 
-    - script: git remote remove origin 
+    - script: 'git remote remove origin'
       displayName: 'Remove Origin [Documentation]' 
 
-    - script: git remote add origin 
+    - script: 'git remote add origin git@github.com:Akkatecture/Akkatecture.github.io.git'
       displayName: 'Set Origin [Akkatecture.github.io]'
 
-    - script: git remote -v
+    - script: 'git remote -v'
 
-    - script: npm install -g gatsby-cli
+    - script: 'npm install -g gatsby-cli'
