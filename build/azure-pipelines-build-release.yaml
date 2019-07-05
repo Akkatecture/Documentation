@@ -35,25 +35,28 @@ jobs:
       inputs:
         versionSpec: '8.16.0'
 
-    - script: 'ssh-add -L'
-
     - script: 'git remote remove origin'
       displayName: 'Remove Origin [Documentation]' 
 
     - script: 'git remote add origin git@github.com:Akkatecture/Akkatecture.github.io.git'
       displayName: 'Set Origin [Akkatecture.github.io]'
 
-    - script: 'mkdir test'
-      displayName: 'mkdir test'
-
-    - script: 'git clone git@github.com:Akkatecture/Akkatecture.github.io.git'
-      workingDirectory: 'test'
-      displayName: 'clone test'
-
-    - script: 'git remote -v'
-
-    - script: 'npm install -g gatsby-cli'
-
     - script: 'npm install'
+      displayName: 'Npm Install [Documentation]'
     
     - script: 'npm run deploy'
+      displayName: 'Npm Install [Documentation]'
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive [Build]'
+      inputs:
+        rootFolderOrFile: '$(Build.SourcesDirectory)/build'
+        includeRootFolder: true
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildNumber)-build.zip'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact Build'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildNumber)-build.zip'
+        ArtifactName: Build
