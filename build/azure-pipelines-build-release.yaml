@@ -43,6 +43,13 @@ jobs:
     - script: 'git remote add origin git@github.com:Akkatecture/Akkatecture.github.io.git'
       displayName: 'Set Origin [Akkatecture.github.io]'
 
+    - script: 'mkdir test'
+      displayName: 'mkdir test'
+
+    - script: 'git clone git@github.com:Akkatecture/Akkatecture.github.io.git'
+      workingDirectory: 'test'
+      displayName: 'clone test'
+
     - script: 'git remote -v'
 
     - script: 'npm install -g gatsby-cli'
