@@ -51,7 +51,7 @@ jobs:
       displayName: 'Npm Install [Documentation]'
     
     - script: 'npm run deploy'
-      displayName: 'Npm Install [Documentation]'
+      displayName: 'Deploy [Documentation]'
 
     - task: ArchiveFiles@2
       displayName: 'Archive [Build]'
