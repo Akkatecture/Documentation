@@ -25,16 +25,18 @@ this will run a hot-reloadable version of the documentation website. It is best 
 nvm use 8.*
 ```
 
+node 8.16.0
+
 ## Contributor Notes
 The markdown files  in `/content/docs` folder contains all the documentation for the akkatecture documentation pages.
 
 alternatively you can directly edit the markdown in github and submit a pull request if you see any spelling or grammatical errors.
 
-#Deployment
+## Deployment
 
 Using Node v8 is the safest choice
 
-Make sure that you have two remotes set up for your deployment look like this
+Make sure that you have two remotes set up for your deployment look like this.
 
 ```
 origin    git@github.com:Akkatecture/Akkatecture.github.io.git (fetch)
@@ -43,4 +45,4 @@ source    git@github.com:Akkatecture/Documentation.git (fetch)
 source    git@github.com:Akkatecture/Documentation.git (push)
 ```
 
-Take note that all source changes happen on the source remote and all of the bundled builds go onto the github.io repository
+Take note that all source changes happen on the source remote and all of the bundled builds go onto the github.io repository. The deployment script (`npm run deploy`) will push the static content into the Akkatecture.github.io.

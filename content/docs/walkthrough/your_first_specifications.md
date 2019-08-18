@@ -19,23 +19,22 @@ Before we dive into how to construct aggregate sagas in Akkatecture. We still ne
 
 We need to tell our aggregate how to handle commands.
 
-Use the `AggregateRoot.Command<T>(Func<T,bool> handler)` to register your command handlers:
+Use the `IExecute<>` interface to register your command handlers:
 
 ```csharp
-public class Account : AggregateRoot<Account, AccountId, AccountState>
+public class Account : AggregateRoot<Account, AccountId, AccountState>,
+    IExecute<OpenNewAccountCommand>,
+    IExecute<TransferMoneyCommand>,
+    IExecute<ReceiveMoneyCommand>
 {
     public Account(AccountId aggregateId)
         : base(aggregateId)
     {
-        //register command handlers
-        Command<OpenNewAccountCommand>(Execute);
-        Command<TransferMoneyCommand>(Execute);
-        Command<ReceiveMoneyCommand>(Execute);
     }
 }
 ```
 
-Lets implement the command handlers as `Execute(...)`:
+Now we can implement the `Execute(OpenNewAccountCommand)` method which comes from the `IExecute<OpenNewAccountCommand>` contract.
 ```csharp
 public bool Execute(OpenNewAccountCommand command)
 {
