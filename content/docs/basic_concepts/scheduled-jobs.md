@@ -1,5 +1,5 @@
 ---
-title: "Jobs"
+title: "Scheduled Jobs"
 lesson: 7
 chapter: 2
 cover: "https://unsplash.it/400/300/?random?BoldMage"
@@ -12,14 +12,14 @@ tags:
     - csharp
     - dotnet
 ---
-Akkatecture ships with a model for executing commands known as jobs. These jobs are messages that are persisted and (within reasonable tolerances) will be executed in the future. jobs are not supposed to be used as a conduit in situations where real time responsiveness is needed. Jobs are useful for scheduling jobs that can tolerate high latencies (eg minutes). jobs are suitable for triggering processes at some arbitrary point in time in the future like sending emails or scheduling backups.
+Akkatecture ships with a model for executing commands known as jobs. These jobs are messages that are persisted and (within reasonable tolerances) will be executed in the future. Jobs are not supposed to be used as an intermediary in situations where real time responsiveness is needed. Jobs are useful for scheduling processes that can tolerate high latencies (eg minutes). Scheduled jobs are suitable for triggering processes at some arbitrary point in time in the future, like sending  non-business critical emails, or scheduling backups.
 
-> This is a highly experimental feature at this point as should be regarded as such. The API surface may change drastically as things evolve. Feel free to submit your comments [here](https://github.com/Lutando/Akkatecture/issues/146) 
+> This is a highly experimental feature at this point as should be regarded as such. The API surface may change drastically as things evolve. Feel free to submit your comments [here](https://github.com/Lutando/Akkatecture/issues/146). All suggestions will be taken seriously.
 
 ## Jobs
-Jobs are just like commands except they do not target any specific domain entity. Jobs are just messages which are likely to be persisted and scheduled to be published in the future. Because these messages are invariant, one must be sure to not alter the message structure/schema, in the same way that aggregate events are invariant. 
+Jobs are just like commands, however unlike commands, they do not target any specific domain entity. Jobs are just messages which are likely to be persisted and scheduled to be published in the future. Since they get persisted, these messages are regarded as invariant, one must be sure to not alter the message structure/schema in code since they will need to be deserialized later, in the same way that aggregate events are invariant. 
 
-For the purposes of demonstration let's say that we have an `EmailCouponJob`
+For the purposes of demonstration let's say that we have an `EmailCouponJob`, it is a job that models the need to send out coupon codes to customers. It might look something like this:
 ```csharp
 [JobName("email-coupon-code-job")]
 public class EmailCouponJob : IJob
@@ -48,6 +48,8 @@ public class EmailJobId : Identity<EmailJobId>, IJobId
 }
 ```
 
+The `IJobId` is the unique identifier for a particular scheduled job. Cancelling a scheduled job is only achievable if you have its jobId on hand.
+
 ## Job Runners
 Job runners are the actors which execute the jobs. Job runners receive the job messages from the job scheduler and executes them. The job runners typically have no concept of scheduling messages, as their one purpose is to handle the job messages. JobRunners would normally inherit from `JobRunner<,>` so that they can consume the `IRun<>` interface to signify what messages/jobs that the runner can handle.
 
@@ -64,7 +66,7 @@ public class EmailCouponJobRunner : JobRunner<EmailCouponJob, EmailJobId>,
 }
 ```
 
-
+> This JobRunner is pretty stateless, but jobs do not have to be stateless.
 
 ## Job Schedulers
 Scheduling is the method by which work is assigned to resources that complete the work. In Akkatecture, the job scheduler is the actor which decides when to trigger work to resources that can handle the work (the job runner).Under the hood, job schedulers are persistent actors which persist messages to a journal and then uses this journal as its primary source of state just like in any other event sourced system. 
@@ -161,5 +163,7 @@ public void EveryTwoWeeks_BackupJob_IsRun()
 ```
 
 As you can see we can tell the TestKit to advance time to our bidding in order to test how the job scheduler and runner will react. More examples can be found in the unit test project of Akkatecture.
+
+> Jobs can be used for both domain and infrastructural needs. They can be used to defer a command to an aggregate root or to just trigger some infrastructural requirement.
  
 [Next, Akka →](/docs/akka)
