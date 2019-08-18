@@ -1,5 +1,5 @@
 ---
-title: "Jobs"
+title: "Scheduled Jobs"
 lesson: 7
 chapter: 2
 cover: "https://unsplash.it/400/300/?random?BoldMage"
