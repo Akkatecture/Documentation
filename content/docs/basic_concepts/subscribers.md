@@ -39,4 +39,4 @@ Do take note! If your subscription actor is doing "dangerous" work, such as  doi
 
 > If you want a subscriber to interact between aggregate or domain boundaries, Akkatecture ships with an `AggregateSaga<,,>` implementation that has been specifically tailored for this use case. To learn more about sagas (otherwise known as process managers, or activities, go [here](/docs/sagas))
 
-[Next, Akka →](/docs/akka)
+[Next, Jobs →](/docs/jobs)

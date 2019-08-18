@@ -37,15 +37,15 @@ public class TransferMoneyCommand : Command<AccountAggregate, AccountId>
 
 > Note that the Money class is merely a `ValueObject`, created to hold the amount of money and to do basic validation. In Akkatecture, you don’t have to use the default Akkatecture `Command<,>` implementation to, you can create your own implementation, it merely have to implement the `ICommand<,>` interface.
 
-A command by itself doesn’t do anything and will be swollowed by the underlying actor as unprocessed if no command handler exists for it, these messages go into the deadletter. To make a command work, you need to implement a command handler which is responsible for the processing of the command. In akka.net this is done by registering a command to akka.net's `Command<T>()` handler registry.
+A command by itself doesn’t do anything and will be swollowed by the underlying actor as unprocessed if no command handler exists for it, these messages go into the deadletter. To make a command work, you need to implement a command handler which is responsible for the processing of the command. To do this, just the implement `IExecute<>` interface on your aggregate. This interface registers a command handler to akka.nets persistent actors' `Command<T>()` handler registry.
 
 ```csharp
-    public class AccountAggregate : AggregateRoot<AccountAggregate, AccountAggregateId, AccountState>
+    public class AccountAggregate : AggregateRoot<AccountAggregate, AccountAggregateId, AccountState>,
+        IExecute<TransferMoneyCommand>
     {
         public AccountAggregate(AccountAggregateId aggregateId)
             : base(aggregateId)
         {
-            Command<TransferMoneyCommand>(Execute)
         }
 
         public bool Execute(TransferMoneyCommand command)
