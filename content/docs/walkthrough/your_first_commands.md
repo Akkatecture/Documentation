@@ -87,11 +87,11 @@ public class Transaction : Entity<TransactionId>
     public Money Amount { get; }
 
     public Transaction(
-        TransactionId entityId,
+        TransactionId id,
         AccountId sender,
         AccountId receiver,
         Money amount)
-        : base(entityId)
+        : base(id)
     {
         Sender = sender;
         Receiver = receiver;
