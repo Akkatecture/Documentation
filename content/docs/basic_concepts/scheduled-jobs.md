@@ -110,7 +110,7 @@ jobManager.Tell(oneTimeJob);
 //and then every 2 weeks repeatedly from then on
 var interval = TimeSpan.FromDays(14);
 var repeatedJob = new ScheduleRepeatedly<EmailCouponJob, EmailJobId>(jobId, emailCouponJob, interval, when);
-jobManager.Tell(oneTimeJob);
+jobManager.Tell(repeatedJob);
 
 //Scheduling a cron job for 1 week from now
 // and then the first of every month at midnight
