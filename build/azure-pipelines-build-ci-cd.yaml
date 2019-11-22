@@ -1,0 +1,37 @@
+# Akkatecture Documents CI CD pipeline definition
+# This definition is responsible for building and releasing
+# the project within the context of pull requests. as a
+# static build it only builds and tests the project.
+
+trigger:
+  branches:
+    include:
+    - dev
+
+variables:
+  majorVersion: '0'
+  minorVersion: '1'
+  dayOfYear: $(DayOfYear)
+  revision: $(Rev:r)
+  patchVersion: ${{ format('{0}{1}', variables.dayOfYear, variables.revision) }}
+
+name: ${{ format('{0}.{1}.{2}', variables.majorVersion, variables.minorVersion, variables.patchVersion) }}
+
+
+jobs:
+  - job: Build
+    pool:
+      vmImage: 'macOS-10.14'
+    variables:
+      buildConfiguration: 'Release'
+
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '8.16.0'
+
+    - script: 'npm install'
+      displayName: 'Npm Install [Documentation]'
+    
+    - script: 'npm run build'
+      displayName: 'Build [Documentation]'
