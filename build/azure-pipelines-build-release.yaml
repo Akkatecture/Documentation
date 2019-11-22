@@ -4,7 +4,9 @@
 # static build it only builds and tests the project.
 
 trigger:
-- master
+  branches:
+    include:
+    - master
 
 variables:
   majorVersion: '0'

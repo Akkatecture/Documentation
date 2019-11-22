@@ -1,8 +1,9 @@
 <a href="https://akkatecture.net/"><img src="https://raw.githubusercontent.com/Lutando/Akkatecture/master/logo.svg?sanitize=true" width="100%" height="200"></a>
 
-<p align="center">
-  <img src="https://dev.azure.com/lutando/Akkatecture/_apis/build/status/Akkatecture%20Documentation%20CI%20CD?branchName=master">
-</p>
+
+| master | dev |
+|:-------:|:------:|
+| [![Build Status](https://dev.azure.com/lutando/Akkatecture/_apis/build/status/Akkatecture%20Documentation%20Release%20CI%20CD?branchName=master)](https://dev.azure.com/lutando/Akkatecture/_build/latest?definitionId=17&branchName=master) | [![Build Status](https://dev.azure.com/lutando/Akkatecture/_apis/build/status/Akkatecture%20Documentation%20CI%20CD?branchName=dev)](https://dev.azure.com/lutando/Akkatecture/_build/latest?definitionId=21&branchName=dev) |
 
 # Akkatecture Documentation
 To serve the documentation locally do the following:
