@@ -4749,10 +4749,11 @@ gatsby-plugin-nprogress@^1.0.2:
   dependencies:
     nprogress "^0.2.0"
 
-gatsby-plugin-offline@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-offline/-/gatsby-plugin-offline-1.0.3.tgz#1db212606f4bd68afdbb564f07426a4b9b6cbd81"
+gatsby-plugin-offline@^1.0.18:
+  version "1.0.18"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-offline/-/gatsby-plugin-offline-1.0.18.tgz#2ee2a24d2f69fcc43a015132f07141b69295318d"
   dependencies:
+    babel-runtime "^6.26.0"
     sw-precache "^5.0.0"
 
 gatsby-plugin-react-helmet@^1.0.2:
