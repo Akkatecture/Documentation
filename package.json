@@ -38,7 +38,7 @@
     "react-share": "^1.15.1",
     "react-twitter-widgets": "^1.4.0",
     "semistandard": "^11.0.0",
-    "styled-components": "^2.2.3"
+    "styled-components": "^2.4.1"
   },
   "devDependencies": {
     "cli-glob": "^0.1.0",
