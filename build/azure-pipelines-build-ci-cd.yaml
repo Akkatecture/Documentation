@@ -7,6 +7,13 @@ trigger:
   branches:
     include:
     - dev
+    - master
+
+pr:
+  autoCancel: true
+  branches:
+    include:
+    - '*'
 
 variables:
   majorVersion: '0'
