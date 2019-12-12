@@ -4949,10 +4949,11 @@ gatsby-remark-prismjs@^1.2.0:
     prismjs "^1.6.0"
     unist-util-visit "^1.1.1"
 
-gatsby-remark-responsive-iframe@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/gatsby-remark-responsive-iframe/-/gatsby-remark-responsive-iframe-1.4.2.tgz#52f746236e9e84b994a836b1c1c8147f346e6e54"
+gatsby-remark-responsive-iframe@^1.4.20:
+  version "1.4.20"
+  resolved "https://registry.yarnpkg.com/gatsby-remark-responsive-iframe/-/gatsby-remark-responsive-iframe-1.4.20.tgz#fd72b9ffee8846cb29e546090968bc9cf6d3c85f"
   dependencies:
+    babel-runtime "^6.26.0"
     bluebird "^3.5.0"
     cheerio "^1.0.0-rc.2"
     lodash "^4.17.4"
