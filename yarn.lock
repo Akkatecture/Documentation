@@ -2552,9 +2552,9 @@ commander@2.9.0, commander@2.9.x:
   dependencies:
     graceful-readlink ">= 1.0.0"
 
-commander@^2.8.1, commander@^2.9.0:
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.11.0.tgz#157152fd1e7a6c8d98a5b715cf376df928004563"
+commander@^2.12.2, commander@^2.8.1, commander@^2.9.0:
+  version "2.20.3"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
 
 commander@~2.8.1:
   version "2.8.1"
@@ -12743,11 +12743,12 @@ write-file-stdout@0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/write-file-stdout/-/write-file-stdout-0.0.2.tgz#c252d7c7c5b1b402897630e3453c7bfe690d9ca1"
 
-write-good@^0.11.3:
-  version "0.11.3"
-  resolved "https://registry.yarnpkg.com/write-good/-/write-good-0.11.3.tgz#8eeb5da9a8e155dafb1325d27eba33cb67d24d8c"
+write-good@^0.13.1:
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/write-good/-/write-good-0.13.1.tgz#db8ecc77e610ea54d43b8d759728eed5a3a6251a"
   dependencies:
     adverb-where "0.0.9"
+    commander "^2.12.2"
     e-prime "^0.10.2"
     no-cliches "^0.1.0"
     object.assign "^4.0.4"
