@@ -5195,11 +5195,11 @@ gatsby-plugin-page-creator@^1.0.1:
     parse-filepath "^1.0.1"
     slash "^1.0.0"
 
-gatsby-plugin-react-helmet@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-react-helmet/-/gatsby-plugin-react-helmet-1.0.2.tgz#bc5b87ecd2f1f25a32ef4b460e10582c1d6c2259"
+gatsby-plugin-react-helmet@^2.0.11:
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-react-helmet/-/gatsby-plugin-react-helmet-2.0.11.tgz#a2db81755f5b41d54e0e535ca1d9a008d3ccff0a"
   dependencies:
-    react-helmet "^5.1.3"
+    babel-runtime "^6.26.0"
 
 gatsby-plugin-sharp@^1.6.48:
   version "1.6.48"
@@ -10249,7 +10249,7 @@ react-fast-compare@^2.0.2:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
 
-react-helmet@^5.1.3, react-helmet@^5.2.1:
+react-helmet@^5.2.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/react-helmet/-/react-helmet-5.2.1.tgz#16a7192fdd09951f8e0fe22ffccbf9bb3e591ffa"
   dependencies:
