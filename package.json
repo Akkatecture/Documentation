@@ -43,7 +43,7 @@
   "devDependencies": {
     "cli-glob": "^0.1.0",
     "eslint-config-airbnb": "^15.0.2",
-    "eslint-config-prettier": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.17.0",
