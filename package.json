@@ -46,7 +46,7 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-import": "^2.20.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.18.0",
+    "eslint-plugin-react": "^7.18.3",
     "gh-pages": "^2.2.0",
     "remark-cli": "^5.0.0",
     "remark-preset-lint-recommended": "^3.0.3",
