@@ -23,7 +23,7 @@ Imagine we have an OrderAggregate that emits `ProductAddedEvent`s, due to new do
 
 ```csharp
 public class OrderAggregateEventUpcaster : AggregateEventUpcaster<OrderAggregate, OrderId>,
-        IUpcast<ProductAddedEventV2, ProductAddedEvent>
+        IUpcast<ProductAddedEvent, ProductAddedEventV2>
     {
         public ProductAddedEventV2 Upcast(ProductAddedEvent aggregateEvent)
         {
