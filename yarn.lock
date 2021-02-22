@@ -6650,9 +6650,9 @@ humanize-url@^1.0.0:
     normalize-url "^1.0.0"
     strip-url-auth "^1.0.0"
 
-husky@^5.0.9:
-  version "5.0.9"
-  resolved "https://registry.yarnpkg.com/husky/-/husky-5.0.9.tgz#6d38706643d66ed395bcd4ee952d02e3f15eb3a3"
+husky@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-5.1.0.tgz#68b1148523acc838af0655ead71bf4671adb9f93"
 
 iconv-lite@0.4.15:
   version "0.4.15"
