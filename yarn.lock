@@ -5571,9 +5571,9 @@ gatsby-remark-copy-linked-files@^1.5.37:
     probe-image-size "^4.0.0"
     unist-util-visit "^1.1.1"
 
-gatsby-remark-graph@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/gatsby-remark-graph/-/gatsby-remark-graph-0.2.3.tgz#67c2f5d92f9ad117b7755ba7c26bf14df23ce72e"
+gatsby-remark-graph@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/gatsby-remark-graph/-/gatsby-remark-graph-0.2.5.tgz#31874e498daf55d1b4a27d14c318e616069c1a4f"
   dependencies:
     unist-util-visit "^1.1.3"
 

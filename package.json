@@ -22,7 +22,7 @@
     "gatsby-plugin-twitter": "^1.0.6",
     "gatsby-remark-autolink-headers": "^1.4.19",
     "gatsby-remark-copy-linked-files": "^1.5.37",
-    "gatsby-remark-graph": "^0.2.3",
+    "gatsby-remark-graph": "^0.2.5",
     "gatsby-remark-images": "^1.5.67",
     "gatsby-remark-prismjs": "^1.2.0",
     "gatsby-remark-responsive-iframe": "^1.4.20",
