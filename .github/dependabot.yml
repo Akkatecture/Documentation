@@ -1,0 +1,60 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: react-dom
+    versions:
+    - ">= 16.a, < 17"
+  - dependency-name: react-icons
+    versions:
+    - ">= 3.a, < 4"
+  - dependency-name: react-share
+    versions:
+    - ">= 2.a, < 3"
+  - dependency-name: react-share
+    versions:
+    - ">= 3.a, < 4"
+  - dependency-name: remark-cli
+    versions:
+    - ">= 6.a, < 7"
+  - dependency-name: remark-cli
+    versions:
+    - ">= 7.a, < 8"
+  - dependency-name: semistandard
+    versions:
+    - ">= 14.a, < 15"
+  - dependency-name: styled-components
+    versions:
+    - ">= 3.a, < 4"
+  - dependency-name: stylelint-config-standard
+    versions:
+    - ">= 19.a, < 20"
+  - dependency-name: write-good
+    versions:
+    - ">= 1.a, < 2"
+  - dependency-name: eslint-config-prettier
+    versions:
+    - 8.0.0
+    - 8.2.0
+  - dependency-name: eslint-plugin-react
+    versions:
+    - 7.23.1
+  - dependency-name: husky
+    versions:
+    - 4.3.8
+    - 5.1.0
+    - 5.1.1
+    - 5.1.2
+    - 5.2.0
+  - dependency-name: stylelint
+    versions:
+    - 13.10.0
+    - 13.11.0
+  - dependency-name: react-icons
+    versions:
+    - 4.1.0
